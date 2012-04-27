@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @project.title
+p
+  strong Body:
+  = @project.body
+p
+  strong User:
+  = @project.user_id
+p
+  strong Email:
+  = @project.email
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path
