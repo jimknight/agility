@@ -9,3 +9,18 @@ class Note < ActiveRecord::Base
   accepts_nested_attributes_for :attachments  
 
 end
+
+# == Schema Information
+#
+# Table name: notes
+#
+#  id           :integer         not null, primary key
+#  title        :string(255)
+#  body         :text
+#  notable_id   :integer
+#  notable_type :string(255)
+#  parent_id    :integer
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
+#
+

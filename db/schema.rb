@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428003715) do
+ActiveRecord::Schema.define(:version => 20120428004737) do
+
+  create_table "emails", :force => true do |t|
+    t.text     "subject"
+    t.text     "body"
+    t.text     "sent_from"
+    t.text     "sent_to"
+    t.text     "copy_to"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "note_hierarchies", :id => false, :force => true do |t|
     t.integer "ancestor_id",   :null => false
