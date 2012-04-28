@@ -32,3 +32,19 @@ describe Task do
     expect { @email.tasks << @task }.to change(@email.tasks, :count).by(1)
   end
 end
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id              :integer         not null, primary key
+#  title           :string(255)
+#  body            :text
+#  occurrence_date :date
+#  taskable_id     :integer
+#  taskable_type   :string(255)
+#  parent_id       :integer
+#  project_id      :integer
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#
+
