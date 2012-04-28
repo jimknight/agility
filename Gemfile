@@ -6,6 +6,10 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'bootstrap-sass'
+gem 'capistrano'
+gem 'carrierwave'
+gem 'closure_tree'
+gem 'factory_girl_rails'
 gem 'devise'
 gem 'jquery-rails'
 gem 'pg'
@@ -24,6 +28,7 @@ group :assets do
 end
 
 group :test, :development do
+	gem 'annotate'
   gem 'capybara'
   gem 'launchy'
   gem "rspec-rails", "~> 2.6"

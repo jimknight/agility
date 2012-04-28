@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427235247) do
+ActiveRecord::Schema.define(:version => 20120428003715) do
+
+  create_table "note_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "note_hierarchies", ["ancestor_id", "descendant_id"], :name => "index_note_hierarchies_on_ancestor_id_and_descendant_id", :unique => true
+  add_index "note_hierarchies", ["descendant_id"], :name => "index_note_hierarchies_on_descendant_id"
+
+  create_table "notes", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "notable_id"
+    t.string   "notable_type"
+    t.integer  "parent_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "title"
