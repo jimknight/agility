@@ -8,3 +8,19 @@ class Email < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
 end
+
+# == Schema Information
+#
+# Table name: emails
+#
+#  id         :integer         not null, primary key
+#  subject    :text
+#  body       :text
+#  sent_from  :text
+#  sent_to    :text
+#  copy_to    :text
+#  project_id :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

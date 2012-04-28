@@ -10,10 +10,12 @@ gem 'cancan'
 gem 'capistrano'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :branch => "0.5-stable"
 gem 'closure_tree'
-gem 'factory_girl_rails'
 gem 'devise'
+gem 'factory_girl_rails'
+gem 'figaro'
 gem 'jquery-rails'
 gem 'pg'
+gem 'rest-client'
 gem 'slim-rails'
 
 # Gems used only for assets and not required
