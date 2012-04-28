@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/jnicklas/carrierwave.git
+  revision: 5ee932e5c6bda02508c76ed54f74720fdddd1f8d
+  branch: 0.5-stable
+  specs:
+    carrierwave (0.5.8)
+      activesupport (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,8 +55,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    carrierwave (0.5.8)
-      activesupport (~> 3.0)
     childprocess (0.3.2)
       ffi (~> 1.0.6)
     closure_tree (3.0.3)
@@ -189,7 +195,7 @@ DEPENDENCIES
   bootstrap-sass
   capistrano
   capybara
-  carrierwave
+  carrierwave!
   closure_tree
   coffee-rails (~> 3.2.1)
   devise

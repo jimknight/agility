@@ -7,7 +7,7 @@ gem 'rails', '3.2.3'
 
 gem 'bootstrap-sass'
 gem 'capistrano'
-gem 'carrierwave'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :branch => "0.5-stable"
 gem 'closure_tree'
 gem 'factory_girl_rails'
 gem 'devise'
