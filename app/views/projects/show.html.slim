@@ -1,18 +1,10 @@
-p#notice = notice
-
-p
-  strong Title:
-  = @project.title
-p
-  strong Body:
-  = @project.body
-p
-  strong User:
-  = @project.user_id
-p
-  strong Email:
-  = @project.email
-
-= link_to 'Edit', edit_project_path(@project)
-'|
-= link_to 'Back', projects_path
+= content_for :nav_buttons do
+  ul
+    li
+      a href="#{projects_path}"
+        span
+          img src="/assets/olive/icon-people.gif" alt="icon"
+          | Projects
+    li = link_to raw("<span>#{image_tag "/assets/olive/icon-ticket.gif"}Edit this  project</span>"), edit_project_path(@project), :alt => "icon"
+    li = link_to raw("<span>Add a task</span>"), new_project_task_path(@project)
+    li = link_to raw("<span>Add a note</span>"), new_project_note_path(@project)

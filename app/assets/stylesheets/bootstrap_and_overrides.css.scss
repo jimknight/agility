@@ -1,7 +1,6 @@
 // Set the correct sprite paths
 $iconSpritePath: image-path('glyphicons-halflings.png');
 $iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
-$linkColor: #909E44;
 $navbarBackground: #475111;
 $navbarBackgroundHighlight: #59680A;
 $navbarLinkColor: #828B57;
@@ -11,4 +10,45 @@ $tableBorder: #BEC790;
 $textColor: #666;
 @import "bootstrap";
 body { padding-top: 60px; }
+a {color:#909E44;}
+.navbar {margin-top:15px;overflow:hidden;}
+
+.navbar li {
+    float: left;
+    display:inline;
+ 
+    margin-left: 8px;
+    font-weight: bold;
+}
+.navbar li a {
+    display: inline-block;
+    background: url(/assets/olive/bg-link-r.gif) no-repeat right top;
+    padding-right: 13px;
+    cursor:pointer;
+    text-decoration: none;
+    color:#333;
+}
+.navbar li a span {
+    display: inline-block;
+    background: url(/assets/olive/bg-link-l.gif) no-repeat left top;
+    padding-left: 13px;
+    padding-top: 4px;
+    height: 21px;
+}
+.navbar li a img {
+    vertical-align: text-bottom;
+    margin-right: 5px;
+}
+.navbar a:hover, .navbar li.current a {
+    background-position: right -25px;
+    color:#fff;
+}
+.navbar a:hover span, .navbar li.current a span {
+    background-position: left -25px;
+}
+.navbar li.last {
+    float:right;
+    position:relative;
+    margin-left: 0;
+}
 @import "bootstrap-responsive";
