@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428005455) do
+ActiveRecord::Schema.define(:version => 20120428010304) do
 
   create_table "attachments", :force => true do |t|
     t.string   "file"
@@ -58,6 +58,27 @@ ActiveRecord::Schema.define(:version => 20120428005455) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "task_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "task_hierarchies", ["ancestor_id", "descendant_id"], :name => "index_task_hierarchies_on_ancestor_id_and_descendant_id", :unique => true
+  add_index "task_hierarchies", ["descendant_id"], :name => "index_task_hierarchies_on_descendant_id"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.date     "occurrence_date"
+    t.integer  "taskable_id"
+    t.string   "taskable_type"
+    t.integer  "parent_id"
+    t.integer  "project_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "users", :force => true do |t|
