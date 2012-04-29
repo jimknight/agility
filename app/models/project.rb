@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :emails
   has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  validates_presence_of :title, :email
   validates_uniqueness_of :email, :case_sensitive => false
   
 end

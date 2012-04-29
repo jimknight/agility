@@ -26,6 +26,7 @@ letter-spacing:1px;
 width:80%;
 font-family:'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
+.navbar a.brand {color:#909E44;}
 nav.sub {
     margin:2px 0 0 0;
     padding: 5px 0;
@@ -44,7 +45,7 @@ nav.sub li {
 }
 nav.sub li a {
     display: inline-block;
-    background: url(/assets/olive/bg-link-r.gif) no-repeat right top;
+    background: url(/assets/bg-link-r.gif) no-repeat right top;
     padding-right: 13px;
     cursor:pointer;
     text-decoration: none;
@@ -52,7 +53,7 @@ nav.sub li a {
 }
 nav.sub li a span {
     display: inline-block;
-    background: url(/assets/olive/bg-link-l.gif) no-repeat left top;
+    background: url(/assets/bg-link-l.gif) no-repeat left top;
     padding-left: 13px;
     padding-top: 4px;
     height: 21px;

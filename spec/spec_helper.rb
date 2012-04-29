@@ -29,4 +29,26 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
+  
+  # https://github.com/plataformatec/devise/wiki/How-To%3a-Controllers-and-Views-tests-with-Rails-3-%28and-rspec%29
+  config.include Devise::TestHelpers, :type => :controller
+  config.extend ControllerMacros, :type => :controller
+  
+  def sign_in_as(user, password)
+    user = User.create(:password => password, :password_confirmation => password, :email => user)
+    # user.confirmed_at = Time.now 
+    user.save!
+    visit '/'
+    fill_in 'Email', :with => user.email
+    fill_in 'Password', :with => password
+    click_link_or_button("Sign in")
+    user      
+    end 
+  def sign_out
+    click_link_or_button('Logout')   
+  end
+  
+  at_exit do
+    `say 'done'`
+  end
 end

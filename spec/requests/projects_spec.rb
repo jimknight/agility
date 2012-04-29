@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe "Projects" do
-  describe "GET /projects" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get projects_path
-      response.status.should be(200)
-    end
+  it "should require a title and email address" do
+    sign_in_as("user@example.com","abc123")
+    visit new_project_path
+    click_link_or_button "Submit"
+    page.should have_content("can't be blank")
   end
 end
