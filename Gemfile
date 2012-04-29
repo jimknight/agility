@@ -16,6 +16,7 @@ gem 'figaro'
 gem 'jquery-rails'
 gem 'pg'
 gem 'rest-client'
+gem 'simple_form'
 gem 'slim-rails'
 
 # Gems used only for assets and not required
