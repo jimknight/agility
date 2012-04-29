@@ -9,11 +9,13 @@ $tableBackgroundHover: darken($tableBackgroundAccent,5%);
 $tableBorder: #BEC790;
 $textColor: #666;
 @import "bootstrap";
-body { padding-top: 60px; }
+body { padding-top: 85px; 
+background: url(/assets/bg_header_10x118.jpg) repeat-x  0 10px;}
 a {color:#909E44;}
 h1 {
-    margin-bottom:0.25em;
-    font-weight:normal;
+    margin-bottom:1em;
+    font-weight: normal;
+    color: #EFEFEF;
 }
 input, textarea {margin-bottom:10px;
 letter-spacing:1px;
@@ -24,11 +26,20 @@ letter-spacing:1px;
 width:80%;
 font-family:'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
+nav.sub {
+    margin:2px 0 0 0;
+    padding: 5px 0;
+    overflow:hidden;
+}
+nav.sub ul {
+    margin:0;
+    padding:0;
+}
 nav.sub li {
     float: left;
     display:inline;
  
-    margin-left: 8px;
+
     font-weight: bold;
 }
 nav.sub li a {
