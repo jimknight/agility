@@ -1,31 +1,34 @@
-class ProjectsController < ApplicationController
-
+class ProjectsController < ApplicationController  
+  
   #load_and_authorize_resource :through => :current_user
-
+  
+  def show
+    # empty because work done by load_and_authorize_resource
+    @project = Project.find(params[:id]) # remove this when load/auth re-enabled
+    @tasks = @project.tasks
+    @notes = @project.notes
+    @emails = @project.emails
+  end
+  
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+    redirect_to projects_path, :notice => "Project deleted!"
+  end
+  
   def index
      # empty because work done by load_and_authorize_resource
-     @projects = Project.all
-  end
-
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
-    @project = Project.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @project }
-    end
+     @projects = Project.all # just for testing for now
   end
 
   # GET /projects/new
-  # GET /projects/new.json
+  # GET /projects/new.xml
   def new
     @project = Project.new
-
+  
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @project }
+      format.xml  { render :xml => @project }
     end
   end
 
@@ -35,46 +38,37 @@ class ProjectsController < ApplicationController
   end
 
   # POST /projects
-  # POST /projects.json
+  # POST /projects.xml
   def create
     @project = Project.new(params[:project])
+    #current_user.projects << @project reenable when done
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render json: @project, status: :created, location: @project }
+        format.html { redirect_to(@project, :notice => 'Project was successfully created.') }
+        format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
-        format.html { render action: "new" }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /projects/1
-  # PUT /projects/1.json
+  # PUT /projects/1.xml
   def update
     @project = Project.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
+        format.xml  { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
-  def destroy
-    @project = Project.find(params[:id])
-    @project.destroy
 
-    respond_to do |format|
-      format.html { redirect_to projects_url }
-      format.json { head :no_content }
-    end
-  end
 end

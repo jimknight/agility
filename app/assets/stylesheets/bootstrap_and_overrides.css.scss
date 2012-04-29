@@ -39,8 +39,7 @@ nav.sub ul {
 nav.sub li {
     float: left;
     display:inline;
- 
-
+    margin-right: 8px;
     font-weight: bold;
 }
 nav.sub li a {
@@ -73,5 +72,8 @@ nav.sub li.last {
     float:right;
     position:relative;
     margin-left: 0;
+}
+div.span3 {
+    margin-top:65px;
 }
 @import "bootstrap-responsive";

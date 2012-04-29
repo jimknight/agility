@@ -1,11 +1,10 @@
 h1 Projects
 
+p = link_to "New Project", new_project_path, :class => "btn btn-success"
+
 table.table.table-bordered.table-striped
   tr
     th Name
     th Created
     th Delete
   = render @projects
-
-= content_for :aside do
-	p = link_to "New Project", new_project_path, :class => "btn btn-success"
