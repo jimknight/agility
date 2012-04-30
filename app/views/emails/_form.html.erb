@@ -1,0 +1,16 @@
+<%= simple_form_for @email, :html => {:multipart => true} do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :subject %>
+    <%= f.input :body %>
+    <%= f.input :sent_from %>
+    <%= f.fields_for :attachments do |builder| %>
+      <%= builder.file_field :file %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

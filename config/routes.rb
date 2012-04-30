@@ -1,11 +1,22 @@
 Agility::Application.routes.draw do
+  
   devise_for :users
+
+  resources :emails do
+    resources :notes
+    resources :tasks
+  end
 
   resources :projects do
     resources :emails
     resources :notes
     resources :tasks
   end
+  
+  resources :tasks do
+    resources :notes
+  end
+
   root :to => "projects#index"
   match 'tasks/:id/complete' => 'tasks#complete', :as => 'complete_task'
 

@@ -1,0 +1,29 @@
+= content_for :nav_buttons do
+  ul
+    li
+      a href="#{projects_path}"
+        span
+          img src="/images/olive/icon-people.gif" alt="icon"
+          | Projects
+    li = link_to raw("<span>Add a task</span>"), new_email_task_path(@email)
+    li
+      a href="#{new_email_note_path(@email)}"
+        span Add a note
+= content_for :page_title do
+  h2 = "#{@project.title}: email"
+section.grid_8
+  h3 = @email.subject
+  h4 = "sent from #{@email.sent_from} at #{pretty_datetime(@email.created_at)}"
+  p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+aside.grid_4
+  .content
+    - if !@attachments.empty?
+      h4 = pluralize(@attachments.size,'Attachment')
+      ul
+        - @attachments.each do |attachment|
+          li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+    h2 Tasks
+    ul
+      - @email.tasks.each do |task|
+        li
+          = link_to task.title, task

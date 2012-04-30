@@ -14,18 +14,18 @@ describe "Tasks" do
     click_link "A child task"
     click_link "Edit this task"
     click_link_or_button "Submit"
-    page.should have_content("Successfully updated task.")
+    page.should have_content("Task was successfully updated.")
   end
   describe "with an email parent" do
     before(:each) do
-      @project = Factory(:project)
-      @email = Factory(:email)
+      @project = FactoryGirl.create(:project)
+      @email = FactoryGirl.create(:email)
       @project.emails << @email
       sign_in_as("user@example.com","abc123")
        visit project_email_path(@project, @email)
        click_link_or_button "Add a task"
        fill_in "Title", :with => "I am a task created from an email"
-       click_button "Create Task"
+       click_link_or_button "Submit"
     end
     it "should correctly create a task" do
        page.should have_content(@email.subject)

@@ -8,6 +8,7 @@ FactoryGirl.define do
   factory :project do
     title 'new project'
     body 'here are my new project details'
+    email 'project@agilechamp.mailgun.org'
   end
   factory :note do
     title 'a new note'
