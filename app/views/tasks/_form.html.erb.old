@@ -1,0 +1,38 @@
+<header>
+	<h1>Agile Champ</h1>
+	<div class="navbar">
+	<ul>
+	   <li><a href="/projects"><span><img src="/images/olive/icon-people.gif" alt="icon" />Projects</span></a></li>
+	 </ul>
+	</div>
+	<h2>Project: <%= @project.title %></h2>
+</header>
+<section class="grid_8">
+	<h3 class="title">Task</h3>
+<%= form_for [@project,@task] do |f| %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :autocomplete => "off" %>
+  </div>
+  <div class="field">
+    <%= f.label "Date" %>
+    <%= f.date_select :occurrence_date %>
+  </div>
+  <div class="field">
+    <%= f.label "Details" %>
+    <%= f.text_area :body %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, ['Open','Completed'] %>
+  </div>
+<%= image_submit_tag("/images/olive/btn-save.png") %>
+<% end %>
+
+</section>
+
+<aside class="grid_4"><div class="content">
+<a href="/projects/new"><%= image_tag "/images/btn_createproj_201x40.jpg" %></a>
+
+</div></aside>

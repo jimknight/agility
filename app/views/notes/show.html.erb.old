@@ -1,0 +1,61 @@
+<header>
+	<h1>Agile Champ</h1>
+	<div class="navbar">
+	<ul>
+	   <li><a href="/projects"><span><img src="/images/olive/icon-people.gif" alt="icon" />Projects</span></a></li>
+		<li><%= link_to raw("<span>#{image_tag "/images/olive/icon-ticket.gif"}Edit this  note</span>"), @edit_path, :alt => "icon" %></li>
+		<li><%= link_to raw("<span>Add a note</span>"), new_note_note_path(@note) %></li>
+	 </ul>
+	</div>
+	<h2>Note for  '<%= @parent.title %>'</h2>
+</header>
+<section class="grid_8">
+	<% if flash[:notice] %>
+	   <p class="notice"><%= flash[:notice] %></p>
+	 <% end %>
+	 <% if flash[:alert] %>
+	   <p class="alert"><%= flash[:alert] %></p>
+	 <% end %>
+<div class="grid_6 alpha">
+<h2><%= @note.title %></h2>
+</div>
+<div class="grid_2 omega">
+	<% if @project %>
+	<div class="commonLink">
+	<a href="#">
+	<span>Edit note updatelink</span>
+	</a>
+	</div>
+	<% end %>
+</div>
+<h3 class="title">Details</h3>
+<p><%= @note.body %></p>
+
+<% if has_attachment(@note) %>
+<h3 class="title">Attachment</h3>
+<p><%= image_tag icon_for(@note.attachment_url.to_s) %><%= link_to @note.attachment_url.to_s %></p>
+<% end %>
+
+<h3 class="title">Notes</h3>
+
+<% if @note.notes.count > 0 %>
+	<table>
+		<% @note.notes.each do |note| %>
+		<tr class="<%= cycle('even', 'odd') %>">
+			<td width="50%"><%= link_to note.title, note_note_path(@note,note), :class => "emphasize" %></td>
+			<td>created <%= time_ago_in_words(note.created_at) %> ago</td>
+			<td><%= link_to "delete this note", note_note_path(@note,note), :confirm => "Sure?",
+			  		:method => :delete %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+<% else %>
+<p>No notes added yet.</p>
+<% end %>
+
+</section>
+<aside class="grid_4"><div class="content">
+<a href="/projects/new"><%= image_tag "/images/btn_createproj_201x40.jpg" %></a>
+
+</div></aside>

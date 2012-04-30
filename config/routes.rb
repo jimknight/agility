@@ -7,6 +7,7 @@ Agility::Application.routes.draw do
     resources :tasks
   end
   root :to => "projects#index"
+  match 'tasks/:id/complete' => 'tasks#complete', :as => 'complete_task'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

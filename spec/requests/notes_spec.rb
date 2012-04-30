@@ -6,7 +6,7 @@ describe "Notes" do
       sign_in_as("user@example.com","abc123")
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
-      click_button "Create Project"
+      click_link_or_button "Submit"
       Project.all.size.should == 1
       click_link_or_button "Add a note"
       page.should have_content('New note')
@@ -19,10 +19,10 @@ describe "Notes" do
        sign_in_as("user@example.com","abc123")
        visit new_project_path
        fill_in 'Title', :with => 'a new project'
-       click_button "Create Project"
+      click_link_or_button "Submit"
        click_link_or_button "Add a task"
        fill_in "Title", :with => 'a new task'
-       click_button "Create Task"
+      click_link_or_button "Submit"
        click_link "a new task"
        click_link_or_button "Add a note"
        page.should have_content('New note')
@@ -35,7 +35,7 @@ describe "Notes" do
       sign_in_as("user@example.com","abc123")
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
-      click_button "Create Project"
+      click_link_or_button "Submit"
       click_link_or_button "Add a note"
       page.should have_content('New note')
       fill_in 'Title', :with => 'a new note for a project'

@@ -1,0 +1,14 @@
+= content_for :nav_buttons do
+  ul
+    li
+      a href="#{projects_path}"
+        span
+          img src="/images/olive/icon-people.gif" alt="icon"
+          | Projects
+= content_for :page_title do
+  h2 = "#{@parent.title}: New note"
+section.grid_8
+= simple_form_for [@parent, @note] do |f|
+  = f.input :title
+  = f.input :body
+  = f.submit

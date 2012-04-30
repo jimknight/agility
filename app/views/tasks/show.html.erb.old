@@ -1,0 +1,53 @@
+<header>
+	<h1>Agile Champ</h1>
+	<div class="navbar">
+	<ul>
+	   <li><a href="/projects"><span><img src="/images/olive/icon-people.gif" alt="icon" />Projects</span></a></li>
+		<li><%= link_to raw("<span>#{image_tag "/images/olive/icon-ticket.gif"}Edit this  task</span>"), edit_project_task_path(@project,@task), :alt => "icon" %></li>
+		<li><%= link_to raw("<span>Add a note</span>"), new_task_note_path(@task) %></li>
+	 </ul>
+	</div>
+	<h2>Task for project '<%= @project.title %>'</h2>
+</header>
+
+<section class="grid_8">
+	<% if flash[:notice] %>
+	   <p class="notice"><%= flash[:notice] %></p>
+	 <% end %>
+	 <% if flash[:alert] %>
+	   <p class="alert"><%= flash[:alert] %></p>
+	 <% end %>
+
+<h3 class="title">Task '<%= @task.title %>'</h3>
+
+<h3 class="title">Date</h3>
+<p><%= @task.occurrence_date %></p>
+<h4>Details</h4>
+<p>
+  <%= simple_format(@task.body) %>
+</p>
+<h4>Status</h4>
+<p><%= @task.status %></p>
+<h3 class="title">Notes</h3>
+
+<% if @task.notes.count > 0 %>
+	<table>
+		<% @task.notes.each do |note| %>
+		<tr class="<%= cycle('even', 'odd') %>">
+			<td width="50%"><%= link_to note.title, task_note_path(@task,note), :class => "emphasize" %></td>
+			<td>created <%= time_ago_in_words(note.created_at) %> ago</td>
+			<td><%= link_to "delete this note", task_note_path(@task,note), :confirm => "Sure?",
+			  		:method => :delete %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+<% else %>
+<p>No notes added yet.</p>
+<% end %>
+
+</section>
+<aside class="grid_4"><div class="content">
+<a href="/projects/new"><%= image_tag "/images/btn_createproj_201x40.jpg" %></a>
+
+</div></aside>

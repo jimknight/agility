@@ -1,0 +1,19 @@
+= content_for :nav_buttons do
+  ul
+    li
+      a href="#{projects_path}"
+        span
+          img src="/images/olive/icon-people.gif" alt="icon"
+          | Projects
+= content_for :page_title do
+  h2 = "#{@taskable.title}: New task"
+section.grid_8
+  h3{class="title"} Task
+  = simple_form_for [@taskable, @task] do |f|
+    = f.input :title
+    = f.label "Date"
+    = f.date_select :occurrence_date
+    = f.input :body, :label => "Details"
+    = f.label :status
+    = f.select :status, ['Open','Completed']
+    = image_submit_tag("btn-save.png", :alt => "Submit")

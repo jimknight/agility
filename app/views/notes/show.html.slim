@@ -1,0 +1,31 @@
+= content_for :nav_buttons do
+  ul
+    li
+      a href="#{projects_path}"
+        span
+          img src="/images/olive/icon-people.gif" alt="icon"
+          | Projects
+    li
+      a href="#{edit_note_path(@note)}"
+        span Edit this note
+    li
+      a href="#{new_note_note_path(@note)}"
+        span Add a note
+= content_for :page_title do
+  h2 = "#{@parent.title}: note"
+section.grid_8
+  h3 Title
+  p = @note.title
+  h3 Details
+  p = @note.body
+  
+  h3{class="title"} Notes
+  - if @note.children.count > 0
+    table
+      - @note.children.each do |note|
+        tr{class="#{cycle('even', 'odd')}"}
+          td{width="50%"} = link_to note.title, [@note,note], :class => "emphasize"
+          td = "created #{time_ago_in_words(note.created_at)} ago"
+          td = link_to "delete this note", note, :confirm => "Sure?", :method => :delete
+  - else
+    p No notes added yet.
