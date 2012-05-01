@@ -7,6 +7,10 @@ Agility::Application.routes.draw do
     resources :tasks
   end
 
+  resources :notes do
+    resources :notes
+  end
+
   resources :projects do
     resources :emails
     resources :notes
