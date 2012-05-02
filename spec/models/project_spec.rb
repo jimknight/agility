@@ -19,7 +19,7 @@ describe Project do
   end
   it "should have a unique email address" do
     @project = FactoryGirl.create(:project, :email => "project1@example.com")
-    @project2 = Factory.build(:project, :email => @project.email)
+    @project2 = FactoryGirl.build(:project, :email => @project.email)
     @project2.should_not be_valid
   end
 end
