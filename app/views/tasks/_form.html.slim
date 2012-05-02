@@ -12,4 +12,6 @@ section.grid_8
     = f.input :body, :label => "Details"
     = f.label :status
     = f.select :status, ['Open','Completed']
-    = image_submit_tag("btn-save.png", :alt => "Submit")
+    br
+    br
+    = f.submit :class => "btn btn-primary"

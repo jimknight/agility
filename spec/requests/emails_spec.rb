@@ -9,7 +9,7 @@ describe "Emails" do
 		visit email_path(@email)
 		click_link "Add a task"
 		fill_in "Title", :with => "Task from email"
-		click_link_or_button "Submit"
+		click_link_or_button "Create Task"
 		click_link "Task from email"
 		page.should have_content("Task from email")
 	end
