@@ -32,9 +32,10 @@ group :assets do
 end
 
 group :test, :development do
-	gem 'annotate'
+  gem 'annotate'
   gem 'capybara'
   gem 'launchy'
+  gem 'pry'
   gem "rspec-rails", "~> 2.6"
 end
 # To use ActiveModel has_secure_password
