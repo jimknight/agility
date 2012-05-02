@@ -1,6 +1,6 @@
 // Set the correct sprite paths
-$iconSpritePath: image-path('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+$iconSpritePath: asset-url('glyphicons-halflings.png', 'image');
+$iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png','image');
 $navbarBackground: #475111;
 $navbarBackgroundHighlight: #59680A;
 $navbarLinkColor: #828B57;
