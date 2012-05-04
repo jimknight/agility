@@ -2,15 +2,21 @@
   ul
     li
       a href="#{projects_path}"
-        span
-          img src="/images/olive/icon-people.gif" alt="icon"
-          | Projects
+        span Projects
     li = link_to raw("<span>Add a task</span>"), new_email_task_path(@email)
     li
       a href="#{new_email_note_path(@email)}"
         span Add a note
-= content_for :page_title do
-  h2 = "#{@project.title}: email"
+    li
+      a href="#"
+        span Reply
+    li
+      a href="#"
+        span Reply to All
+    li
+      a href="#"
+        span Forward
+h1 = "#{@project.title}: email"
 section.grid_8
   h3 = @email.subject
   h4 = "sent from #{@email.sent_from} at #{pretty_datetime(@email.created_at)}"

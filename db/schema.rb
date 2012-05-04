@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430000224) do
+ActiveRecord::Schema.define(:version => 20120504002753) do
 
   create_table "attachments", :force => true do |t|
     t.string   "file"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20120430000224) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "email_hierarchies", :id => false, :force => true do |t|
+    t.integer "ancestor_id",   :null => false
+    t.integer "descendant_id", :null => false
+    t.integer "generations",   :null => false
+  end
+
+  add_index "email_hierarchies", ["ancestor_id", "descendant_id"], :name => "index_email_hierarchies_on_ancestor_id_and_descendant_id", :unique => true
+  add_index "email_hierarchies", ["descendant_id"], :name => "index_email_hierarchies_on_descendant_id"
 
   create_table "emails", :force => true do |t|
     t.text     "subject"
@@ -30,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120430000224) do
     t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "parent_id"
   end
 
   create_table "note_hierarchies", :id => false, :force => true do |t|

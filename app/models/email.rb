@@ -1,5 +1,6 @@
 class Email < ActiveRecord::Base
   
+  acts_as_tree
   attr_accessible :body, :copy_to, :project_id, :sent_from, :sent_to, :subject
   alias_attribute :title, :subject
   belongs_to :project

@@ -9,6 +9,19 @@ describe Email do
       expect {Email.send_email(@email,"jimknight@lavatech.com")}.to change(Email.sent, :count).by(1)
     end
   end
+    it "should have many emails" do
+      @project = FactoryGirl.create(:project)
+      @email = FactoryGirl.create(:email)
+      @project.emails << @email
+      @email_baby = FactoryGirl.create(:email)
+      @email.children.size.should == 0
+      @email.children << @email_baby
+      @email.children.size.should == 1
+      @email_grandbaby = FactoryGirl.create(:email)
+      @email_baby.children << @email_grandbaby
+      @email_baby.children.size.should == 1
+      @email.descendants.size.should == 2
+  end
 end
 
 # == Schema Information
