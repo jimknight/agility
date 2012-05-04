@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 describe Email do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe ".send_email" do
+    it "should correctly send an email to someone" do
+      @project = FactoryGirl.create(:project)
+      @email = FactoryGirl.create(:email)
+      @project.emails << @email
+      expect {Email.send_email(@email,"jimknight@lavatech.com")}.to change(Email.sent, :count).by(1)
+    end
+  end
 end
 
 # == Schema Information
