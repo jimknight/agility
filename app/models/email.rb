@@ -9,13 +9,13 @@ class Email < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
   scope :sent, where(:body => "sent")
 
-  def self.send_email(source_email, send_to)
+  def send_email
       api_key = ENV["MG_API_KEY"]
       RestClient.post "https://api:key-#{api_key}@api.mailgun.net/v2/agilechamp.mailgun.org/messages",
       :from => "Agile Champ <me@agilechamp.mailgun.org>",
-      :to => send_to,
-      :subject => "Hello",
-      :text => "Testing some Mailgun awesomness!"
+      :to => sent_to,
+      :subject => subject,
+      :text => body
   end
 
 end

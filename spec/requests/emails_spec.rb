@@ -13,4 +13,15 @@ describe "Emails" do
 		click_link "Task from email"
 		page.should have_content("Task from email")
 	end
+	it "should create a reply to an email and send it" do
+		@project = FactoryGirl.create(:project)
+		@email = FactoryGirl.create(:email)
+		@project.emails << @email
+		sign_in_as("user@example.com","abc123")
+		visit email_path(@email)
+		click_link "Reply"
+		page.should have_content("Reply")
+		find_field("email[subject]").value.should == "Re: #{@email.subject}"
+		# did it get sent? not sure how to test it
+	end
 end
