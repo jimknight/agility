@@ -13,7 +13,7 @@ class EmailsController < ApplicationController
 
   def posted_from_internal(type)
     case type
-    when "reply", "reply_to_all"
+    when "reply", "reply_to_all", "forward"
       @parent_email = Email.find(params[:email_id])
       @email = Email.new(
         :subject => params[:email][:subject],

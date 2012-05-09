@@ -40,4 +40,19 @@ describe "Emails" do
 		click_button "Send"
 		 page.should have_content("Message sent")
 	end
+	it "should create a forward to an email and send it" do
+		@project = FactoryGirl.create(:project)
+		@email = FactoryGirl.create(:email, :copy_to => "copy@example.com")
+		@project.emails << @email
+		sign_in_as("user@example.com","abc123")
+		visit email_path(@email)
+		click_link "Forward"
+		page.should have_content("Forward")
+		find_field("email[subject]").value.should == "Fw: #{@email.subject}"
+		find_field("email[sent_to]").value.should == ""
+		find_field("email[copy_to]").value.should == ""
+		fill_in "Send to", :with => "jimknight@lavatech.com" 
+		click_button "Send"
+		 page.should have_content("Message sent")
+	end
 end

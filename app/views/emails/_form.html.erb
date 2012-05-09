@@ -2,10 +2,10 @@
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :sent_to, :as => :string, :label => "Send to", :input_html => {:value => @parent.sent_from} %>
-    <%= f.input :copy_to, :as => :string, :label => "Copy to", :input_html => {:value => @parent.copy_to} %>
-    <%= f.input :subject, :as => :string, :input_html => {:value => "Re: #{@parent.subject}"} %>
-    <%= f.input :body, :input_html => {:value => @parent.body } %>
+    <%= f.input :sent_to, :as => :string, :label => "Send to", :input_html => {:value => sent_to} %>
+    <%= f.input :copy_to, :as => :string, :label => "Copy to", :input_html => {:value => copy_to} %>
+    <%= f.input :subject, :as => :string, :input_html => {:value => subject} %>
+    <%= f.input :body, :input_html => {:value => body } %>
     <%= f.input :type, :as => :hidden, :input_html => {:value => params[:type]}%>
   </div>
 

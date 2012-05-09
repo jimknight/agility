@@ -14,7 +14,7 @@
       a href="#{new_email_email_path(@email)}?type=reply_to_all"
         span Reply to All
     li
-      a href="#"
+      a href="#{new_email_email_path(@email)}?type=forward"
         span Forward
 h1 = "#{@project.title}: email"
 section.grid_8
