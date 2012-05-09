@@ -1,16 +1,14 @@
-<%= simple_form_for @email, :html => {:multipart => true} do |f| %>
+<%= simple_form_for [@parent, @email], :html => {:multipart => true} do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :subject %>
-    <%= f.input :body %>
-    <%= f.input :sent_from %>
-    <%= f.fields_for :attachments do |builder| %>
-      <%= builder.file_field :file %>
-    <% end %>
+    <%= f.input :sent_to, :as => :string, :label => "Send to", :input_html => {:value => @parent.sent_from} %>
+    <%= f.input :subject, :as => :string, :input_html => {:value => "Re: #{@parent.subject}"} %>
+    <%= f.input :body, :input_html => {:value => @parent.body } %>
+    <%= f.input :type, :as => :hidden, :input_html => {:value => params[:type]}%>
   </div>
 
   <div class="actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Send", :class => "btn btn-primary"  %>
   </div>
 <% end %>

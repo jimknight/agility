@@ -22,7 +22,7 @@ describe "Emails" do
 		click_link "Reply"
 		page.should have_content("Reply")
 		find_field("email[subject]").value.should == "Re: #{@email.subject}"
-		fill_in "Send to", :with => "jimknight@lavatech.com"
+		find_field("email[sent_to]").value.should == @email.sent_from
 		click_button "Send"
 		 page.should have_content("Message sent")
 	end
