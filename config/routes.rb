@@ -3,6 +3,7 @@ Agility::Application.routes.draw do
   devise_for :users
 
   resources :emails do
+    resources :emails
     resources :notes
     resources :tasks
   end

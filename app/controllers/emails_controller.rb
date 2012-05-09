@@ -13,12 +13,13 @@ class EmailsController < ApplicationController
 
   def posted_from_internal(type)
     case type
-    when "reply"
+    when "reply", "reply_to_all"
       @parent_email = Email.find(params[:email_id])
       @email = Email.new(
         :subject => params[:email][:subject],
         :body => params[:email][:body],
-        :sent_to => params[:email][:sent_to]
+        :sent_to => params[:email][:sent_to],
+        :copy_to => params[:email][:copy_to]
       )
       if @email.save!
         @parent_email.children << @email

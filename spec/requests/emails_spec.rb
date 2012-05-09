@@ -26,4 +26,18 @@ describe "Emails" do
 		click_button "Send"
 		 page.should have_content("Message sent")
 	end
+	it "should create a reply to all to an email and send it" do
+		@project = FactoryGirl.create(:project)
+		@email = FactoryGirl.create(:email, :copy_to => "copy@example.com")
+		@project.emails << @email
+		sign_in_as("user@example.com","abc123")
+		visit email_path(@email)
+		click_link "Reply to All"
+		page.should have_content("Reply To All")
+		find_field("email[subject]").value.should == "Re: #{@email.subject}"
+		find_field("email[sent_to]").value.should == @email.sent_from
+		find_field("email[copy_to]").value.should == @email.copy_to
+		click_button "Send"
+		 page.should have_content("Message sent")
+	end
 end
