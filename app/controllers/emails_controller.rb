@@ -4,6 +4,32 @@ class EmailsController < ApplicationController
   skip_before_filter :authenticate_user! # todo - setup something for mailgun
 
   def create
+    if params["body-html"]
+      posted_from_mailgun
+    else
+      posted_from_internal(params["email"]["type"])
+    end
+  end
+
+  def posted_from_internal(type)
+    case type
+    when "reply"
+      @parent_email = Email.find(params[:email_id])
+      @email = Email.new(
+        :subject => params[:email][:subject],
+        :body => params[:email][:subject],
+        :sent_to => params[:email][:sent_to]
+      )
+      if @email.save!
+        @parent_email.children << @email
+        redirect_to @parent_email, :notice => "Message sent"
+      else
+        render "new"
+      end
+    end
+  end
+
+  def posted_from_mailgun
     @email = Email.new
     @email.subject = params[:subject]
     @email.body = params["body-html"]
@@ -35,6 +61,7 @@ class EmailsController < ApplicationController
   end
   
   def new
+    @parent = Email.find(params[:email_id])
     @email = Email.new
     @email.attachments.build
   end

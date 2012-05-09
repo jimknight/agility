@@ -22,6 +22,8 @@ describe "Emails" do
 		click_link "Reply"
 		page.should have_content("Reply")
 		find_field("email[subject]").value.should == "Re: #{@email.subject}"
-		# did it get sent? not sure how to test it
+		fill_in "Send to", :with => "jimknight@lavatech.com"
+		click_button "Send"
+		 page.should have_content("Message sent")
 	end
 end
