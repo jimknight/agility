@@ -15,7 +15,7 @@ class Email < ActiveRecord::Base
       :from => "Agile Champ <me@agilechamp.mailgun.org>",
       :to => sent_to,
       :subject => subject,
-      :text => body
+      :html => body
   end
 
 end
