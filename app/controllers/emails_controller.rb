@@ -32,14 +32,24 @@ class EmailsController < ApplicationController
   end
 
   def posted_from_mailgun
+    # TODO extract all this complexity out
     @email = Email.new
     @email.subject = params[:subject]
     @email.body = params["body-html"]
     @email.sent_from = params[:from]
     @email.save
     if params[:recipient]
-      @project = Project.find_by_email(params[:recipient].downcase)
-      @project.emails << @email if @project # have to decide what to do with incoming email with no match
+      if params[:recipient].include?("-")
+        parse1 = params[:recipient].split("@")
+        parse2 = parse1[0].split("-")
+        @project = Project.find_by_email((parse2[0] + "@" + parse1[1]).downcase)
+        @project.emails << @email if @project # have to decide what to do with incoming email with no match
+        @parent_email = Email.find(parse2[1].to_i)
+        @parent_email.children << @email
+      else
+        @project = Project.find_by_email(params[:recipient].downcase)
+        @project.emails << @email if @project # have to decide what to do with incoming email with no match
+      end
     end
     count = params["attachment-count"].to_i
     count.times do |i|
