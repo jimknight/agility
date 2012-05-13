@@ -4,6 +4,9 @@ FactoryGirl.define do
     body "an email body"
     sequence(:sent_from) {|n| "person#{n}@example.com" }
   end
+  factory :message do
+    content "MyText"
+  end
   #Factory.sequence(:email)       {|n| "person#{n}@example.com" }
   factory :project do
     title 'new project'
