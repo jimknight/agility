@@ -5,8 +5,6 @@ describe EmailsController do
     it "saves to the right place from mailgun" do
       @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org")
       @parent_email = FactoryGirl.create(:email)
-      #post :create, email: Factory.attributes_for(:email)
-      # response.should redirect_to root_url
       post :create, { 
         "recipient"=>"acdivoca-#{@parent_email.id}@agilechamp.mailgun.org", 
         "sender"=>"jimknight@lavatech.com",
@@ -15,9 +13,6 @@ describe EmailsController do
         "body-html" => "Jim was <b>here</b>." }
       Email.last.parent.should == @parent_email
       @project.emails.count.should == 1
-      # create an original email
-      # post a new one in there with the right settings
-      # make sure it has the original email as parent
     end
   end
 end

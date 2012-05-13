@@ -22,6 +22,8 @@ class EmailsController < ApplicationController
         :copy_to => params[:email][:copy_to]
       )
       if @email.save!
+        @project = Project.find(@parent_email.project_id)
+        @project.emails << @email
         @parent_email.children << @email
         @email.send_email # TODO check for actually sent
         redirect_to @parent_email, :notice => "Message sent"

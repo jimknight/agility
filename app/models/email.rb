@@ -10,10 +10,14 @@ class Email < ActiveRecord::Base
   scope :sent, where(:body => "sent")
 
   def send_email
+      @project = Project.find(project_id)
+      cc = @project.project_copy_to(id)
+      copy_to = copy_to.blank? ? cc : copy_to + ", " + cc
       api_key = ENV["MG_API_KEY"]
       RestClient.post "https://api:key-#{api_key}@api.mailgun.net/v2/agilechamp.mailgun.org/messages",
       :from => "Agile Champ <me@agilechamp.mailgun.org>",
       :to => sent_to,
+      :copy_to => copy_to,
       :subject => subject,
       :html => body
   end

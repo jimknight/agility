@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Email do
   describe ".send_email" do
     it "should correctly send an email to someone" do
+      @project = FactoryGirl.create(:project)
       @email = FactoryGirl.create(:email, :sent_to => "jimknight@lavatech.com")
+      @project.emails << @email
       response = @email.send_email
       JSON.parse(response)["message"].should == "Queued. Thank you."
     end

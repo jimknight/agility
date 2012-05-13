@@ -8,6 +8,11 @@ class Project < ActiveRecord::Base
   validates_presence_of :title, :email
   validates_uniqueness_of :email, :case_sensitive => false
   
+  def project_copy_to(email_id)
+  	# e.g. project-email.id@agilechamp.com
+  	"#{email.split("@")[0]}-#{email_id}@#{email.split("@")[1]}"
+  end
+
 end
 
 # == Schema Information

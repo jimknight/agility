@@ -22,6 +22,13 @@ describe Project do
     @project2 = FactoryGirl.build(:project, :email => @project.email)
     @project2.should_not be_valid
   end
+  describe "#project_copy_to" do
+    it "should compute the correct copy_to email" do
+      @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org")
+      @email = FactoryGirl.create(:email)
+      @project.project_copy_to(@email.id).should == "acdivoca-#{@email.id}@agilechamp.mailgun.org"
+    end
+  end
 end
 # == Schema Information
 #
