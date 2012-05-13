@@ -16,9 +16,11 @@ gem 'factory_girl_rails'
 gem 'figaro'
 gem 'jquery-rails'
 gem 'pg'
+gem 'private_pub'
 gem 'rest-client'
 gem 'simple_form'
 gem 'slim-rails'
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
