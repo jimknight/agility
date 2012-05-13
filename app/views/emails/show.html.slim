@@ -25,6 +25,20 @@ section.grid_8
   h3 = @email.subject
   h4 = "sent from #{@email.sent_from} at #{pretty_datetime(@email.created_at)}"
   p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+  table
+    - @email.ancestors.each do |ancestor|
+      tr
+        td = pretty_datetime(ancestor.created_at)
+        td = link_to ancestor.subject, [@project, ancestor]
+    tr
+      td = pretty_datetime(@email.created_at)
+      td 
+        = @email.subject
+        = " <== you are here"
+    - @email.children.each do |descendant|
+      tr
+        td = pretty_datetime(descendant.created_at)
+        td = link_to descendant.subject, [@project, descendant]
 aside.grid_4
   .content
     - if !@attachments.empty?

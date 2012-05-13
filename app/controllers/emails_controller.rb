@@ -68,7 +68,11 @@ class EmailsController < ApplicationController
   
   def show
     @email = Email.find(params[:id])
-    @project = Project.find(@email.project_id)
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+    else
+      @project = Project.find(@email.project_id)
+    end if
     @attachments = @email.attachments
   end
   

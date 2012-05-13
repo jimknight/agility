@@ -3,8 +3,8 @@ require 'spec_helper'
 describe EmailsController do
   describe "POST #create" do
     it "saves to the right place from mailgun" do
-      @project = Factory(:project, :email => "acdivoca@agilechamp.mailgun.org")
-      @parent_email = Factory(:email)
+      @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org")
+      @parent_email = FactoryGirl.create(:email)
       #post :create, email: Factory.attributes_for(:email)
       # response.should redirect_to root_url
       post :create, { 
