@@ -22,6 +22,10 @@ describe Project do
     @project2 = FactoryGirl.build(:project, :email => @project.email)
     @project2.should_not be_valid
   end
+  it "should have many messages" do
+    @project = FactoryGirl.create(:project)
+    @project.should respond_to(:messages)
+  end
   describe "#project_copy_to" do
     it "should compute the correct copy_to email" do
       @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org")

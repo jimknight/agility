@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504002753) do
+ActiveRecord::Schema.define(:version => 20120513210306) do
 
   create_table "attachments", :force => true do |t|
     t.string   "file"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20120504002753) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "parent_id"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "project_id"
+    t.integer  "user_id"
   end
 
   create_table "note_hierarchies", :id => false, :force => true do |t|
