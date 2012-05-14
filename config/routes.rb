@@ -1,5 +1,7 @@
 Agility::Application.routes.draw do
   
+  resources :messages
+
   devise_for :users
 
   resources :emails do
