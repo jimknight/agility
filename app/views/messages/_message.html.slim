@@ -1,4 +1,3 @@
 li
   span.created_at
-    = message.created_at.strftime("%H:%M")
-    = message.content
+    = "#{message.created_at.strftime("%H:%M")} #{User.find(message.user_id).email}: #{message.content}"

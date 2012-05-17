@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+
   def index
   	@project = Project.find(params[:project_id])
     @messages = @project.messages
@@ -6,7 +7,9 @@ class MessagesController < ApplicationController
 
   def create
   	@project = Project.find(params[:project_id])
-    @message = @project.messages.create!(params[:message])
-    PrivatePub.publish_to("/messages/new", message: @message)
+    @message = Message.create!(params[:message])
+    @project.messages << @message
+    current_user.messages << @message
+    PrivatePub.publish_to(project_messages_path(@project), message: @message)
   end
 end
