@@ -1,6 +1,4 @@
 Agility::Application.routes.draw do
-  
-  resources :messages
 
   devise_for :users
 
@@ -16,6 +14,7 @@ Agility::Application.routes.draw do
 
   resources :projects do
     resources :emails
+    resources :messages
     resources :notes
     resources :tasks
   end

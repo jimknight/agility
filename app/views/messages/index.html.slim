@@ -3,7 +3,7 @@ h1 Chat
 ul#chat
  = render @messages
 
-= form_for Message.new, remote: true do |f|
+= form_for [@project, Message.new], remote: true do |f|
   = f.text_field :content
   = f.submit "Send"
 
