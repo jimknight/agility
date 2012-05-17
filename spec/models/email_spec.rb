@@ -38,5 +38,6 @@ end
 #  project_id :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  parent_id  :integer
 #
 

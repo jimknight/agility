@@ -46,5 +46,6 @@ end
 #  project_id      :integer
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
+#  status          :text
 #
 
