@@ -17,7 +17,8 @@ h1 {
     font-weight: normal;
     color: #EFEFEF;
 }
-input, textarea {margin-bottom:10px;
+input, textarea {
+    margin-bottom:10px;
 letter-spacing:1px;
     font-size:14px;
     color:#333;
@@ -25,6 +26,12 @@ letter-spacing:1px;
     padding: 5px 7px;
 width:80%;
 font-family:'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+}
+table {
+    input {
+        margin:0;
+    }
+    td {padding-right:10px;}
 }
 div.field select {
         margin-bottom:10px;

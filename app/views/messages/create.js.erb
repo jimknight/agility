@@ -1,4 +1,4 @@
-<% publish_to "/messages/new" do %>
-  $("#chat").append("<%= j render(@message) %>");
+<% publish_to project_messages_path(@project) do %>
+  $("table.table tbody").append("<%= j render(@message) %>");
 <% end %>
 $("#new_message")[0].reset();

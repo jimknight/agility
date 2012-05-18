@@ -1,10 +1,12 @@
 h1 Chat
 
-ul#chat
+table.table.table-bordered.table-striped
  = render @messages
 
 = form_for [@project, Message.new], remote: true do |f|
-  = f.text_field :content
-  = f.submit "Send"
+	table
+		tr
+  		td = f.text_field :content, :placeholder => "say something", :autocomplete => "off"
+  		td = f.submit "Send", :class => "btn btn-primary"
 
 = subscribe_to project_messages_path(@project)
