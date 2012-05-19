@@ -6,6 +6,11 @@ describe Email do
       @project = FactoryGirl.create(:project)
       @email = FactoryGirl.create(:email, :sent_to => "jimknight@lavatech.com")
       @project.emails << @email
+      mailgun_response = %(
+        {"message": "Queued. Thank you.",
+         "id": "<20120519221306.18328.7890@agilechamp.mailgun.org>"}
+      )
+      @email.stub!(:send_email).and_return(mailgun_response)
       response = @email.send_email
       JSON.parse(response)["message"].should == "Queued. Thank you."
     end
