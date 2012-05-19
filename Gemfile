@@ -37,10 +37,12 @@ end
 group :test, :development do
   gem 'annotate'
   gem 'capybara'
+  gem 'guard-rspec'
   gem 'launchy'
   gem 'pry'
   gem "rspec-rails", "~> 2.6"
 end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
