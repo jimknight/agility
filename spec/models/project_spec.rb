@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Project do
+  it "should have many users" do
+    @project = FactoryGirl.create(:project)
+    @user1 = FactoryGirl.create(:user)
+    @user2 = FactoryGirl.create(:user)
+    @project.users << @user1
+    @project.users << @user2
+    @project.users.count.should == 2
+  end
   it "should have many notes" do
     @project = FactoryGirl.create(:project)
     @project.should respond_to(:notes)

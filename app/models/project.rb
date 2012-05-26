@@ -3,9 +3,11 @@ class Project < ActiveRecord::Base
   attr_accessible :body, :email, :title
   belongs_to :user
   has_many :emails
+  has_many :memberships
   has_many :messages, :dependent => :destroy
   has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  has_many :users, :through => :memberships
   validates_presence_of :title, :email
   validates_uniqueness_of :email, :case_sensitive => false
   
