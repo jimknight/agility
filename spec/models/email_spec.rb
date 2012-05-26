@@ -30,19 +30,22 @@ describe Email do
   end
 end
 
+
 # == Schema Information
 #
 # Table name: emails
 #
-#  id         :integer         not null, primary key
-#  subject    :text
-#  body       :text
-#  sent_from  :text
-#  sent_to    :text
-#  copy_to    :text
-#  project_id :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  parent_id  :integer
+#  id             :integer         not null, primary key
+#  subject        :text
+#  body           :text
+#  sent_from      :text
+#  sent_to        :text
+#  copy_to        :text
+#  project_id     :integer
+#  created_at     :datetime        not null
+#  updated_at     :datetime        not null
+#  parent_id      :integer
+#  emailable_id   :integer
+#  emailable_type :string(255)
 #
 

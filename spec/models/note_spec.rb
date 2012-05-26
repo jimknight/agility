@@ -17,6 +17,13 @@ describe Note do
     @note_baby.children.size.should == 1
     @note.descendants.size.should == 2
   end
+  it "should have many emails" do
+    @project = FactoryGirl.create(:project)
+    @email = FactoryGirl.create(:email)
+    @note = @project.notes.create!(:title => "a project note")
+    @note.emails << @email
+    @note.emails.last.should == @email 
+  end
 end
 # == Schema Information
 #
