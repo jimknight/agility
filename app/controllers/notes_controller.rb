@@ -16,6 +16,9 @@ class NotesController < ApplicationController
     @parent = find_parent
     @note = @parent.respond_to?(:notes) ? @parent.notes.new(params[:note]) : @parent.children.new(params[:note])
     if @note.save
+      if params[:notify_team]
+        @note.notify_team # TODO figure out what a failure here should do
+      end
       redirect_to [@parent,@note], :notice => "Saved new note."
     else
       render 'new'

@@ -13,6 +13,18 @@ describe "Notes" do
       fill_in 'Title', :with => 'a new note for a project'
       click_button "Create Note"
     end
+    it "should allow a notification to the team for a new note" do
+      user = sign_in_as("user@example.com","abc123")
+      @project = FactoryGirl.create(:project, :user_id => user.id)
+      @user = FactoryGirl.create(:user)
+      @project.users << @user
+      visit project_path(@project)
+      click_link_or_button "Add a note"
+      fill_in :title, :with => "Note that emails the team"
+      check :notify_team
+      click_button "Create Note"
+      @project.emails.size.should == 1
+    end
   end
   describe "/tasks/1/notes/new" do
     it "should generate a new note for a task" do
