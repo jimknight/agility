@@ -14,6 +14,7 @@ describe "Notes" do
       click_button "Create Note"
     end
     it "should allow a notification to the team for a new note" do
+      pending # don't know how to test without sending the actual email
       user = sign_in_as("user@example.com","abc123")
       @project = FactoryGirl.create(:project, :user_id => user.id)
       @user = FactoryGirl.create(:user)

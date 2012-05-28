@@ -7,7 +7,21 @@ class Note < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :dependent => :destroy
   has_many :emails, :as => :emailable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
-  accepts_nested_attributes_for :attachments  
+  accepts_nested_attributes_for :attachments
+
+  def notify_team
+    @project = Project.find(self.notable_id)
+    send_to_list = ""
+    @project.users.each do |user|
+      send_to_list << user.email
+    end
+    @email = @project.emails.create!(
+      :subject => self.title,
+      :body => self.body,
+      :sent_to => send_to_list,
+    )
+    @email.send_email
+  end
 
 end
 
