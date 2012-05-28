@@ -1,7 +1,22 @@
 class ProjectsController < ApplicationController  
   
   load_and_authorize_resource :through => :current_user
-  
+
+  def user_search
+    @project = Project.find(params[:id])
+    @user = User.find_by_email(params[:email])
+    if @user
+      if @project.user_id == @user.id  || @project.users.map(&:id).include?(@user.id)
+        redirect_to @project, :notice => "#{@user.email} is already a team member of this project"
+      else
+        @project.users << @user
+        redirect_to @project, :notice => "#{@user.email} added to this project"
+      end
+    else
+      redirect_to @project, :notice => "#{params[:email]} couldn't be found. Please invite them to join." # TODO give a way to send a register request
+    end
+  end
+
   def show
     # empty because work done by load_and_authorize_resource
  #   @project = Project.find(params[:id]) # remove this when load/auth re-enabled

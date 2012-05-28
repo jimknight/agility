@@ -37,3 +37,19 @@ table
   h4 = link_to "Persistent Chat", project_messages_path(@project)
   table
     = render @project.messages.order("created_at DESC").limit(5)
+  h4 Team
+  = link_to "Add team member", "#addUserModal", :class => "btn", :data => {:toggle => "modal"} if @project.user_id == current_user.id
+  ul
+    li = "(Captain) #{User.find(@project.user_id).email}"
+    - @project.users.each do |user|
+      li = user.email
+
+div.modal.fade#addUserModal
+  div.modal-header
+    h3 Add a team member to this project
+  div.modal-body
+    = form_tag("/projects/#{@project.id}/user_search", :method => :get, :id => "user_search")
+    = text_field_tag "email", nil, :placeholder => "what is the team member's email address?"
+  div.modal-footer
+    = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
+    = link_to "search", "#", :class => "btn btn-primary", :id => "user_search_submit"

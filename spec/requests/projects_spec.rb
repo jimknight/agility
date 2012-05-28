@@ -4,6 +4,21 @@ describe "Projects" do
   before (:each) do
     @user = sign_in_as("user@example.com","abc123")
   end
+  it "should allow the creator of the project to add users" do
+    visit new_project_path
+    fill_in "Title", :with => "New project"
+    click_link_or_button "Create Project"
+    @project = Project.last
+    visit project_path(@project)
+    page.should have_content("Team")
+    page.should have_content("(Captain) user@example.com")
+    # TODO js
+    # click_link("Add team member")
+    # fill_in :email, :with => "newuser@example.com"
+    # click_link_or_button "Search"
+    # page.should have_content("newuser@example.com")
+    # page.should have_content("was added")
+  end
   it "should require a title and email address" do
     visit new_project_path
     click_link_or_button "Create Project"

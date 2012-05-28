@@ -9,6 +9,13 @@ describe Project do
     @project.users << @user2
     @project.users.count.should == 2
   end
+  it "should have only unique users" do
+    pending #don't know how to test this
+    @project = FactoryGirl.create(:project)
+    @user1 = FactoryGirl.create(:user)
+    @project.users << @user1
+    expect {@project.users << @user1}.to raise_error
+  end
   it "should have many notes" do
     @project = FactoryGirl.create(:project)
     @project.should respond_to(:notes)

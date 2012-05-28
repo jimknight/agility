@@ -1,5 +1,8 @@
 Agility::Application.routes.draw do
 
+  match "projects/:id/user_add/:user_id" => "projects#user_add"
+  match "projects/:id/user_search" => "projects#user_search"
+  
   devise_for :users
 
   resources :emails do
