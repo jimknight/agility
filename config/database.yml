@@ -47,7 +47,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: agility_production
+  database: agilechamp_production
   pool: 5
-  username: agility
+  username: postgres
   password:
