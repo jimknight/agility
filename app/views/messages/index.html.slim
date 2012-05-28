@@ -1,4 +1,7 @@
-h1 Chat
+h1 Chat it up!
+
+= form_tag project_messages_path(@project), method: :get do
+	p = text_field_tag :query, params[:query], :type => "search"
 
 table.table.table-bordered.table-striped
  = render @messages
