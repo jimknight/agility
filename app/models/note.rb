@@ -18,8 +18,10 @@ class Note < ActiveRecord::Base
     @email = @project.emails.create!(
       :subject => self.title,
       :body => self.body,
-      :sent_to => send_to_list,
+      :sent_to => send_to_list
     )
+    @email.copy_to = @project.project_copy_to(@email.id)
+    @email.save
     @email.send_email
   end
 
