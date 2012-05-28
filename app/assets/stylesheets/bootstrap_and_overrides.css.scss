@@ -27,6 +27,10 @@ letter-spacing:1px;
 width:80%;
 font-family:'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
+label.checkbox {
+  padding: 0 0 0 5px;
+  display: inline-block;
+}
 table {
     input {
         margin:0;
