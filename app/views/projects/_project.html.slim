@@ -3,4 +3,3 @@
     td{width="50%"}
       = link_to project.title, project_path(project), :class => "emphasize"
     td = "created #{time_ago_in_words(project.created_at)} ago"
-    td = link_to "delete this project", project_path(project), :confirm => "Are you REALLY sure? You are going to delete this whole Project??", :method => :delete

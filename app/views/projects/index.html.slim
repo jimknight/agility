@@ -1,8 +1,6 @@
 = content_for :nav_buttons do
-  ul
-    li
-      a href="#{new_project_path}"
-        span New Project
+	= link_to "New Project", new_project_path, :class => "btn btn-primary"
+
 
 h1 Projects
 
@@ -10,5 +8,4 @@ table.table.table-bordered.table-striped
   tr
     th Name
     th Created
-    th Delete
   = render @projects

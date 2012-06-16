@@ -1,0 +1,94 @@
+// Set the correct sprite paths
+$iconSpritePath: asset-url('glyphicons-halflings.png', 'image');
+$iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png','image');
+$navbarBackground: #475111;
+$navbarBackgroundHighlight: #59680A;
+$navbarLinkColor: #828B57;
+$tableBackgroundAccent: #ECEEDD;
+$tableBackgroundHover: darken($tableBackgroundAccent,5%);
+$tableBorder: #BEC790;
+$textColor: #666;
+@import "bootstrap";
+body { padding-top: 85px; 
+background: url(/assets/bg_header_10x118.jpg) repeat-x  0 10px;}
+a {color:#909E44;}
+h1 {
+    margin-bottom:1em;
+    font-weight: normal;
+    color: #EFEFEF;
+}
+input, textarea {
+    margin-bottom:10px;
+letter-spacing:1px;
+    font-size:14px;
+    color:#333;
+    border: solid 1px #dfdfdf;
+    padding: 5px 7px;
+width:80%;
+font-family:'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+}
+label.checkbox {
+  padding: 0 0 0 5px;
+  display: inline-block;
+}
+table {
+    input {
+        margin:0;
+    }
+    td {padding-right:10px;}
+}
+div.field select {
+        margin-bottom:10px;
+        font-size:14px;}
+textarea {height:150px;}
+.navbar a.brand {color:#909E44;}
+nav.sub {
+    margin:2px 0 0 0;
+    padding: 5px 0;
+    overflow:hidden;
+}
+nav.sub ul {
+    margin:0;
+    padding:0;
+}
+nav.sub li {
+    float: left;
+    display:inline;
+    margin-right: 8px;
+    font-weight: bold;
+}
+nav.sub li a {
+    display: inline-block;
+    background: url(/assets/bg-link-r.gif) no-repeat right top;
+    padding-right: 13px;
+    cursor:pointer;
+    text-decoration: none;
+    color:#333;
+}
+nav.sub li a span {
+    display: inline-block;
+    background: url(/assets/bg-link-l.gif) no-repeat left top;
+    padding-left: 13px;
+    padding-top: 4px;
+    height: 21px;
+}
+nav.sub li a img {
+    vertical-align: text-bottom;
+    margin-right: 5px;
+}
+nav.sub a:hover, nav.sub li.current a {
+    background-position: right -25px;
+    color:#fff;
+}
+nav.sub a:hover span, nav.sub li.current a span {
+    background-position: left -25px;
+}
+nav.sub li.last {
+    float:right;
+    position:relative;
+    margin-left: 0;
+}
+div.span3 {
+    margin-top:65px;
+}
+@import "bootstrap-responsive";

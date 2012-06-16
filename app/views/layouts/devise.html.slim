@@ -1,1 +1,32 @@
-= yield
+doctype html
+html
+
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    meta name="description" content=""
+    meta name="author" content=""
+    title = content_for?(:title) ? yield(:title) : "Agile Champ"
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield(:head)
+
+  body
+    header.navbar.navbar.fixed-top
+      nav.navbar-inner
+        div.container
+          = render 'layouts/navigation'
+        nav.sub
+        div.container
+          = yield :nav_buttons
+    #main*{"role" => "main"}
+      div.container
+        div.content
+          div.row
+            div.span12.center-content
+              div#login-box.well
+                = yield
+
+    footer
