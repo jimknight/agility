@@ -34,6 +34,7 @@ describe "Projects" do
     page.should have_content("Project was successfully updated.")
   end
   it "should show the latest messages and a link to all" do
+    pending "if decide to add Persistent Chat"
     @project = FactoryGirl.create(:project)
     @user.projects << @project
     10.times do
