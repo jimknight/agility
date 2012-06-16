@@ -7,6 +7,9 @@ class Ability
     user ||= User.new # guest user (not logged in)
     #can :manage, :all
     can :manage, Project, :user_id => user.id
+    can :read, Project do |project|
+        project.user_ids.include?(user.id)
+    end
     can :manage, Task, :project => { :user_id => user.id }
     can :manage, Note # need to restrict this at some point
     #   user ||= User.new # guest user (not logged in)

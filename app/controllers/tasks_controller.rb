@@ -38,7 +38,7 @@ class TasksController < ApplicationController
   def show
     @taskable = find_taskable
     @task = @taskable.tasks.find(params[:id])
-    @project = Project.find(params[:project_id])
+    @project = Project.find(@task.project_id)
   end
   
   def destroy
@@ -61,6 +61,8 @@ private
       @task = Task.find(params[:id])
       if @task.taskable_id
         return @task.taskable_type.classify.constantize.find(@task.taskable_id)
+      elsif @task.project_id
+        return Project.find(@task.project_id)
       end
     end
     params.each do |name, value|

@@ -13,7 +13,7 @@ section.grid_8
   h3{class="title"} Notes
   = link_to "Add a note", new_task_note_path(@task), :class => "btn"
   - if @task.notes.count > 0
-    table
+    table.table
       - @task.notes.each do |note|
         tr{class="#{cycle('even', 'odd')}"}
         td{width="50%"} = link_to note.title, task_note_path(@task,note), :class => "emphasize"

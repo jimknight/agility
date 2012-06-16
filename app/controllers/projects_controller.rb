@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController  
   
-  load_and_authorize_resource :through => :current_user
+  #load_and_authorize_resource # :through => :current_user
 
   def user_search
     @project = Project.find(params[:id])
@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   def show
     # empty because work done by load_and_authorize_resource
- #   @project = Project.find(params[:id]) # remove this when load/auth re-enabled
+   @project = Project.find(params[:id]) # remove this when load/auth re-enabled
     @tasks = @project.tasks
     @notes = @project.notes
     @emails = @project.emails
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   
   def index
      # empty because work done by load_and_authorize_resource
-  #   @projects = Project.all # just for testing for now
+    @projects = Project.all # just for testing for now
   end
 
   # GET /projects/new
