@@ -1,8 +1,6 @@
 = content_for :nav_buttons do
-  ul
-    li
-      a href="#{projects_path}"
-        span Projects
+  = link_to "Projects", projects_path, :class => "btn"
+
 = content_for :page_title do
   h2 = "Project: #{@project.title}"
 section.grid_8
