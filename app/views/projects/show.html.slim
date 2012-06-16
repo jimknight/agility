@@ -1,14 +1,12 @@
-= content_for :nav_buttons do
-  = link_to "Projects", projects_path, :class => "btn"
-  = link_to "Edit this project", edit_project_path(@project), :class => "btn"
-  = link_to "Add a task", new_project_task_path(@project), :class => "btn"
-  = link_to "Add a note", new_project_note_path(@project), :class => "btn"
+= link_to "Edit this project", edit_project_path(@project), :class => "btn"
 
 h1 = "Project: #{@project.title}"
 = render 'layouts/messages'
 h3 Details
 p = simple_format(@project.body)
+
 h3 Tasks
+= link_to "Add a task", new_project_task_path(@project), :class => "btn"
 table.table
   - @tasks.each do |task|
     tr{class="#{cycle('even', 'odd')}"}
@@ -17,7 +15,9 @@ table.table
       td = "created #{time_ago_in_words(task.created_at)} ago"
       td = link_to "complete", complete_task_path(task) if task.status != "Completed"
       td = link_to "delete", project_task_path(@project,task), :confirm => "Sure?", :method => :delete
+
 h3 Notes
+= link_to "Add a note", new_project_note_path(@project), :class => "btn"
 table.table
   = render @notes
     

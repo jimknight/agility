@@ -1,11 +1,7 @@
-= content_for :nav_buttons do
-  ul
-    li
-      a href="#{projects_path}"
-        span Projects
 h1 = "#{@taskable.title}: New task"
+
 section.grid_8
-  = simple_form_for [@taskable, @task], :html => {:class => 'well'},  do |f|
+  = simple_form_for [@taskable, @task]  do |f|
     = f.input :title
     = f.label "Date"
     = f.date_select :occurrence_date

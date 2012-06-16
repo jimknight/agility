@@ -19,7 +19,7 @@ class NotesController < ApplicationController
       if params[:notify_team]
         @note.notify_team # TODO figure out what a failure here should do
       end
-      redirect_to [@parent,@note], :notice => "Saved new note."
+      redirect_to @parent, :notice => "Saved new note."
     else
       render 'new'
     end

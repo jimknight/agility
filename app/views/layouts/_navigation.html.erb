@@ -1,5 +1,6 @@
 <%= link_to "Agile Champ", root_path, :class => 'brand' %>
 <ul class="nav">
+    <li><%= link_to "Projects", projects_path %></li>
   <% if user_signed_in? %>
     <li>
     <%= link_to('Logout', destroy_user_session_path, :method=>'delete') %>        

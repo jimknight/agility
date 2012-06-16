@@ -1,9 +1,5 @@
-= content_for :nav_buttons do
-  ul
-    li
-      a href="#{projects_path}"
-        span Project
 h1 = "#{@parent.title}: New note"
+
 section.grid_8
 = simple_form_for [@parent, @note], :html => {:class => 'well'} do |f|
   = f.input :title
