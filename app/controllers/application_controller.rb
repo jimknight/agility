@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   #layout :layout_by_resource
 
-  rescue_from CanCan::AccessDenied do |exception|
-    # redirect_to root_url, :alert => exception.message
-    redirect_to :back, :alert => exception.message
-   end
+  # rescue_from CanCan::AccessDenied do |exception|
+  #   # redirect_to root_url, :alert => exception.message
+  #   redirect_to :back, :alert => exception.message
+  #  end
 
   protected
 

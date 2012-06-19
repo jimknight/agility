@@ -7,7 +7,7 @@ gem 'rails', '3.2.4'
 
 gem 'bootstrap-sass'
 gem 'bootstrap-wysihtml5-rails'
-gem 'cancan'
+# gem "cancan", :git => "git://github.com/ryanb/cancan.git", :branch => "2.0"
 gem 'capistrano'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :branch => "0.5-stable"
 gem 'closure_tree'
@@ -20,6 +20,7 @@ gem 'private_pub'
 gem 'rest-client'
 gem 'simple_form'
 gem 'slim-rails'
+gem 'squeel'
 gem 'thin'
 
 # Gems used only for assets and not required

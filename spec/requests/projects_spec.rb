@@ -4,6 +4,14 @@ describe "Projects" do
   before (:each) do
     @user = sign_in_as("user@example.com","abc123")
   end
+  it "should not show the login prompt later in the process" do
+     visit new_project_path
+    fill_in "Title", :with => "New project"
+    click_link_or_button "Create Project"
+    visit projects_path
+    click_link "New project"
+    page.should_not have_content("Signed in successfully.")
+  end
   it "should allow the creator of the project to add users" do
     visit new_project_path
     fill_in "Title", :with => "New project"

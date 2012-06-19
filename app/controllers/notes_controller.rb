@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   
-  load_and_authorize_resource :note
+#  load_and_authorize_resource :note
   
   def new
     @parent = find_parent

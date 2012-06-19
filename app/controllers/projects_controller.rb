@@ -33,7 +33,9 @@ class ProjectsController < ApplicationController
   
   def index
      # empty because work done by load_and_authorize_resource
-    @projects = Project.all # just for testing for now
+     # show the projects the user owns or is a member
+    #@projects = Project.all # just for testing for now
+    @projects = Project.user_can_read(current_user)
   end
 
   # GET /projects/new
@@ -50,7 +52,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
-    authorize! :edit, @project
+   # authorize! :edit, @project
   end
 
   # POST /projects
@@ -74,7 +76,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.xml
   def update
     @project = Project.find(params[:id])
-    authorize! :update, @project
+#    authorize! :update, @project
 
     respond_to do |format|
       if @project.update_attributes(params[:project])

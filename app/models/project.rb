@@ -10,6 +10,10 @@ class Project < ActiveRecord::Base
   has_many :users, :through => :memberships
   validates_presence_of :title, :email
   validates_uniqueness_of :email, :case_sensitive => false
+
+  def self.user_can_read(user)
+    Project.joins(:users).where(:users => {:id => user.id}) | Project.where(:user_id => user.id)
+  end
   
   def project_copy_to(email_id)
   	# e.g. project-email.id@agilechamp.com

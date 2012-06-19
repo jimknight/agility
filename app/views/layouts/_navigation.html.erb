@@ -20,3 +20,6 @@
     </li>
   <% end %>
 </ul>
+<ul class="nav pull-right">
+  <li style="padding:10px;"><%= "Logged in as #{current_user.email}" if current_user %></li>
+</ul>

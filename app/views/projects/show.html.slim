@@ -1,4 +1,4 @@
-- if can? :edit, @project
+- if @project.user_id == current_user.id
   = link_to "Edit this project", edit_project_path(@project), :class => "btn"
 
 h1 = "Project: #{@project.title}"
