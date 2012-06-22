@@ -3,6 +3,9 @@
 // DEFAULTS
 body {padding-top: 60px;}
 h1 {margin:0 0 0.5em 0; }
+table.top td {
+  padding-right:5px;
+  vertical-align:top;}
 
 // FORMS
 input, textarea {width:80%;}

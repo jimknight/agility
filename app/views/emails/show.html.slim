@@ -1,21 +1,8 @@
-= content_for :nav_buttons do
-  ul
-    li
-      a href="#{projects_path}"
-        span Projects
-    li = link_to raw("<span>Add a task</span>"), new_email_task_path(@email)
-    li
-      a href="#{new_email_note_path(@email)}"
-        span Add a note
-    li
-      a href="#{new_email_email_path(@email)}?type=reply"
-        span Reply
-    li
-      a href="#{new_email_email_path(@email)}?type=reply_to_all"
-        span Reply to All
-    li
-      a href="#{new_email_email_path(@email)}?type=forward"
-        span Forward
+ul.breadcrumb
+  li = link_to "Projects", projects_path
+  li = link_to @project.title, @project
+  li.active = @email.subject
+
 h1 = "#{@project.title}: email"
 section.grid_8
   - if flash[:notice]
@@ -25,29 +12,31 @@ section.grid_8
   h3 = @email.subject
   h4 = "sent from #{@email.sent_from} at #{pretty_datetime(@email.created_at)}"
   p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
-  table
+
+= content_for :aside do
+  h2 Emails
+  table.top
     - @email.ancestors.each do |ancestor|
       tr
         td = pretty_datetime(ancestor.created_at)
         td = link_to ancestor.subject, [@project, ancestor]
     tr
-      td = pretty_datetime(@email.created_at)
+      td
+        i.icon-arrow-right
+      td{nowrap="nowrap"} = pretty_datetime(@email.created_at)
       td 
         = @email.subject
-        = " <== you are here"
     - @email.children.each do |descendant|
       tr
         td = pretty_datetime(descendant.created_at)
         td = link_to descendant.subject, [@project, descendant]
-aside.grid_4
-  .content
     - if !@attachments.empty?
       h4 = pluralize(@attachments.size,'Attachment')
       ul
         - @attachments.each do |attachment|
           li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
-    h2 Tasks
-    ul
-      - @email.tasks.each do |task|
-        li
-          = link_to task.title, [@project, task]
+  h2 Tasks
+  ul
+    - @email.tasks.each do |task|
+      li
+        = link_to task.title, [@project, task]
