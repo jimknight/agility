@@ -8,7 +8,8 @@ table.top td {
   vertical-align:top;}
 
 // FORMS
-input, textarea {width:80%;}
+input, textarea {width:80%;display:block;}
+select {display:block;}
 
 // LOGIN SCREEN
 div#login-box {

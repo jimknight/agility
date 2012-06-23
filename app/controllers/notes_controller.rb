@@ -4,15 +4,20 @@ class NotesController < ApplicationController
   require 'nokogiri'
   require 'open-uri'
   def bookmarklet
-    return if params[:url].blank?
-    @project = Project.find(params[:id])
-    if @project.user_can_read(current_user) == false
-      redirect_to :root_path
-    else
+    @note = Note.new
+    if params[:url]
       doc = Nokogiri::HTML(open(params[:url]))
-      @project.notes.create!(:title => "#{params[:url]}:#{doc.title}", :body => params[:url])
-      render :text => "New note saved."
+      @title = doc.title
     end
+    #   @project.notes.create!(:title => "#{params[:url]}:#{doc.title}", :body => params[:url])
+    #@project = Project.find(params[:id])
+    # if @project.user_can_read(current_user) == false
+    #   redirect_to :root_path
+    # else
+    #   doc = Nokogiri::HTML(open(params[:url]))
+    #   @project.notes.create!(:title => "#{params[:url]}:#{doc.title}", :body => params[:url])
+    #   render :text => "New note saved."
+    # end
   end
   
   def new
@@ -28,6 +33,9 @@ class NotesController < ApplicationController
   def create
     @parent = find_parent
     @note = @parent.respond_to?(:notes) ? @parent.notes.new(params[:note]) : @parent.children.new(params[:note])
+    if params[:link].present?
+      @note.body = params[:link]
+    end
     if @note.save
       if params[:notify_team]
         @note.notify_team # TODO figure out what a failure here should do
@@ -66,6 +74,8 @@ private
   def find_parent
     if params[:note_id]
       return Note.find(params[:note_id])
+    elsif params[:project] # bookmarklet
+      return Project.find(params[:project])
     else
       params.each do |name, value|
         if name =~ /(.+)_id$/

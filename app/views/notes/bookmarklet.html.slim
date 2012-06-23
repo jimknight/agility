@@ -1,0 +1,8 @@
+h1 Save Link
+= simple_form_for Note.new do |f|
+	= label_tag "project", "Choose Project"
+	= select_tag "project", options_from_collection_for_select(Project.user_can_read(current_user), "id", "title")
+	= f.input :title, :input_html => { :value => @title }
+	= label_tag "link"
+	= text_field_tag "link", params[:url]
+	= f.button :submit, "Submit", :class => "btn-primary"
