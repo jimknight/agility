@@ -33,7 +33,7 @@ describe "Emails" do
     sign_in_as("user@example.com","abc123")
     visit project_email_path(@project, @email)
     click_link "Reply to All"
-    page.should have_content("Reply To All")
+    page.should have_content("Reply to All")
     find_field("email[subject]").value.should == "Re: #{@email.subject}"
     find_field("email[sent_to]").value.should == @email.sent_from
     find_field("email[copy_to]").value.should == @email.copy_to
@@ -66,7 +66,14 @@ describe "Emails" do
     visit project_email_path(@project,@email)
     page.should have_content("Parent")
     page.should have_content("Current")
-    page.should have_content("<== you are here")
     page.should have_content("Child")
+  end
+  it "should hide Reply to All button if no cc" do
+    @project = FactoryGirl.create(:project)
+    @email = FactoryGirl.create(:email, :copy_to => nil)
+    @project.emails << @email
+    sign_in_as("user@example.com","abc123")
+    visit project_email_path(@project, @email)
+    page.should_not have_content("Reply to All")
   end
 end

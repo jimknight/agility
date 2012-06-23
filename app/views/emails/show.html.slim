@@ -3,6 +3,12 @@ ul.breadcrumb
   li = link_to @project.title, @project
   li.active = @email.subject
 
+= link_to "Add a task", new_email_task_path(@email), :class => "btn"
+= link_to "Add a note", new_email_note_path(@email), :class => "btn"
+= link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn"
+= link_to "Reply to All", new_email_email_path(@email, :type => "reply_to_all"), :class => "btn" if @email.copy_to.present?
+= link_to "Forward", new_email_email_path(@email, :type => "forward"), :class => "btn"
+
 h1 = "#{@project.title}: email"
 section.grid_8
   - if flash[:notice]
