@@ -263,6 +263,7 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   launchy
+  nokogiri
   pg
   private_pub
   pry

@@ -1,6 +1,19 @@
 class NotesController < ApplicationController
   
 #  load_and_authorize_resource :note
+  require 'nokogiri'
+  require 'open-uri'
+  def bookmarklet
+    return if params[:url].blank?
+    @project = Project.find(params[:id])
+    if @project.user_can_read(current_user) == false
+      redirect_to :root_path
+    else
+      doc = Nokogiri::HTML(open(params[:url]))
+      @project.notes.create!(:title => "#{params[:url]}:#{doc.title}", :body => params[:url])
+      render :text => "New note saved."
+    end
+  end
   
   def new
     @parent = find_parent

@@ -20,6 +20,12 @@ class Project < ActiveRecord::Base
   	"#{email.split("@")[0]}-#{email_id}@#{email.split("@")[1]}"
   end
 
+  def user_can_read(user)
+    return true if self.user_id == user.id
+    return true if self.users.map(&:id).include?(user.id)
+    false
+  end
+
 end
 
 # == Schema Information
