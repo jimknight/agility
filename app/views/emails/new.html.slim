@@ -1,8 +1,9 @@
-= content_for :nav_buttons do
-  ul
-    li
-      a href="#{projects_path}"
-        span Projects
+ul.breadcrumb
+  li = link_to "Projects", projects_path
+  li ...
+  li = link_to @parent.subject, @parent
+  li.active New Email
+
 h1 = "#{params[:type].titleize}"
 
 = render 'form'
