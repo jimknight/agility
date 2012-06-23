@@ -5,7 +5,7 @@
 section.grid_8
   h1 = @note.title
   h3 Details
-  p = @note.body
+  p#details = @note.body
   
   h3{class="title"} Notes
   = link_to "Add a note", new_note_note_path(@note), :class => "btn"
