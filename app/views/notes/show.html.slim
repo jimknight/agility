@@ -1,7 +1,7 @@
 = content_for :page_title do
   h2 = "#{@parent.title}: note"
 
-= link_to "Edit this note", edit_note_path(@note), :class => "btn"
+= link_to "Edit this note", [:edit, @parent, @note], :class => "btn"
 section.grid_8
   h1 = @note.title
   h3 Details

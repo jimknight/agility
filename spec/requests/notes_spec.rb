@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe "Notes" do
+  describe "edit" do
+    it "should show a note and allow user to edit" do
+      @user = sign_in_as("user@example.com","abc123")
+      @project = FactoryGirl.create(:project, :user_id => @user.id)
+      @note = FactoryGirl.create(:note)
+      @project.notes << @note
+      visit project_note_path(@project, @note)
+      click_link "Edit this note"
+      fill_in "Title", :with => "New title"
+      click_button "Update Note"
+      page.should have_content "New title"
+    end
+  end
   describe "/projects/1/notes/new" do
     it "should generate a new note for a project" do
       sign_in_as("user@example.com","abc123")

@@ -48,12 +48,12 @@ class NotesController < ApplicationController
    
   def edit
     @parent = find_parent
-    @note = @parent.find(params[:id])
+    @note = Note.find(params[:id]) # secure?
   end
 
   def update
     @parent = find_parent
-    @note = @parent.find(params[:id])
+    @note = Note.find(params[:id])
     @note.update_attributes(params[:note])
     if @note.save
       redirect_to [@parent,@note], :notice => "Your changes were saved."
