@@ -1,7 +1,12 @@
+ul.breadcrumb
+  li = link_to "Projects", projects_path
+  li = link_to @project.title, @project
+  li.active = @task.title
+
 = content_for :page_title do
   h2 = "Task for project '#{@project.title}'"
 
-= link_to "Edit this task", edit_project_task_path(@taskable, @task), :class => "btn"
+= link_to "Edit this task", edit_project_task_path(@taskable, @task), :class => "btn btn-primary"
 section.grid_8
   h3{class="title"} = @task.title
   h4 Date

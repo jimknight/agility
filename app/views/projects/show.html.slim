@@ -1,11 +1,15 @@
+ul.breadcrumb
+  li = link_to "Projects", projects_path
+  li.active = @project.title
+
 - if @project.user_id == current_user.id
-  = link_to "Edit this project", edit_project_path(@project), :class => "btn"
+  = link_to "Edit this project", edit_project_path(@project), :class => "btn btn-primary"
 
 h1 = "Project: #{@project.title}"
 = render 'layouts/messages'
 
 h3 Details
-p = simple_format(@project.body)
+= simple_format(@project.body)
 
 h3 Tasks
 = link_to "Add a task", new_project_task_path(@project), :class => "btn"
@@ -15,8 +19,8 @@ table.table
       td = image_tag '/images/check_mark.png' if task.status == "Completed"
       td{width="50%"} = link_to task.title, [@project,task], :class => "emphasize"
       td = "created #{time_ago_in_words(task.created_at)} ago"
-      td = link_to "complete", complete_task_path(task) if task.status != "Completed"
-      td = link_to "delete", project_task_path(@project,task), :confirm => "Sure?", :method => :delete
+      td = link_to "complete", complete_task_path(task), :class => "btn" if task.status != "Completed"
+      td = link_to "delete", project_task_path(@project,task),:class => "btn", :confirm => "Sure?", :method => :delete
 
 h3 Notes
 = link_to "Add a note", new_project_note_path(@project), :class => "btn"
@@ -31,9 +35,8 @@ table.table
   table.table
     - @emails.each do |email|
       tr
-        td = pretty_datetime(email.created_at)
+        td{nowrap="nowrap"} = pretty_datetime(email.created_at)
         td = link_to email.subject, [@project, email]
-        td = link_to "Delete", [@project, email], :method => :delete, :confirm => "Are you sure you want to delete this email?"
 
   h4 Team
   = link_to "Add team member", "#addUserModal", :class => "btn", :data => {:toggle => "modal"} if @project.user_id == current_user.id

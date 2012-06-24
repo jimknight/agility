@@ -1,11 +1,17 @@
+ul.breadcrumb
+  li = link_to "Projects", projects_path
+  li ...
+  li = link_to @parent.title, @parent
+  li.active = @note.title
+
 = content_for :page_title do
   h2 = "#{@parent.title}: note"
 
-= link_to "Edit this note", [:edit, @parent, @note], :class => "btn"
+= link_to "Edit this note", [:edit, @parent, @note], :class => "btn btn-primary"
 section.grid_8
   h1 = @note.title
   h3 Details
-  p#details = simple_format(@note.body)
+  = simple_format(@note.body, :id => "details")
   
   h3{class="title"} Notes
   = link_to "Add a note", new_note_note_path(@note), :class => "btn"
@@ -16,5 +22,3 @@ section.grid_8
           td{width="50%"} = link_to note.title, [@note,note], :class => "emphasize"
           td = "created #{time_ago_in_words(note.created_at)} ago"
           td = link_to "delete this note", note, :confirm => "Sure?", :method => :delete
-  - else
-    p No notes added yet.

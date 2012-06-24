@@ -3,13 +3,13 @@
 // DEFAULTS
 body {padding-top: 60px;}
 h1 {margin:0 0 0.5em 0; }
-table.top td {
-  padding-right:5px;
-  vertical-align:top;}
+table.table {border-bottom:1px solid #ddd;}
+table.table td {vertical-align:middle;}
+table.top td {padding-right:5px; vertical-align:top;}
 
 // FORMS
 input, textarea {width:80%;display:block;}
-select {display:block;}
+select {width:auto;}
 
 // LOGIN SCREEN
 div#login-box {
@@ -28,7 +28,7 @@ div#login-box {
 }
 
 // ACTION BUTTONS
-div.container a.btn {margin:0 5px 10px 0;}
+div.container a.btn {margin:0 5px 5px 0;}
 nav.sub {padding:15px 0 0 0;}
 
 @import "bootstrap-responsive";

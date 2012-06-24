@@ -64,9 +64,9 @@ class NotesController < ApplicationController
 
   def destroy
     @parent = find_parent
-    @note = @parent.find(params[:id])
+    @note = Note.find(params[:id])
     @note.destroy
-    redirect_to root_path, :notice => "Note was successfully deleted. Redirect to parent."
+    redirect_to @parent, :notice => "Note was successfully deleted."
   end
   
 private
