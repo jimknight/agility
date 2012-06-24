@@ -20,6 +20,7 @@ class TasksController < ApplicationController
     @taskable = find_taskable
     @task = @taskable.tasks.build(params[:task])
     @task.project_id = params[:project_id] || @taskable.project_id
+    @task.status = "Open"
     if @task.save
       flash[:notice] = "Successfully created task."
       redirect_to @taskable
@@ -36,8 +37,9 @@ class TasksController < ApplicationController
   end
   
   def show
-    @taskable = find_taskable
-    @task = @taskable.tasks.find(params[:id])
+    @parent = find_taskable
+    @task = @parent.tasks.find(params[:id])
+    @notes = @task.notes
     @project = Project.find(@task.project_id)
   end
   

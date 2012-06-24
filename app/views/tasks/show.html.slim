@@ -7,30 +7,18 @@ h1 = "Task (#{@task.status.downcase})"
 table
   tr
     td
-      = link_to edit_project_task_path(@taskable, @task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this task"} do
+      = link_to edit_project_task_path(@parent, @task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this task"} do
         i.icon-pencil.icon-white
+        span = " edit"
     td
       h3 = @task.title
 p = simple_format(@task.body)
 
-table
-  tr
-    td
-      = link_to new_task_note_path(@task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a note"} do
-          i.icon-plus.icon-white
-    td
-      h3 Notes
-- if @task.notes.count > 0
-  table.table
-    - @task.notes.each do |note|
-      tr{class="#{cycle('even', 'odd')}"}
-      td{width="50%"} = link_to note.title, task_note_path(@task,note), :class => "emphasize"
-      td = "created #{time_ago_in_words(note.created_at)} ago"
-      td = link_to "delete", task_note_path(@task,note), :confirm => "Sure?",:method => :delete, :class => "btn btn-small btn-danger"
+= render :partial => "shared/notes_table", :locals => { :current => @task } 
 
 = content_for :aside do
   h4 This task came from
   p
-    = "#{@taskable.class}: "
-    = link_to "#{@taskable.title}", @taskable
-    = " created #{pretty_datetime(@taskable.created_at)}"
+    = "#{@parent.class}: "
+    = link_to "#{@parent.title}", @parent
+    = " created #{pretty_datetime(@parent.created_at)}"

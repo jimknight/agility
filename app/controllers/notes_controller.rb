@@ -28,6 +28,7 @@ class NotesController < ApplicationController
   def show
     @parent = find_parent
     @note = Note.find(params[:id])
+    @notes = @note.children
   end
   
   def create

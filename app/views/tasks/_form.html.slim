@@ -1,11 +1,4 @@
-h1 = "#{@taskable.title}: New task"
-
-section.grid_8
-  = simple_form_for [@taskable, @task]  do |f|
-    = f.input :title
-    = f.input :body, :label => "Details"
-    = f.label :status
-    = f.select :status, ['Open','Completed']
-    br
-    br
-    = f.submit :class => "btn btn-primary"
+= simple_form_for [@taskable, @task]  do |f|
+  = f.input :title
+  = f.input :body, :label => "Details"
+  = f.submit :class => "btn btn-primary"
