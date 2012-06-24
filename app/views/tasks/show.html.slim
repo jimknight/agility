@@ -1,35 +1,36 @@
-ul.breadcrumb
+= content_for :breadcrumbs do
   li = link_to "Projects", projects_path
   li = link_to @project.title, @project
   li.active = @task.title
 
-= content_for :page_title do
-  h2 = "Task for project '#{@project.title}'"
+h1 = "Task (#{@task.status.downcase})"
+table
+  tr
+    td
+      = link_to edit_project_task_path(@taskable, @task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this task"} do
+        i.icon-pencil.icon-white
+    td
+      h3 = @task.title
+p = simple_format(@task.body)
 
-= link_to "Edit this task", edit_project_task_path(@taskable, @task), :class => "btn btn-primary"
-section.grid_8
-  h3{class="title"} = @task.title
-  h4 Date
-  p = @task.occurrence_date
-  h4 Details
-  p = simple_format(@task.body)
-  h4 Status
-  p = @task.status
-  h3{class="title"} Notes
-  = link_to "Add a note", new_task_note_path(@task), :class => "btn"
-  - if @task.notes.count > 0
-    table.table
-      - @task.notes.each do |note|
-        tr{class="#{cycle('even', 'odd')}"}
-        td{width="50%"} = link_to note.title, task_note_path(@task,note), :class => "emphasize"
-        td = link_to "delete this note", task_note_path(@task,note), :confirm => "Sure?",:method => :delete
-        td = "created #{time_ago_in_words(note.created_at)} ago"
-  - else
-    p No notes added yet.
+table
+  tr
+    td
+      = link_to new_task_note_path(@task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a note"} do
+          i.icon-plus.icon-white
+    td
+      h3 Notes
+- if @task.notes.count > 0
+  table.table
+    - @task.notes.each do |note|
+      tr{class="#{cycle('even', 'odd')}"}
+      td{width="50%"} = link_to note.title, task_note_path(@task,note), :class => "emphasize"
+      td = "created #{time_ago_in_words(note.created_at)} ago"
+      td = link_to "delete", task_note_path(@task,note), :confirm => "Sure?",:method => :delete, :class => "btn btn-small btn-danger"
 
 = content_for :aside do
-    h4 This task came from
-    p
-      = "#{@taskable.class}: "
-      = link_to "#{@taskable.title}", @taskable
-      = " created #{pretty_datetime(@taskable.created_at)}"
+  h4 This task came from
+  p
+    = "#{@taskable.class}: "
+    = link_to "#{@taskable.title}", @taskable
+    = " created #{pretty_datetime(@taskable.created_at)}"
