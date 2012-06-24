@@ -83,7 +83,8 @@ private
         end
       end
     end
-    nil
+    @note = Note.find(params[:id])
+    @note.notable_type.singularize.classify.constantize.find(@note.notable_id)
   end
   
 end
