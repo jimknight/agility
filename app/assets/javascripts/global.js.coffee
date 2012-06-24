@@ -1,5 +1,5 @@
 window.InitLinker = ->
-  re = /(https?:\/\/(([-\w\.]+)+(:\d+)?(\/([\w/_\.]*(\?\S+)?)?)?))/g
+  re = /(https?:\/\/(([-\w\.]+)+(:\d+)?(\/([\w/_\.-]*(\?\S+)?)?)?))/g
   $("div.content section p#details").html $("div.content section p#details").html().replace(re, "<a href=\"$1\" title=\"\">$1</a>")
 
 jQuery ->
