@@ -44,6 +44,17 @@ p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
       ul
         - @attachments.each do |attachment|
           li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+  table
+    tr
+      td
+        = link_to [:new, @email, "task"], {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a task"} do
+            i.icon-plus.icon-white
+            span = " add"
+      td
+        h3 Tasks
+  ul
+    - @email.tasks.each do |task|
+      li
+        = link_to task.title, [@project, task]
 
-  = render "shared/tasks_table"
   = render :partial => "shared/notes_table", :locals => { :current => @email } 
