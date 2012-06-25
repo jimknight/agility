@@ -1,7 +1,7 @@
 = content_for :breadcrumbs do
   li = link_to "Projects", projects_path
   li = link_to @parent.title, @parent
-  li.active New Note
+  li.active = @note.title
 
-h1 New Note
-= render "form"
+h1 Edit Note
+= render 'form'
