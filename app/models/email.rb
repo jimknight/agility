@@ -5,6 +5,7 @@ class Email < ActiveRecord::Base
   alias_attribute :title, :subject
   belongs_to :project
   has_many :attachments, :as => :attachable, :dependent => :destroy
+  has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
   accepts_nested_attributes_for :attachments
   scope :sent, where(:body => "sent")

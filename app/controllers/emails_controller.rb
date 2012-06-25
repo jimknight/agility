@@ -70,6 +70,8 @@ class EmailsController < ApplicationController
   
   def show
     @email = Email.find(params[:id])
+    @notes = @email.notes
+    @tasks = @email.tasks
     if params[:project_id]
       @project = Project.find(params[:project_id])
     else

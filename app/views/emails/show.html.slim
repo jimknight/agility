@@ -1,27 +1,30 @@
-ul.breadcrumb
+= content_for :breadcrumbs do
   li = link_to "Projects", projects_path
   li = link_to @project.title, @project
   li.active = @email.subject
 
-= link_to "Add a task", new_email_task_path(@email), :class => "btn"
-= link_to "Add a note", new_email_note_path(@email), :class => "btn"
-= link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn"
-= link_to "Reply to All", new_email_email_path(@email, :type => "reply_to_all"), :class => "btn" if @email.copy_to.present?
-= link_to "Forward", new_email_email_path(@email, :type => "forward"), :class => "btn"
+/ = link_to "Add a task", new_email_task_path(@email), :class => "btn"
+/ = link_to "Add a note", new_email_note_path(@email), :class => "btn"
 
-h1 = "#{@project.title}: email"
-section.grid_8
-  - if flash[:notice]
-     p.notice = flash[:notice]
-  - if flash[:alert]
-     p.alert = flash[:alert]
+h1 Email
+
+= link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn btn-primary"
+= link_to "Reply to All", new_email_email_path(@email, :type => "reply_to_all"), :class => "btn btn-primary" if @email.copy_to.present?
+= link_to "Forward", new_email_email_path(@email, :type => "forward"), :class => "btn btn-primary"
+
+div.well
   h3 = @email.subject
-  h4 = "sent from #{@email.sent_from} at #{pretty_datetime(@email.created_at)}"
-  p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+  br
+  p = "From: #{@email.sent_from}"
+  p = "To: #{@email.sent_to}" if @email.sent_to
+  p = "cc: #{@email.copy_to}" if @email.copy_to
+  p = "Sent: #{pretty_datetime(@email.created_at)}"
+
+p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
 
 = content_for :aside do
-  h2 Emails
-  table.top
+  h3 Emails
+  table.table
     - @email.ancestors.each do |ancestor|
       tr
         td = pretty_datetime(ancestor.created_at)
@@ -41,8 +44,6 @@ section.grid_8
       ul
         - @attachments.each do |attachment|
           li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
-  h2 Tasks
-  ul
-    - @email.tasks.each do |task|
-      li
-        = link_to task.title, [@project, task]
+
+  = render "shared/tasks_table"
+  = render :partial => "shared/notes_table", :locals => { :current => @email } 
