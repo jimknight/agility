@@ -1,3 +1,7 @@
+= content_for :breadcrumbs do
+  li = link_to "Projects", projects_path
+  li.active = @project.title
+
 h1 Editing project
 
 == render 'form'

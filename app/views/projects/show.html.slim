@@ -1,31 +1,22 @@
-ul.breadcrumb
+= content_for :breadcrumbs do
   li = link_to "Projects", projects_path
   li.active = @project.title
 
-- if @project.user_id == current_user.id
-  = link_to "Edit this project", edit_project_path(@project), :class => "btn btn-primary"
-
-h1 = "Project: #{@project.title}"
-= render 'layouts/messages'
-
-h3 Details
+h1 Project
+table
+  tr
+    - if @project.user_id == current_user.id
+      td
+        = link_to edit_project_path(@project), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this project"} do
+          i.icon-pencil.icon-white
+          span = " edit"
+    td
+      h3 = @project.title
+      
 = simple_format(@project.body)
 
-h3 Tasks
-= link_to "Add a task", new_project_task_path(@project), :class => "btn"
-table.table
-  - @tasks.each do |task|
-    tr{class="#{cycle('even', 'odd')}"}
-      td = image_tag '/images/check_mark.png' if task.status == "Completed"
-      td{width="50%"} = link_to task.title, [@project,task], :class => "emphasize"
-      td = "created #{time_ago_in_words(task.created_at)} ago"
-      td = link_to "complete", complete_task_path(task), :class => "btn" if task.status != "Completed"
-      td = link_to "delete", project_task_path(@project,task),:class => "btn", :confirm => "Sure?", :method => :delete
-
-h3 Notes
-= link_to "Add a note", new_project_note_path(@project), :class => "btn"
-table.table
-  = render @notes
+= render "shared/tasks_table"
+= render :partial => "shared/notes_table", :locals => { :current => @project }
     
 = content_for :aside do
   h4 Send emails to this project:
