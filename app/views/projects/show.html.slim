@@ -2,6 +2,11 @@
   li = link_to "Projects", projects_path
   li.active = @project.title
 
+- if flash[:notice]
+  div.alert.alert-success = flash[:notice]
+- if flash[:alert]
+  div.alert = flash[:alert]
+
 h1 Project
 table
   tr
@@ -30,7 +35,7 @@ table
         td = link_to email.subject, [@project, email]
 
   h4 Team
-  = link_to "Add team member", "#addUserModal", :class => "btn", :data => {:toggle => "modal"} if @project.user_id == current_user.id
+  = link_to "Add team member", "#addUserModal", :class => "btn btn-primary", :data => {:toggle => "modal"} if @project.user_id == current_user.id
   ul
     li = "(Captain) #{User.find(@project.user_id).email}"
     - @project.users.each do |user|
@@ -42,6 +47,6 @@ div.modal.fade#addUserModal
   div.modal-body
     = form_tag("/projects/#{@project.id}/user_search", :method => :get, :id => "user_search")
     = text_field_tag "email", nil, :placeholder => "what is the team member's email address?"
-  div.modal-footer
-    = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
-    = link_to "search", "#", :class => "btn btn-primary", :id => "user_search_submit"
+    div.modal-footer
+      = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
+      = submit_tag "add", :class => "btn btn-primary", :id => "user_search_submit"
