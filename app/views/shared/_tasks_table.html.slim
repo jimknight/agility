@@ -6,12 +6,12 @@ table
           span = " add"
     td
       h3 Tasks
-
-table.table
-  - @tasks.each do |task|
-    tr{class="#{cycle('even', 'odd')}"}
-      td = image_tag '/images/check_mark.png' if task.status == "Completed"
-      td{width="50%"} = link_to task.title, [@project,task], :class => "emphasize"
-      td = "created #{time_ago_in_words(task.created_at)} ago"
-      td = link_to "complete", complete_task_path(task), :class => "btn" if task.status != "Completed"
-      td = link_to "delete", project_task_path(@project,task),:class => "btn", :confirm => "Sure?", :method => :delete
+- if @tasks.count > 0
+  table.table
+    - @tasks.each do |task|
+      tr{class="#{cycle('even', 'odd')}"}
+        td = image_tag '/images/check_mark.png' if task.status == "Completed"
+        td{width="50%"} = link_to task.title, [@project,task], :class => "emphasize"
+        td = "created #{time_ago_in_words(task.created_at)} ago"
+        td = link_to "complete", complete_task_path(task), :class => "btn" if task.status != "Completed"
+        td = link_to "delete", project_task_path(@project,task),:class => "btn", :confirm => "Sure?", :method => :delete

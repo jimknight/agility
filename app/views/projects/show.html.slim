@@ -12,8 +12,8 @@ table
           span = " edit"
     td
       h3 = @project.title
-      
-= simple_format(@project.body)
+
+= simple_format(@project.body) if @project.body.present?
 
 = render "shared/tasks_table"
 = render :partial => "shared/notes_table", :locals => { :current => @project }
