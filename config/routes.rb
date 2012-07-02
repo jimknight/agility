@@ -4,7 +4,7 @@ Agility::Application.routes.draw do
   match "projects/:id/user_search" => "projects#user_search"
   match "/bookmarklet" => "notes#bookmarklet"
   
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   resources :emails do
     resources :emails

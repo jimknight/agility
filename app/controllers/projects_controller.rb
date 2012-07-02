@@ -1,6 +1,7 @@
-class ProjectsController < ApplicationController  
+class ProjectsController < ApplicationController
   
   def show
+    flash[:notice] = nil if flash[:notice] == "Signed in successfully." # shows too long
     @project = Project.find(params[:id])
     @tasks = @project.tasks
     @notes = @project.notes
@@ -69,7 +70,14 @@ class ProjectsController < ApplicationController
         redirect_to @project, :notice => "#{@user.email} added to this project"
       end
     else
-      redirect_to @project, :alert => "#{params[:email]} couldn't be found. Please invite them to join." # TODO give a way to send a register request
+      @stub_user = StubUser.find_by_email(params[:email])
+      if @stub_user
+        redirect_to @project, :alert => "#{@stub_user.email} was already invited to this project. Please ask them to join."
+      else
+        @project.invite_team_member(current_user,params[:email])
+        @project.add_new_team_member_as_stub_user(params[:email])
+        redirect_to @project, :alert => "#{params[:email]} couldn't be found so an email was sent inviting them to join. You will be cc'd on the invite."
+      end
     end
   end
 

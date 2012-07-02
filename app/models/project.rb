@@ -8,13 +8,29 @@ class Project < ActiveRecord::Base
   has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :users, :through => :memberships
+  has_and_belongs_to_many :stub_users
   validates_presence_of :title, :email
   validates_uniqueness_of :email, :case_sensitive => false
 
   def self.user_can_read(user)
     Project.joins(:users).where(:users => {:id => user.id}) | Project.where(:user_id => user.id)
   end
+
+  def add_new_team_member_as_stub_user(invitee_email)
+    @stub_user = StubUser.create!(:email => invitee_email)
+    self.stub_users << @stub_user
+  end
   
+  def invite_team_member(inviter,invitee_email)
+    api_key = ENV["MG_API_KEY"]
+    RestClient.post "https://api:key-#{api_key}@api.mailgun.net/v2/agilechamp.mailgun.org/messages",
+    :from => "Agile Champ <me@agilechamp.mailgun.org>",
+    :to => invitee_email,
+    :copy_to => inviter.email,
+    :subject => "Invitation to join a project",
+    :html => "#{inviter.email} has invited you to join the '#{title}' project. Go to <a href='agilechamp.com/users/sign_up?email=#{invitee_email}'>AgileChamp.com</a>, enter a new password, and you will be in the project."
+  end
+
   def project_copy_to(email_id)
   	# e.g. project-email.id@agilechamp.com
   	"#{email.split("@")[0]}-#{email_id}@#{email.split("@")[1]}"

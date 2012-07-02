@@ -4,11 +4,26 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+Capybara.javascript_driver = :selenium
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -34,18 +49,16 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
   
-  def sign_in_as(user, password)
-    user = User.create(:password => password, :password_confirmation => password, :email => user)
-    # user.confirmed_at = Time.now 
-    user.save!
+  def sign_in_as(email, password)
+    user = User.find_or_create_by_email(:password => password, :password_confirmation => password, :email => email)
     visit '/'
     fill_in 'Email', :with => user.email
     fill_in 'Password', :with => password
-    click_link_or_button("Sign in")
+    click_button "Sign in"
     user      
     end 
   def sign_out
-    click_link_or_button('Logout')   
+    click_button "Logout"
   end
   
   at_exit do

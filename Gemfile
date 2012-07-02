@@ -39,10 +39,13 @@ end
 group :test, :development do
   gem 'annotate'
   gem 'capybara'
+  # gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'pry'
   gem "rspec-rails", "~> 2.6"
+  gem 'selenium'
 end
 
 # To use ActiveModel has_secure_password

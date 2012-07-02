@@ -40,6 +40,8 @@ table
     li = "(Captain) #{User.find(@project.user_id).email}"
     - @project.users.each do |user|
       li = user.email
+    - @project.stub_users.each do |user|
+      li.stub = "#{user.email} (invited)"
 
 div.modal.fade#addUserModal
   div.modal-header
@@ -47,6 +49,6 @@ div.modal.fade#addUserModal
   div.modal-body
     = form_tag("/projects/#{@project.id}/user_search", :method => :get, :id => "user_search")
     = text_field_tag "email", nil, :placeholder => "what is the team member's email address?"
-    div.modal-footer
-      = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
-      = submit_tag "add", :class => "btn btn-primary", :id => "user_search_submit"
+  div.modal-footer
+    = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
+    = submit_tag "add", :class => "btn btn-primary", :id => "user_search_submit"
