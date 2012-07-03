@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "Projects" do
   describe "using JavaScript" do
-    self.use_transactional_fixtures = false
     it "should allow the creator of the project to add users" do
       pending "Just can't find the email field. Why?"
       visit new_project_path

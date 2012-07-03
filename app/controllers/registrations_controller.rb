@@ -7,10 +7,11 @@ class RegistrationsController < Devise::RegistrationsController
   	super
   	# find all the projects with this stub user and change them to real users
   	StubUser.find_all_by_email(params[:user][:email]).each do |stub_user|
-  		user = User.find_by_email(params[:user][:email])
-  		project = Project.find(stub_user.project_id)
-  		project.users << user
-  		stub_user.destroy
+  		stub_user.projects.each do |project|
+        user = User.find_by_email(params[:user][:email])
+    		project.users << user
+    		stub_user.destroy
+      end
   	end
   end
 
