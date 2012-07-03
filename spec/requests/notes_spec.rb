@@ -15,25 +15,25 @@ describe "Notes" do
     end
   end
   describe "/projects/1/notes/new" do
-    it "should generate a new note for a project" do
+    it "should generate a New Note for a project" do
       sign_in_as("user@example.com","abc123")
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
-      click_link_or_button "Create Project"
+      click_button "Create Project"
       Project.all.size.should == 1
-      click_link_or_button "Add a note"
-      page.should have_content('New note')
-      fill_in 'Title', :with => 'a new note for a project'
+      click_link "Add a note"
+      page.should have_content('New Note')
+      fill_in 'Title', :with => 'a New Note for a project'
       click_button "Create Note"
     end
-    it "should allow a notification to the team for a new note" do
+    it "should allow a notification to the team for a New Note" do
       pending # don't know how to test without sending the actual email
       user = sign_in_as("user@example.com","abc123")
       @project = FactoryGirl.create(:project, :user_id => user.id)
       @user = FactoryGirl.create(:user)
       @project.users << @user
       visit project_path(@project)
-      click_link_or_button "Add a note"
+      click_link "Add a note"
       fill_in :title, :with => "Note that emails the team"
       check :notify_team
       click_button "Create Note"
@@ -41,34 +41,33 @@ describe "Notes" do
     end
   end
   describe "/tasks/1/notes/new" do
-    it "should generate a new note for a task" do
+    it "should generate a New Note for a task" do
        sign_in_as("user@example.com","abc123")
        visit new_project_path
        fill_in 'Title', :with => 'a new project'
-      click_link_or_button "Create Project"
-       click_link_or_button "Add a task"
+      click_button "Create Project"
+       click_link "Add a task"
        fill_in "Title", :with => 'a new task'
-      click_link_or_button "Create Task"
+      click_button "Create Task"
        click_link "a new task"
-       click_link_or_button "Add a note"
-       page.should have_content('New note')
-       fill_in 'Title', :with => 'a new note for a project'
+       click_link "Add a note"
+       page.should have_content('New Note')
+       fill_in 'Title', :with => 'a New Note for a project'
        click_button "Create Note"
     end
   end
   describe "/notes/1/notes/new" do
-    it "should generate a new note for a note" do
+    it "should generate a New Note for a note" do
       sign_in_as("user@example.com","abc123")
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
-      click_link_or_button "Create Project"
-      click_link_or_button "Add a note"
-      page.should have_content('New note')
-      fill_in 'Title', :with => 'a new note for a project'
+      click_button "Create Project"
+      click_link "Add a note"
+      page.should have_content('New Note')
+      fill_in 'Title', :with => 'a New Note for a project'
       click_button "Create Note"
-      click_link_or_button "Add a note"
-      page.should have_content('New note')
-      fill_in 'Title', :with => 'a new note for a note'
+      click_link "Add a note"
+      fill_in 'Title', :with => 'a New Note for a note'
       click_button "Create Note"
     end
   end
