@@ -32,12 +32,20 @@
           </ul>
         <% end %>
       <div class="row">
-        <div class="span8">
-          <%= yield %>
-        </div>
-        <div class="span4">
-          <%= yield :aside %>
-        </div>
+        <% if content_for?(:aside) %>
+          <div class="span8">
+            <%= yield %>
+          </div>
+          <div class="span4">
+            <div class="well">
+              <%= yield :aside %>
+            </div>
+          </div>
+        <% else %>
+          <div class="span12">
+            <%= yield %>
+          </div>
+        <% end %>
       </div>
     </div>
   </body>
