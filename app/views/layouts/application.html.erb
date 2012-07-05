@@ -26,9 +26,11 @@
     </nav>
     </header>
     <div class="container">
-        <ul class="breadcrumb">
-          <%= yield :breadcrumbs %>
-        </ul>
+        <% if content_for?(:breadcrumbs) %>
+          <ul class="breadcrumb">
+            <%= yield :breadcrumbs %>
+          </ul>
+        <% end %>
       <div class="row">
         <div class="span8">
           <%= yield %>
