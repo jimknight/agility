@@ -12,4 +12,4 @@ table.table
     tr{class="#{cycle('even', 'odd')}"}
     td{width="50%"} = link_to note.title, [current, note], :class => "emphasize"
     td = "created #{time_ago_in_words(note.created_at)} ago"
-    td = link_to "delete", [current, note], :confirm => "Sure?",:method => :delete, :class => "btn btn-small btn-danger"
+    td = link_to "delete", [current, note], :confirm => "Sure?",:method => :delete, :class => "btn"
