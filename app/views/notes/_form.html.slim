@@ -1,7 +1,8 @@
 = simple_form_for [@parent, @note] do |f|
   = f.input :title
   = f.input :body
-  = check_box_tag :notify_team 
-  = label_tag :notify_team, "Notify the team of this note", :class => "checkbox"
+  - if !@project.users.empty?
+	  = check_box_tag :notify_team 
+	  = label_tag :notify_team, "Notify the team of this note", :class => "checkbox"
   br
   = f.submit :class => "btn btn-primary" 

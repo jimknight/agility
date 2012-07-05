@@ -10,7 +10,7 @@ class Note < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   def notify_team
-    @project = Project.find(self.notable_id)
+    @project = parent_project
     send_to_list = ""
     @project.users.each do |user|
       send_to_list << user.email
@@ -23,6 +23,15 @@ class Note < ActiveRecord::Base
     @email.copy_to = @project.project_copy_to(@email.id)
     @email.save
     @email.send_email
+  end
+
+  def parent_project
+    # walk up the ladder looking for project_id
+    if self.notable_type == "Project"
+      return Project.find(self.notable_id)
+    elsif self.notable_type == "Task"
+      return Project.find(Task.find(self.notable_id).project_id)
+    end
   end
 
 end

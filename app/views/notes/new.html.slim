@@ -5,3 +5,10 @@
 
 h1 New Note
 = render "form"
+
+= content_for :aside do
+	h4 Team
+	ul
+		li = "(Captain) #{User.find(@project.user_id).full_name}"
+		- @project.users.each do |user|
+			li = user.full_name

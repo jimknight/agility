@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_many :users, :through => :memberships
 
   # TODO: add a full_name field
+  def full_name
+    # for now just return email
+    email
+  end
   
 end
 

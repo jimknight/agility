@@ -23,6 +23,7 @@ class NotesController < ApplicationController
   def new
     @parent = find_parent
     @note = @parent.respond_to?(:notes) ? @parent.notes.new : @parent.children.new
+    @project = @note.parent_project
   end
   
   def show
@@ -34,6 +35,7 @@ class NotesController < ApplicationController
   def create
     @parent = find_parent
     @note = @parent.respond_to?(:notes) ? @parent.notes.new(params[:note]) : @parent.children.new(params[:note])
+    @project = @note.parent_project
     if params[:link].present?
       @note.body = params[:link]
     end
@@ -50,11 +52,13 @@ class NotesController < ApplicationController
   def edit
     @parent = find_parent
     @note = Note.find(params[:id]) # secure?
+    @project = @note.parent_project
   end
 
   def update
     @parent = find_parent
     @note = Note.find(params[:id])
+    @project = @note.parent_project
     @note.update_attributes(params[:note])
     if @note.save
       redirect_to [@parent,@note], :notice => "Your changes were saved."

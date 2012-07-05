@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe "Notes" do
   describe "edit" do
+    it "should only show notify team if users" do
+      @user = sign_in_as("user@example.com","abc123")
+      @project = FactoryGirl.create(:project,:user_id => @user.id)
+      visit new_project_note_path(@project)
+      page.should_not have_content("Notify the team of this note")
+      @teammate = FactoryGirl.create(:user)
+      @project.users << @teammate
+      visit new_project_note_path(@project)
+      page.should have_content("Notify the team of this note")
+    end
     it "should show a note and allow user to edit" do
       @user = sign_in_as("user@example.com","abc123")
       @project = FactoryGirl.create(:project, :user_id => @user.id)
