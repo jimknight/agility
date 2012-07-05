@@ -19,6 +19,17 @@ describe "Projects" do
     end
   end
   describe "standard html" do
+    it "should allow the captain (and only) to delete a project" do
+      @mgr = sign_in_as("mgr@example.com","abc123")
+      @project = FactoryGirl.create(:project, :user_id => @mgr.id)
+      visit project_path(@project)
+      page.should have_link ("Delete this project")
+      click_link "Logout"
+      @team_member = sign_in_as("user@example.com","abc123")
+      @project.users << @team_member
+      visit project_path(@project)
+      page.should_not have_link ("Delete this project")
+    end
     it "should allow a stub user to find his projects on first sign-up" do
       @mgr = FactoryGirl.create(:user)
       @project = FactoryGirl.create(:project, :user_id => @mgr.id)

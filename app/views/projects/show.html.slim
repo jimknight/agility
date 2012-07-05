@@ -43,6 +43,10 @@ table
     - @project.stub_users.each do |user|
       li.stub = "#{user.email} (invited)"
 
+  - if @project.captain?(current_user)
+    h4 Admin
+    p = link_to "Delete this project", @project, :confirm => "You are about to delete this entire project. It will be unrecoverable. Are you sure?", :method => :delete, :class => "btn"
+
 div.modal.fade#addUserModal
   div.modal-header
     h3 Add a team member to this project

@@ -20,6 +20,10 @@ class Project < ActiveRecord::Base
     @stub_user = StubUser.create!(:email => invitee_email)
     self.stub_users << @stub_user
   end
+
+  def captain?(user)
+    self.user_id == user.id
+  end
   
   def invite_team_member(inviter,invitee_email)
     api_key = ENV["MG_API_KEY"]
