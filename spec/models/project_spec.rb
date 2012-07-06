@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Project do
+  it "should belong to an account" do
+    Project.new.should respond_to(:account)
+  end
   it "should have many users" do
     @project = FactoryGirl.create(:project)
     @user1 = FactoryGirl.create(:user)

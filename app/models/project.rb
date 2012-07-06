@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 
   attr_accessible :body, :email, :title
+  has_and_belongs_to_many :accounts
   belongs_to :user
   has_many :emails
   has_many :memberships
