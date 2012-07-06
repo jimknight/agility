@@ -31,6 +31,8 @@ class Note < ActiveRecord::Base
       return Project.find(self.notable_id)
     elsif self.notable_type == "Task"
       return Project.find(Task.find(self.notable_id).project_id)
+    elsif self.notable_type == "Email"
+      return Project.find(Email.find(self.notable_id).project_id)
     end
   end
 

@@ -25,6 +25,15 @@ describe "Notes" do
     end
   end
   describe "/projects/1/notes/new" do
+    it "should generate a new note from an email" do
+      @mgr = sign_in_as("user@example.com","abc123")
+      @project = FactoryGirl.create(:project, :user_id => @mgr.id)
+      @email = FactoryGirl.create(:email)
+      @project.emails << @email
+      visit project_email_path(@project, @email)
+      click_link "Add a note"
+      page.should have_content "New Note"
+    end
     it "should generate a New Note for a project" do
       sign_in_as("user@example.com","abc123")
       visit new_project_path
