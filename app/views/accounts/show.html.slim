@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @account.title
+p
+  strong Tier:
+  = @account.tier
+
+= link_to 'Edit', edit_account_path(@account)
+'|
+= link_to 'Back', accounts_path
