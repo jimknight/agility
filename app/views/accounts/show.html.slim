@@ -1,3 +1,15 @@
+/ = debug @invoices
+h1 = "Account #{@account.title}"
+h2 Payment History
+table.table
+	- @invoices.data.each do |invoice|
+		tr
+			td = invoice.lines.subscriptions[0].plan.name
+			td = l Time.at(invoice.date)
+			td = number_to_currency(invoice.total/100)
+			td = invoice.paid == true ? "paid" : "unpaid"
+
+
 p#notice = notice
 
 p

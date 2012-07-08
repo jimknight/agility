@@ -7,7 +7,6 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(params[:account])
     @account.users << current_user
-    binding.pry
     if @account.save_with_payment
       redirect_to @account, :notice => "Thank you for subscribing!"
     else
@@ -17,7 +16,10 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find(params[:id])
-    if !@account.users.include?(current_user)
+    if @account.users.include?(current_user)
+      Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+      @invoices = Stripe::Invoice.all(:customer => @account.stripe_customer_token)
+    else
       redirect_to root_path, :alert => "Not authorized"
     end
   end

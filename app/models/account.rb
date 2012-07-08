@@ -10,7 +10,6 @@ class Account < ActiveRecord::Base
 
 	def save_with_payment
 	  if valid?
-	  	binding.pry
 	    customer = Stripe::Customer.create(description: title, plan: tier, card: stripe_card_token)
 	    self.stripe_customer_token = customer.id
 	    save!
