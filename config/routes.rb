@@ -1,5 +1,6 @@
 Agility::Application.routes.draw do
 
+  get "/plans" => "pages#plans", :as => "plans"
   resources :accounts
 
   match "projects/:id/user_add/:user_id" => "projects#user_add"
