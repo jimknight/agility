@@ -22,6 +22,7 @@ gem 'rest-client'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'squeel'
+gem 'stripe'
 gem 'thin'
 
 # Gems used only for assets and not required

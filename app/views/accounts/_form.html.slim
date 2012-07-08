@@ -1,9 +1,24 @@
+h2 = tier_description(params[:tier] ||= "1")
+
 = simple_form_for(@account) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :title
-    = f.input :tier
+    = f.input :title, :label => "Company"
+    = f.hidden_field :tier, :value => params[:tier] ||= "1"
+	= f.hidden_field :stripe_card_token
+  = label_tag :name, "Name on Card"
+  = text_field_tag :name, nil, name: nil
+  = label_tag :card_number, "Credit Card Number"
+  = text_field_tag :card_number, nil, name: nil
+  = label_tag :card_code, "Security Code on Card (CVV)"
+  = text_field_tag :card_code, nil, name: nil
+  = label_tag :card_month, "Card Expiration"
+  = select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"}
+  = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}
 
-  .form-actions
-    = f.button :submit
+  div#stripe_error
+  	noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
+  br
+	p = f.button :submit, "Sign up", :class => "btn-primary"
+	p = "#{tier_pricing(params[:tier])}, cancel anytime"

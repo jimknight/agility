@@ -1,5 +1,20 @@
 class AccountsController < ApplicationController
 
+  def new
+    @account = Account.new
+  end
+
+  def create
+    @account = Account.new(params[:account])
+    @account.users << current_user
+    binding.pry
+    if @account.save_with_payment
+      redirect_to @account, :notice => "Thank you for subscribing!"
+    else
+      render :new
+    end
+  end
+
   def show
     @account = Account.find(params[:id])
     if !@account.users.include?(current_user)

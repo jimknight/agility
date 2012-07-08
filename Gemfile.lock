@@ -238,6 +238,9 @@ GEM
       activerecord (~> 3.0)
       activesupport (~> 3.0)
       polyamorous (~> 0.5.0)
+    stripe (1.7.0)
+      multi_json (~> 1.1)
+      rest-client (~> 1.4)
     temple (0.4.0)
     therubyracer (0.10.1)
       libv8 (~> 3.3.10)
@@ -292,6 +295,7 @@ DEPENDENCIES
   simple_form
   slim-rails
   squeel
+  stripe
   therubyracer
   thin
   uglifier (>= 1.0.3)

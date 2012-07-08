@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe "Accounts" do
+	describe "Signup" do
+		it "should allow a new user to sign up for an Account" do
+			@user = sign_in_as("user1@example.com","abc123")
+			visit new_account_path
+			page.should have_content "New Account"
+			fill_in "Company", :with => "LavaTech"
+		end
+	end
 	describe "Access" do
 		before (:each) do
 	  	@user = sign_in_as("user1@example.com","abc123")
