@@ -1,0 +1,11 @@
+- updated_model = version.item_type.constantize.find(version.item_id)
+p
+	= link_to User.find(version.whodunnit.to_i).full_name, "#"
+	= " #{version.event}d the "
+	= link_to updated_model.title, updated_model
+	= " #{version.item_type.downcase}."
+	br
+	= "#{time_ago_in_words(version.created_at)} ago"
+
+/ = debug version
+	
