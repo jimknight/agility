@@ -1,5 +1,5 @@
 tr{class="#{cycle('even', 'odd')}"}
   td{width="50%"}
     = link_to project.title, project_path(project), :class => "emphasize"
-  td = User.find_by_id(project.user_id).email
+  td = User.find_by_id(project.user_id).full_name
   td = "created #{time_ago_in_words(project.created_at)} ago"

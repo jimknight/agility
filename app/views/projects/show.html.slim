@@ -37,9 +37,9 @@ table
   h4 Team
   = link_to "Add team member", "#addUserModal", :class => "btn", :data => {:toggle => "modal"} if @project.user_id == current_user.id
   ul
-    li = "(Captain) #{User.find(@project.user_id).email}"
+    li = "(Captain) #{User.find(@project.user_id).full_name}"
     - @project.users.each do |user|
-      li = user.email
+      li = user.full_name
     - @project.stub_users.each do |user|
       li.stub = "#{user.email} (invited)"
 
