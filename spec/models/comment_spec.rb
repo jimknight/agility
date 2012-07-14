@@ -11,3 +11,17 @@ describe Comment do
   	@task.comments << @comment
   end
 end
+
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer         not null, primary key
+#  body             :text
+#  user_id          :integer
+#  commentable_id   :integer
+#  commentable_type :string(255)
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#
+
