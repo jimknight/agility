@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
   acts_as_tree
   belongs_to :project
   has_paper_trail
+  has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
 end

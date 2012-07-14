@@ -1,11 +1,27 @@
 - updated_model = version.item_type.constantize.find(version.item_id)
-p
-	= link_to User.find(version.whodunnit.to_i).full_name, "#"
-	= " #{version.event}d the "
-	= link_to updated_model.title, updated_model
-	= " #{version.item_type.downcase}."
-	br
-	= "#{time_ago_in_words(version.created_at)} ago"
+.row
+	.span6.well
+		= link_to User.find(version.whodunnit.to_i).full_name, "#"
+		= " #{version.event}d the "
+		= link_to updated_model.title, updated_model
+		= " #{version.item_type.downcase}."
+		br
+		= "#{time_ago_in_words(version.created_at)} ago"
+.row
+	.span6
+		= simple_form_for Comment.new do |f|
+			= f.hidden_field :commentable_id, :value => version.item_id
+			= f.hidden_field :commentable_type, :value => version.item_type
+			= f.input :body, :as => :string, :placeholder => "Write a comment ...", :label => "Comment"
+			= f.submit
+- if updated_model.comments
+	- updated_model.comments.each do |comment|
+		.row
+			.span6.entry
+				= link_to User.find(comment.user_id).full_name, "#"
+				= " #{comment.body}"
+				br
+				= "#{time_ago_in_words(comment.created_at)} ago"
 
 / = debug version
 	

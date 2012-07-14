@@ -1,5 +1,7 @@
 Agility::Application.routes.draw do
 
+  resources :comments
+
   get "timeline" => "news#timeline", :as => "timeline"
 
   match "projects/:id/user_add/:user_id" => "projects#user_add"

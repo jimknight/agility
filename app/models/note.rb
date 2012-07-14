@@ -6,6 +6,7 @@ class Note < ActiveRecord::Base
   belongs_to :project
   has_paper_trail
   has_many :attachments, :as => :attachable, :dependent => :destroy
+  has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :emails, :as => :emailable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
   accepts_nested_attributes_for :attachments
