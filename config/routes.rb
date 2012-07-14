@@ -8,7 +8,8 @@ Agility::Application.routes.draw do
   match "projects/:id/user_search" => "projects#user_search"
   match "/bookmarklet" => "notes#bookmarklet"
   
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations"},
+                     :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
 
   resources :emails do
     resources :emails
@@ -31,7 +32,7 @@ Agility::Application.routes.draw do
     resources :notes
   end
 
-  root :to => "projects#index"
+  root :to => "news#timeline"
   match 'tasks/:id/complete' => 'tasks#complete', :as => 'complete_task'
 
   # The priority is based upon order of creation:

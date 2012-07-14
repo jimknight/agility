@@ -6,8 +6,10 @@
   <div class="inputs">
     <%= f.input :full_name, :required => true, :autofocus => true %>
     <%= f.input :email, :input_html => { :value => params[:email] }, :required => true, :autofocus => true %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
+    <% if f.object.password_required? %>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+    <% end %>
   </div>
 
   <div class="actions">
