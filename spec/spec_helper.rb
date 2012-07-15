@@ -50,13 +50,13 @@ RSpec.configure do |config|
   config.extend ControllerMacros, :type => :controller
   
   def sign_in_as(email, password)
-    user = User.find_or_create_by_email(:password => password, :password_confirmation => password, :email => email)
+    user = User.find_or_create_by_email!(:full_name => email, :password => password, :password_confirmation => password, :email => email)
     visit '/'
     fill_in 'Email', :with => user.email
     fill_in 'Password', :with => password
     click_button "Sign in"
     user      
-    end 
+  end 
   def sign_out
     click_button "Logout"
   end

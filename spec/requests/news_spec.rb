@@ -10,6 +10,14 @@ describe "News"  do
 			visit timeline_path
 			page.should have_content(@project.title)
 		end
+		it "should only show a new project to team members" do
+			visit timeline_path
+			page.should have_content(@project.title)
+			click_link "Sign out"
+			@user_who_shouldnt_see = sign_in_as("otheruser@example.com","123abc")
+			visit timeline_path
+			page.should_not have_content(@project.title)
+		end
 		it "should show a new task" do
 			@task = FactoryGirl.create(:task)
 			@project.tasks << @task

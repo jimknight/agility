@@ -1,7 +1,11 @@
 class NewsController < ApplicationController
 
   def timeline
-  	@news_items = Version.where(:event => "create").order("created_at DESC").last(30)
+  	projects_user_can_read = Project.user_can_read(current_user)
+  	tasks_user_can_read = projects_user_can_read.map(&:task_ids).flatten
+  	@news_items = Version
+			.where{
+				(item_type == "Project") & (item_id >> projects_user_can_read.map(&:id)) | (item_type == "Task") & (item_id >> tasks_user_can_read)
+			}
   end
-
 end
