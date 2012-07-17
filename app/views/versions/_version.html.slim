@@ -1,7 +1,7 @@
 - updated_model = version.item_type.constantize.find(version.item_id)
 - version_user = User.find(version.whodunnit.to_i)
 tr
-	td{width="60"} = image_tag(version_user.image_url) if version_user.image_url
+	td = image_tag(version_user.image_url) if version_user.image_url
 	td
 		= link_to version_user.full_name, "#"
 		= " #{version.event}d the "
