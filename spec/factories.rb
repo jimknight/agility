@@ -22,5 +22,6 @@ FactoryGirl.define do
   factory :user do
     password 'simplepassword'
     sequence(:email) {|n| "person#{n}@example.com" }
+    full_name "Jim Knight"
   end
 end

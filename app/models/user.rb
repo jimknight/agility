@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :full_name, :password, :password_confirmation, :remember_me, :image_url
+  after_create :convert_stub_users_to_real_users
   has_many :memberships
   has_many :messages
   has_many :notes
@@ -44,6 +45,17 @@ class User < ActiveRecord::Base
       update_attributes(params, *options)
     else
       super
+    end
+  end
+
+private
+
+  def convert_stub_users_to_real_users
+    StubUser.find_all_by_email(self.email).each do |stub_user|
+      stub_user.projects.each do |project|
+        project.users << self
+        stub_user.destroy
+      end
     end
   end
 

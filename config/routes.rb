@@ -8,8 +8,9 @@ Agility::Application.routes.draw do
   match "projects/:id/user_search" => "projects#user_search"
   match "/bookmarklet" => "notes#bookmarklet"
   
-  devise_for :users, :controllers => {:registrations => "registrations"},
-                     :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
+  # devise_for :users, :controllers => {:registrations => "registrations"},
+  #                    :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
+  devise_for :users, :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
 
   resources :emails do
     resources :emails

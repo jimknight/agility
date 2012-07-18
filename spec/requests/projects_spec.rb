@@ -24,18 +24,23 @@ describe "Projects" do
       @project = FactoryGirl.create(:project, :user_id => @mgr.id)
       visit project_path(@project)
       page.should have_link ("Delete this project")
-      click_link "Logout"
+      click_link "Sign out"
       @team_member = sign_in_as("user@example.com","abc123")
       @project.users << @team_member
       visit project_path(@project)
       page.should_not have_link ("Delete this project")
     end
     it "should allow a stub user to find his projects on first sign-up" do
-      @mgr = FactoryGirl.create(:user)
-      @project = FactoryGirl.create(:project, :user_id => @mgr.id)
+      @mgr = sign_in_as("mgr@example.com","abc123")
+      visit new_project_path
+      fill_in "Title", :with => "First project for new signup"
+      click_button "Create Project"
+      @project = Project.last
       @stub_user = FactoryGirl.create(:stub_user)
       @project.stub_users << @stub_user
+      click_link "Sign out"
       visit new_user_registration_path
+      fill_in "Full name", :with => "Jim Knight"
       fill_in "Email", :with => @stub_user.email
       fill_in "Password", :with =>  "abc123"
       fill_in "Password confirmation", :with =>  "abc123"
@@ -59,7 +64,7 @@ describe "Projects" do
       @project = Project.last
       visit project_path(@project)
       page.should have_content("New project")
-      click_link "Logout"
+      click_link "Sign out"
       @new_team_member = sign_in_as("new-member@example.com","password")
       @project.users << @new_team_member
       visit projects_path
