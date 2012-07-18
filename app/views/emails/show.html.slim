@@ -6,6 +6,8 @@
 / = link_to "Add a task", new_email_task_path(@email), :class => "btn"
 / = link_to "Add a note", new_email_note_path(@email), :class => "btn"
 
+= render "shared/notices"
+
 h1 Email
 
 = link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn btn-primary"
@@ -47,7 +49,7 @@ p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
   table
     tr
       td
-        = link_to [:new, @email, "task"], {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a task"} do
+        = link_to [:new, @email, "task"], {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a task", :id => "Add a task"} do
             i.icon-plus.icon-white
             span = " add"
       td

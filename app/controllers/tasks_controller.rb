@@ -22,8 +22,8 @@ class TasksController < ApplicationController
     @task.project_id = params[:project_id] || @taskable.project_id
     @task.status = "Open"
     if @task.save
-      flash[:notice] = "Successfully created task."
-      redirect_to @taskable
+      @project = Project.find(@task.project_id)
+      redirect_to @project, :notice => "Successfully created task."
     else
       render :action => 'new'
     end
