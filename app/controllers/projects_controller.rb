@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
   
   def show
-    #flash[:notice] = nil if flash[:notice] == "Signed in successfully." # shows too long
     @project = Project.find(params[:id])
     @tasks = @project.tasks
     @notes = @project.notes
