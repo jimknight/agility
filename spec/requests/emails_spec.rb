@@ -2,29 +2,29 @@ require 'spec_helper'
 
 describe "Emails" do
   it "should create a task from an email and navigate to it" do
-    @project = FactoryGirl.create(:project)
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project, :user_id => @user.id)
     @email = FactoryGirl.create(:email)
     @project.emails << @email
-    sign_in_as("user@example.com","abc123")
     visit project_email_path(@project, @email)
     click_link "Add a task"
     fill_in "Title", :with => "Task from email"
-    click_link_or_button "Create Task"
+    click_button "Create Task"
     click_link "Task from email"
     page.should have_content("Task from email")
   end
   it "should create a reply to an email and send it" do
-    @project = FactoryGirl.create(:project)
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project, :user_id => @user.id)
     @email = FactoryGirl.create(:email)
-    @project.emails << @email
-    sign_in_as("user@example.com","abc123")
+    @project.emails << @email    
     visit project_email_path(@project, @email)
     click_link "Reply"
     page.should have_content("Reply")
     find_field("email[subject]").value.should == "Re: #{@email.subject}"
     find_field("email[sent_to]").value.should == @email.sent_from
     click_button "Send"
-     page.should have_content("Message sent")
+    page.should have_content("Message sent")
   end
   it "should create a reply to all to an email and send it" do
     @project = FactoryGirl.create(:project)
