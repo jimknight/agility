@@ -2,57 +2,51 @@
   li = link_to "Projects", projects_path
   li.active = @project.title
 
-- if flash[:notice]
-  div.alert.alert-success = flash[:notice]
-- if flash[:alert]
-  div.alert = flash[:alert]
+= render "shared/notices"
 
-h1 Project
-table
-  tr
-    - if @project.user_id == current_user.id
-      td
-        = link_to edit_project_path(@project), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this project"} do
-          i.icon-pencil.icon-white
-          span = " edit"
-    td
-      h3 = @project.title
-
+h1 = "Project: #{@project.title}"
+ul.title-links
+  li 
+    i.icon-plus-sign
+    = link_to "add task", [:new, @project, "task"]
+  li 
+    i.icon-pencil
+    = link_to "edit project", [:edit, @project]
 = simple_format(@project.body) if @project.body.present?
+p 
+  i.icon-envelope
+  strong Send email to 
+  = link_to @project.email, "mailto:#{@project.email}"
 
-= render "shared/tasks_table"
-= render :partial => "shared/notes_table", :locals => { :current => @project }
-    
-= content_for :aside do
-  h4 Send emails to this project:
-  p = link_to @project.email, "mailto:#{@project.email}"
-  
-  h4 Emails
-  table.table
-    - @emails.each do |email|
-      tr
-        td{nowrap="nowrap"} = pretty_datetime(email.created_at)
-        td = link_to email.subject, [@project, email]
+h2 Tasks
+div.tabbable
+  ul.nav.nav-pills
+    li.active
+      a{href="#tab1" data-toggle="tab"} Open
+    li
+      a{href="#tab2" data-toggle="tab"} Completed
+  div.tab-content
+    div.tab-pane.active{id="tab1"}
+      - if @open_tasks.count > 0
+        table.table.top
+          - @open_tasks.each do |task|
+            tr
+              td{width="10"}
+                i.icon-th-list
+              td
+                = link_to task.title, [@project,task]
+                br
+                = "#{time_ago_in_words(task.updated_at)} ago"
+    div.tab-pane{id="tab2"}
+      - if @completed_tasks.count > 0
+        table.table.top
+          - @completed_tasks.each do |task|
+            tr
+              td{width="10"}
+                i.icon-th-list
+              td
+                = link_to task.title, [@project,task]
+                br
+                = "#{time_ago_in_words(task.updated_at)} ago"
 
-  h4 Team
-  = link_to "Add team member", "#addUserModal", :class => "btn", :data => {:toggle => "modal"} if @project.user_id == current_user.id
-  ul
-    li = "(Captain) #{User.find(@project.user_id).full_name}"
-    - @project.users.each do |user|
-      li = user.full_name
-    - @project.stub_users.each do |user|
-      li.stub = "#{user.email} (invited)"
-
-  - if @project.captain?(current_user)
-    h4 Admin
-    p = link_to "Delete this project", @project, :confirm => "You are about to delete this entire project. It will be unrecoverable. Are you sure?", :method => :delete, :class => "btn"
-
-div.modal.fade#addUserModal
-  div.modal-header
-    h3 Add a team member to this project
-  div.modal-body
-    = form_tag("/projects/#{@project.id}/user_search", :method => :get, :id => "user_search")
-    = text_field_tag "email", nil, :placeholder => "what is the team member's email address?"
-  div.modal-footer
-    = link_to "close", "#", :class => "btn", :data => {:dismiss => "modal" }
-    = submit_tag "add", :class => "btn btn-primary", :id => "user_search_submit"
+        

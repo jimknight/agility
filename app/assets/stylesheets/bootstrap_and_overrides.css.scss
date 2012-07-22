@@ -6,7 +6,17 @@ h1 {margin:0 0 0.5em 0; }
 table.table {border-bottom:1px solid #ddd;}
 table.table td {vertical-align:middle;}
 table.top td {padding-right:5px; vertical-align:top;}
-
+ul.title-links {
+  margin:-9px 0 9px 0;
+  padding:0;
+  list-style:none;
+  overflow:hidden;
+  li {
+    margin:0 9px 0 0;
+    padding:0;
+    float:left;
+  }
+}
 // TABS
 ul.nav li a {text-decoration:none;}
 
