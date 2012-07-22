@@ -12,41 +12,53 @@ ul.title-links
   li 
     i.icon-pencil
     = link_to "edit project", [:edit, @project]
-= simple_format(@project.body) if @project.body.present?
+#abstract
+  = simple_format(@project.body) if @project.body.present?
 p 
   i.icon-envelope
-  strong Send email to 
+  = "Send email to "
   = link_to @project.email, "mailto:#{@project.email}"
 
-h2 Tasks
-div.tabbable
-  ul.nav.nav-pills
-    li.active
-      a{href="#tab1" data-toggle="tab"} Open
-    li
-      a{href="#tab2" data-toggle="tab"} Completed
-  div.tab-content
-    div.tab-pane.active{id="tab1"}
-      - if @open_tasks.count > 0
-        table.table.top
-          - @open_tasks.each do |task|
-            tr
-              td{width="10"}
-                i.icon-th-list
-              td
-                = link_to task.title, [@project,task]
-                br
-                = "#{time_ago_in_words(task.updated_at)} ago"
-    div.tab-pane{id="tab2"}
-      - if @completed_tasks.count > 0
-        table.table.top
-          - @completed_tasks.each do |task|
-            tr
-              td{width="10"}
-                i.icon-th-list
-              td
-                = link_to task.title, [@project,task]
-                br
-                = "#{time_ago_in_words(task.updated_at)} ago"
+div.row
+  div.span6
+    h2 Tasks
+    div.tabbable
+      ul.nav.nav-pills
+        li.active
+          a{href="#tab1" data-toggle="tab"} Open
+        li
+          a{href="#tab2" data-toggle="tab"} Completed
+      div.tab-content
+        div.tab-pane.active{id="tab1"}
+          - if @open_tasks.count > 0
+            table.table.top
+              - @open_tasks.each do |task|
+                tr
+                  td = link_to task.title, [@project,task]
+                  td = "#{time_ago_in_words(task.updated_at)} ago"
+                    
+        div.tab-pane{id="tab2"}
+          - if @completed_tasks.count > 0
+            table.table.top
+              - @completed_tasks.each do |task|
+                tr
+                  td = link_to task.title, [@project,task]
+                  td{nowrap="nowrap"} = "#{time_ago_in_words(task.updated_at)} ago"
 
-        
+  div.span6
+    h2 Emails
+    div.tabbable
+      ul.nav.nav-pills
+        li.active
+          a{href="#etab1" data-toggle="tab"} Inbox
+        li
+          a{href="#etab2" data-toggle="tab"} Sent
+    div.tab-content
+        div.tab-pane.active{id="etab1"}
+          table.table
+            - @emails.each do |email|
+              tr
+                td = link_to email.subject, [@project, email]
+                td{nowrap="nowrap"} = "#{time_ago_in_words(email.created_at)} ago"
+        div.tab-pane{id="etab2"}
+          p Under construction
