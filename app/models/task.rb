@@ -2,6 +2,7 @@ class Task < ActiveRecord::Base
   attr_accessible :body, :occurrence_date, :parent_id, :project_id, :status, :taskable_id, :taskable_type, :title
   acts_as_tree
   belongs_to :project
+  default_scope :order => "updated_at ASC"
   has_paper_trail
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :notes, :as => :notable, :dependent => :destroy

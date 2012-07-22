@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @tasks = @project.tasks
+    @open_tasks = @project.tasks.where(:status => "Open")
+    @completed_tasks = @project.tasks.where(:status => "Completed")
     @notes = @project.notes
     @emails = @project.emails
   end
