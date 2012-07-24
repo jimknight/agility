@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe "Emails" do
+  it "should compose a new email" do
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project, :user_id => @user.id)
+    visit project_path(@project)
+    click_link "compose email"
+    page.should have_content "New"
+  end
   it "should create a task from an email and navigate to it" do
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :user_id => @user.id)

@@ -81,7 +81,12 @@ class EmailsController < ApplicationController
   end
   
   def new
-    @parent = Email.find(params[:email_id])
+    # parent can either be a project or an email
+    if params[:email_id]
+      @parent = Email.find(params[:email_id])
+    else
+      @parent = Project.find(params[:project_id])
+    end
     @email = Email.new
     @email.attachments.build
   end

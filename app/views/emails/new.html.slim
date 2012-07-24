@@ -1,9 +1,14 @@
 ul.breadcrumb
   li = link_to "Projects", projects_path
   li ...
-  li = link_to @parent.subject, @parent
+  - if @parent.class == Project
+  	li = link_to @parent.title, @parent
+  - else
+  	li = link_to @parent.subject, @parent
   li.active New Email
-
-h1 = "#{params[:type].titleize}"
+- if @parent.class == Project
+	h1 New
+- else
+	h1 = "#{params[:type].titleize}"
 
 = render 'form'

@@ -9,6 +9,9 @@ ul.title-links
   li 
     i.icon-plus-sign
     = link_to "add task", [:new, @project, "task"]
+  li
+    i.icon-envelope
+    = link_to "compose email", [:new, @project, "email"]
   li 
     i.icon-pencil
     = link_to "edit project", [:edit, @project]
