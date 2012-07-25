@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def timeline_entry(version)
   	updated_model = version.item_type.constantize.find(version.item_id)
-  	version_user = User.find(version.whodunnit.to_i)
+  	version_user = User.find(version.whodunnit.to_i) if version.whodunnit
   	if version.item_type == "Email"
   			if version.event == "create"
 		  		project = Project.find(updated_model.project_id)

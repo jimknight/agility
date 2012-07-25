@@ -1,9 +1,9 @@
 - updated_model = version.item_type.constantize.find(version.item_id)
-- version_user = User.find(version.whodunnit.to_i)
+- version_user = User.find(version.whodunnit.to_i) if version.whodunnit
 - display_entry = timeline_entry(version)
 - if display_entry.present?
 	tr
-		td = image_tag(version_user.image_url) if version_user.image_url
+		td = image_tag(version_user.image_url) if version_user && version_user.image_url
 		td
 			= display_entry
 			br
@@ -23,7 +23,7 @@
 				td
 					table
 						tr
-							td = image_tag(version_user.image_url) if version_user.image_url
+							td = image_tag(version_user.image_url) if version_user && version_user.image_url
 							td
 								= link_to User.find(comment.user_id).full_name, "#"
 								= " #{comment.body}"

@@ -6,6 +6,15 @@ describe "News"  do
 			@user = sign_in_as("user@example.com","abc123")
 			@project = FactoryGirl.create(:project, :user_id => @user.id)
 		end
+		it "should show the timeline even if no whodunnit" do
+			@email = FactoryGirl.create(:email, :subject => "from outside")
+			@project.emails << @email
+			@version = Version.where(:event => "create").where(:item_type => "Email").last
+			@version.whodunnit = nil
+			@version.save!
+			visit timeline_path
+			page.should have_content "from outside"
+		end
 		it "should show a new project" do
 			visit timeline_path
 			page.should have_content(@project.title)
