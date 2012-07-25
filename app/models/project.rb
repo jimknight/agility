@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
 
   attr_accessible :body, :email, :title
   belongs_to :user
+  default_scope :order => "title ASC"
   has_paper_trail
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :emails
