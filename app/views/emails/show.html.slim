@@ -26,8 +26,8 @@ div.well
   - if @attachments.size > 0
     p Attachments
     ul#attachments
-    - @attachments.each do |attachment|
-      li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+      - @attachments.each do |attachment|
+        li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
 
 = content_for :aside do
   h3 Emails
