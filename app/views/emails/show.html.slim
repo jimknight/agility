@@ -21,8 +21,13 @@ div.well
   p = "To: #{@email.sent_to}" if @email.sent_to
   p = "cc: #{@email.copy_to}" if @email.copy_to
   p = "Sent: #{pretty_datetime(@email.created_at)}"
-
-p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+  br
+  p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+  - if @attachments.size > 0
+    p Attachments
+    ul#attachments
+    - @attachments.each do |attachment|
+      li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
 
 = content_for :aside do
   h3 Emails
@@ -41,11 +46,11 @@ p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
       tr
         td = pretty_datetime(descendant.created_at)
         td = link_to descendant.subject, [@project, descendant]
-    - if !@attachments.empty?
-      h4 = pluralize(@attachments.size,'Attachment')
-      ul
-        - @attachments.each do |attachment|
-          li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+    / - if !@attachments.empty?
+    /   h4 = pluralize(@attachments.size,'Attachment')
+    /   ul
+    /     - @attachments.each do |attachment|
+    /       li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
   table
     tr
       td
