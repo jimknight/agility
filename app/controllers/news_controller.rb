@@ -11,6 +11,6 @@ class NewsController < ApplicationController
         (item_type == "Email") & (item_id >> emails_user_can_read) | 
 				(item_type == "Task") & (item_id >> tasks_user_can_read) | 
 				(item_type == "Note") & (item_id >> notes_user_can_read)
-			}
+			}.order("created_at DESC")
     end
 end
