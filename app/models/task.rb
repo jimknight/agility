@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :body, :occurrence_date, :parent_id, :project_id, :status, :taskable_id, :taskable_type, :title
+  attr_accessible :body, :deadline, :occurrence_date, :parent_id, :project_id, :status, :taskable_id, :taskable_type, :title
   acts_as_tree
   belongs_to :project
   default_scope :order => "updated_at ASC"
