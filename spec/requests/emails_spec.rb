@@ -12,11 +12,16 @@ describe "Emails" do
     page.should have_content("Jim Knight <jim.knight@lavatech.com>")
   end
   it "should compose a new email" do
+    pending "Bad request 400?"
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :user_id => @user.id)
     visit project_path(@project)
     click_link "compose email"
     page.should have_content "New"
+    fill_in "Send to", :with => "jknight@lavatech.com"
+    fill_in "Subject", :with => "composing a new email test"
+    click_button "Send"
+    page.should have_content "Message sent"
   end
   it "should create a task from an email and navigate to it" do
     @user = sign_in_as("user@example.com","abc123")

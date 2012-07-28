@@ -13,20 +13,27 @@ class EmailsController < ApplicationController
 
   def posted_from_internal(type)
     case type
-    when "reply", "reply_to_all", "forward"
-      @parent_email = Email.find(params[:email_id])
+    when "new", "reply", "reply_to_all", "forward"
       @email = Email.new(
         :subject => params[:email][:subject],
         :body => params[:email][:body],
         :sent_to => params[:email][:sent_to],
         :copy_to => params[:email][:copy_to]
       )
-      if @email.save!
-        @project = Project.find(@parent_email.project_id)
-        @project.emails << @email
-        @parent_email.children << @email
-        @email.send_email # TODO check for actually sent
-        redirect_to @parent_email, :notice => "Message sent"
+      if @email.save!        
+        if type == "new"
+          @project = Project.find(params[:project_id])
+          @project.emails << @email
+          @email.send_email # TODO check for actually sent
+          redirect_to @project, :notice => "Message sent"
+        else
+          @project = Project.find(@parent_email.project_id)
+          @project.emails << @email
+          @parent_email = Email.find(params[:email_id])
+          @parent_email.children << @email
+          @email.send_email # TODO check for actually sent
+          redirect_to @parent_email, :notice => "Message sent"
+        end        
       else
         render "new"
       end

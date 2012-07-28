@@ -6,7 +6,7 @@
     <%= f.input :copy_to, :as => :string, :label => "Copy to", :input_html => {:value => copy_to} %>
     <%= f.input :subject, :as => :string, :input_html => {:value => subject} %>
     <%= f.input :body, :input_html => {:value => body } %>
-    <%= f.input :type, :as => :hidden, :input_html => {:value => params[:type]}%>
+    <%= f.input :type, :as => :hidden, :input_html => {:value => params[:type] || "new"}%>
   </div>
 
   <div class="actions">
