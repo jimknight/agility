@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe "Emails" do
+  it "should show the cc value on the show page for email if there is one" do
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org", :user_id => @user.id)
+    @email = FactoryGirl.create(:email, :copy_to => "Jim Knight <jim.knight@lavatech.com>",:sent_to => "wscarano@sga.com")
+    @email.save!
+    @project.emails << @email
+    visit project_email_path(@project,@email)
+    page.should have_content("wscarano@sga.com")
+    page.should have_content("Jim Knight <jim.knight@lavatech.com>")
+  end
   it "should compose a new email" do
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :user_id => @user.id)

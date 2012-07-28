@@ -39,6 +39,8 @@ class EmailsController < ApplicationController
     @email.subject = params[:subject]
     @email.body = params["body-html"]
     @email.sent_from = params[:from]
+    @email.sent_to = params[:To]
+    @email.copy_to = params[:Cc] if params[:Cc]
     @email.save
     if params[:recipient]
       if params[:recipient].include?("-")
