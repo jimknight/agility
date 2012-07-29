@@ -51,7 +51,7 @@ div.row
                 tr
                   td = link_to task.title, [@project,task]
                   td{nowrap="nowrap"} = "#{time_ago_in_words(task.updated_at)} ago"
-  - if @emails.size > 0
+  - if @received_emails.size > 0 || @sent_emails.size > 0
     div.span6
       h2 Emails
       div.tabbable
@@ -63,9 +63,13 @@ div.row
       div.tab-content
           div.tab-pane.active{id="etab1"}
             table.table
-              - @emails.each do |email|
+              - @received_emails.each do |email|
                 tr
                   td = link_to email.subject, [@project, email]
                   td{nowrap="nowrap"} = "#{time_ago_in_words(email.created_at)} ago"
           div.tab-pane{id="etab2"}
-            p Under construction
+            table.table
+              - @sent_emails.each do |email|
+                tr
+                  td = link_to email.subject, [@project, email]
+                  td{nowrap="nowrap"} = "#{time_ago_in_words(email.created_at)} ago"

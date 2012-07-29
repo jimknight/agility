@@ -3,7 +3,7 @@ class Email < ActiveRecord::Base
   acts_as_tree
   default_scope :order => "created_at DESC"
   has_paper_trail
-  attr_accessible :body, :copy_to, :project_id, :sent_from, :sent_to, :subject
+  attr_accessible :body, :copy_to, :project_id, :sent_from, :sent_to, :subject, :email_type
   alias_attribute :title, :subject
   belongs_to :project
   has_many :attachments, :as => :attachable, :dependent => :destroy

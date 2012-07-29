@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726222525) do
+ActiveRecord::Schema.define(:version => 20120729221216) do
 
   create_table "attachments", :force => true do |t|
     t.string   "file"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20120726222525) do
     t.integer  "parent_id"
     t.integer  "emailable_id"
     t.string   "emailable_type"
+    t.string   "type"
+    t.string   "email_type"
   end
 
   create_table "memberships", :force => true do |t|

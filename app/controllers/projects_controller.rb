@@ -6,7 +6,8 @@ class ProjectsController < ApplicationController
     @open_tasks = @project.tasks.where(:status => "Open")
     @completed_tasks = @project.tasks.where(:status => "Completed")
     @notes = @project.notes
-    @emails = @project.emails
+    @received_emails = @project.emails.where{email_type != "sent"}
+    @sent_emails = @project.emails.where(:email_type => "sent")
   end
   
   def destroy
