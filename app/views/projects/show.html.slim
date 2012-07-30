@@ -38,8 +38,8 @@ div.row
               - @open_tasks.each do |task|
                 tr
                   td = link_to task.title, [@project,task]
-                  td = "#{time_ago_in_words(task.updated_at)} ago"
-                  td 
+                  td{nowrap="nowrap"} = "#{time_ago_in_words(task.updated_at)} ago"
+                  td{nowrap="nowrap"}
                     == link_to complete_task_path(task), :class => "btn btn-primary btn-small no-text" do
                       i.icon-ok.icon-white
                       = "mark complete"
