@@ -28,9 +28,9 @@ div.row
     div.tabbable
       ul.nav.nav-pills
         li.active
-          a{href="#tab1" data-toggle="tab"} Open
+          a{href="#tab1" data-toggle="tab"}= "Open (#{@open_tasks.size})"
         li
-          a{href="#tab2" data-toggle="tab"} Completed
+          a{href="#tab2" data-toggle="tab"}= "Completed (#{@completed_tasks.size})"
       div.tab-content
         div.tab-pane.active{id="tab1"}
           - if @open_tasks.count > 0
@@ -56,9 +56,9 @@ div.row
     div.tabbable
       ul.nav.nav-pills
         li.active
-          a{href="#etab1" data-toggle="tab"} Inbox
+          a{href="#etab1" data-toggle="tab"}= "Inbox (#{@inbox_emails.size})"
         li
-          a{href="#etab2" data-toggle="tab"} Sent
+          a{href="#etab2" data-toggle="tab"}= "Sent (#{@sent_emails.size})"
     div.tab-content
         div.tab-pane.active{id="etab1"}
           table.table
