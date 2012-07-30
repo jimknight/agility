@@ -15,20 +15,28 @@ describe Email do
       JSON.parse(response)["message"].should == "Queued. Thank you."
     end
   end
-    it "should have many emails" do
-      @project = FactoryGirl.create(:project)
-      @email = FactoryGirl.create(:email)
-      @project.emails << @email
-      @email_baby = FactoryGirl.create(:email)
-      @email.children.size.should == 0
-      @email.children << @email_baby
-      @email.children.size.should == 1
-      @email_grandbaby = FactoryGirl.create(:email)
-      @email_baby.children << @email_grandbaby
-      @email_baby.children.size.should == 1
-      @email.descendants.size.should == 2
+  it "should correctly scope emails" do
+    2.times { FactoryGirl.create(:email, :email_type => "sent")}
+    4.times { FactoryGirl.create(:email, :email_type => "reply")}
+    Email.sent.size.should == 2
+    binding.pry
+    Email.inbox.size.should == 4
+  end
+  it "should have many emails" do
+    @project = FactoryGirl.create(:project)
+    @email = FactoryGirl.create(:email)
+    @project.emails << @email
+    @email_baby = FactoryGirl.create(:email)
+    @email.children.size.should == 0
+    @email.children << @email_baby
+    @email.children.size.should == 1
+    @email_grandbaby = FactoryGirl.create(:email)
+    @email_baby.children << @email_grandbaby
+    @email_baby.children.size.should == 1
+    @email.descendants.size.should == 2
   end
 end
+
 
 
 # == Schema Information
@@ -47,5 +55,7 @@ end
 #  parent_id      :integer
 #  emailable_id   :integer
 #  emailable_type :string(255)
+#  type           :string(255)
+#  email_type     :string(255)
 #
 

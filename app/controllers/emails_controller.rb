@@ -56,6 +56,7 @@ class EmailsController < ApplicationController
     @email.sent_from = params[:from]
     @email.sent_to = params[:To]
     @email.copy_to = params[:Cc] if params[:Cc]
+    @email.email_type = "received"
     @email.save
     if params[:recipient]
       if params[:recipient].include?("-")

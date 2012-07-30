@@ -11,7 +11,8 @@ class Email < ActiveRecord::Base
   has_many :notes, :as => :notable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
   accepts_nested_attributes_for :attachments
-  scope :sent, where(:body => "sent")
+  scope :sent, where(:email_type => "sent")
+  scope :inbox, :conditions => ['email_type != ?', "sent"]
 
   def send_email
     # TODO: Figure out how to pass a parameter if it exists. e.g. copy_to if present?
@@ -37,6 +38,7 @@ class Email < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: emails
@@ -53,5 +55,7 @@ end
 #  parent_id      :integer
 #  emailable_id   :integer
 #  emailable_type :string(255)
+#  type           :string(255)
+#  email_type     :string(255)
 #
 

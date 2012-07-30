@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe "Emails" do
+  it "should show the inbound and sent messages on the project" do
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org", :user_id => @user.id)
+    @sent_email = FactoryGirl.create(:email, :subject => "Sent out", :email_type => "sent")
+    @inbox_email = FactoryGirl.create(:email, :subject => "Sent in", :email_type => "received")
+    @project.emails << @sent_email
+    @project.emails << @inbox_email
+    visit project_path(@project)
+    page.should have_content "Sent in"
+    page.should have_content "Sent out" # it would be nice with js test but didn't work right
+  end
   it "should show the cc value on the show page for email if there is one" do
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :email => "acdivoca@agilechamp.mailgun.org", :user_id => @user.id)
@@ -12,7 +23,6 @@ describe "Emails" do
     page.should have_content("Jim Knight <jim.knight@lavatech.com>")
   end
   it "should compose a new email" do
-    # pending "Bad request 400?"
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :user_id => @user.id)
     visit project_path(@project)
