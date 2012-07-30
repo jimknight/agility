@@ -12,7 +12,7 @@ describe "Emails" do
     page.should have_content("Jim Knight <jim.knight@lavatech.com>")
   end
   it "should compose a new email" do
-    pending "Bad request 400?"
+    # pending "Bad request 400?"
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project, :user_id => @user.id)
     visit project_path(@project)
