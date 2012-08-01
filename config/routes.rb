@@ -35,6 +35,7 @@ Agility::Application.routes.draw do
 
   root :to => "news#timeline"
   match 'tasks/:id/complete' => 'tasks#complete', :as => 'complete_task'
+  match 'tasks/:id/canceled' => 'tasks#canceled', :as => 'cancel_task'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

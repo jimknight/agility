@@ -3,7 +3,15 @@ class TasksController < ApplicationController
   # load_and_authorize_resource :project
   # load_and_authorize_resource :task, :through => :project
   
-  def complete
+  def cancel # TODO: secure
+    @task = Task.find(params[:id])
+    @task.status = "Canceled"
+    if @task.save
+      redirect_to project_path(@task.project_id), :notice => "Task #{@task.title} canceled"
+    end
+  end
+
+  def complete # TODO: secure
     @task = Task.find(params[:id])
     @task.status = "Completed"
     if @task.save
