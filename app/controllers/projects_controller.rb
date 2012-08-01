@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
     @tasks = @project.tasks
     @open_tasks = @project.tasks.where(:status => "Open")
     @completed_tasks = @project.tasks.where(:status => "Completed")
+    @canceled_tasks = @project.tasks.where(:status => "Canceled")      
     @notes = @project.notes
     @inbox_emails = @project.emails.inbox
     @sent_emails = @project.emails.sent
