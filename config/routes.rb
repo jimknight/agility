@@ -33,7 +33,7 @@ Agility::Application.routes.draw do
     resources :notes
   end
 
-  root :to => "news#timeline"
+  root :to => "projects#index"
   match 'tasks/:id/complete' => 'tasks#complete', :as => 'complete_task'
   match 'tasks/:id/cancel' => 'tasks#cancel', :as => 'cancel_task'
 
