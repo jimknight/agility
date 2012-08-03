@@ -29,7 +29,11 @@ class NotesController < ApplicationController
   def show
     @parent = find_parent
     @note = Note.find(params[:id])
-    @notes = @note.children
+    if @note.user_id && @note.user_id != current_user.id
+      redirect_to @parent, :alert => "You are not authorized to view that note."
+    else
+      @notes = @note.children
+    end
   end
   
   def create
@@ -38,6 +42,9 @@ class NotesController < ApplicationController
     @project = @note.parent_project
     if params[:link].present?
       @note.body = params[:link]
+    end
+    if params[:audience] == "private"
+      @note.user_id = current_user.id
     end
     if @note.save
       if params[:notify_team]

@@ -18,6 +18,7 @@ FactoryGirl.define do
   end
   factory :task do
     title "a generic task"
+    status "Open"
   end
   factory :user do
     password 'simplepassword'

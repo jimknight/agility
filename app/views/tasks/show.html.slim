@@ -3,18 +3,32 @@
   li = link_to @project.title, @project
   li.active = @task.title
 
-h1 = "Task (#{@task.status.downcase})"
-table
-  tr
-    td
-      = link_to edit_project_task_path(@parent, @task), {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this task"} do
-        i.icon-pencil.icon-white
-        span = " edit"
-    td
-      h3 = @task.title
-p = simple_format(@task.body)
+h1 = "Task: #{@task.title} (#{@task.status.downcase})"
+ul.title-links
+  li 
+    i.icon-plus-sign
+    = "#"
+  li 
+    i.icon-plus-sign
+    = link_to "add note", [:new, @task, "note"]
+  li
+    i.icon-envelope
+    = "#"
+  li 
+    i.icon-pencil
+    = link_to "edit task", [:edit, @task]
 
-= render :partial => "shared/notes_table", :locals => { :current => @task } 
+#abstract
+  = simple_format(@task.body) if @task.body.present?
+
+h2 Notes
+table.table
+  - @notes.each do |note|
+    - if (note.user_id && note.user_id == current_user.id) || note.user_id.nil?
+      tr{class="#{cycle('even', 'odd')}"}
+      td{width="50%"} = link_to note.title, [@task, note], :class => "emphasize"
+      td = "created #{time_ago_in_words(note.created_at)} ago"
+      td = link_to "delete", [@task, note], :confirm => "Sure?",:method => :delete, :class => "btn"
 
 = content_for :aside do
   h4 This task came from

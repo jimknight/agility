@@ -1,7 +1,32 @@
 require 'spec_helper'
 
 describe "Notes" do
+  it "should prohibit another user from seeing a private note" do
+    @user = FactoryGirl.create(:user)
+    @note = FactoryGirl.create(:note, :user_id => @user.id)
+    @project = FactoryGirl.create(:project, :user_id => @user.id)
+    @project.notes << @note
+    @other_user = sign_in_as("otheruser@example.com","abc123")
+    visit project_note_path(@project, @note)
+    page.should have_content "You are not authorized to view that note."
+  end
   describe "edit" do
+    it "should allow the user to define a private note" do
+      @user = sign_in_as("user@example.com","abc123")
+      @project = FactoryGirl.create(:project,:user_id => @user.id)
+      @task = FactoryGirl.create(:task)
+      @project.tasks << @task
+      visit project_task_path(@project,@task)
+      click_link "add note"
+      fill_in "Title", :with => "private note"
+      choose "audience_private" # stupid capybara
+      click_button "Create Note"
+      click_link "Sign out"
+      @other_user = sign_in_as("otheruser@example.com","abc123")
+      @project.users << @other_user
+      visit project_task_path(@project,@task)
+      page.should_not have_content "private note"
+    end
     it "should only show notify team if users" do
       @user = sign_in_as("user@example.com","abc123")
       @project = FactoryGirl.create(:project,:user_id => @user.id)
@@ -31,7 +56,7 @@ describe "Notes" do
       @email = FactoryGirl.create(:email)
       @project.emails << @email
       visit project_email_path(@project, @email)
-      click_link "Add a note"
+      click_link "add note"
       page.should have_content "New Note"
     end
     it "should generate a New Note for a project" do
@@ -40,7 +65,7 @@ describe "Notes" do
       fill_in 'Title', :with => 'a new project'
       click_button "Create Project"
       Project.all.size.should == 1
-      click_link "Add a note"
+      click_link "add note"
       page.should have_content('New Note')
       fill_in 'Title', :with => 'a New Note for a project'
       click_button "Create Note"
@@ -52,7 +77,7 @@ describe "Notes" do
       @user = FactoryGirl.create(:user)
       @project.users << @user
       visit project_path(@project)
-      click_link "Add a note"
+      click_link "add note"
       fill_in :title, :with => "Note that emails the team"
       check :notify_team
       click_button "Create Note"
@@ -61,18 +86,18 @@ describe "Notes" do
   end
   describe "/tasks/1/notes/new" do
     it "should generate a New Note for a task" do
-       sign_in_as("user@example.com","abc123")
-       visit new_project_path
-       fill_in 'Title', :with => 'a new project'
+      sign_in_as("user@example.com","abc123")
+      visit new_project_path
+      fill_in 'Title', :with => 'a new project'
       click_button "Create Project"
-       click_link "Add a task"
-       fill_in "Title", :with => 'a new task'
+      click_link "add task"
+      fill_in "Title", :with => 'a new task'
       click_button "Create Task"
-       click_link "a new task"
-       click_link "Add a note"
-       page.should have_content('New Note')
-       fill_in 'Title', :with => 'a New Note for a project'
-       click_button "Create Note"
+      click_link "a new task"
+      click_link "add note"
+      page.should have_content('New Note')
+      fill_in 'Title', :with => 'a New Note for a project'
+      click_button "Create Note"
     end
   end
   describe "/notes/1/notes/new" do
@@ -81,11 +106,11 @@ describe "Notes" do
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
       click_button "Create Project"
-      click_link "Add a note"
+      click_link "add note"
       page.should have_content('New Note')
       fill_in 'Title', :with => 'a New Note for a project'
       click_button "Create Note"
-      click_link "Add a note"
+      click_link "add note"
       fill_in 'Title', :with => 'a New Note for a note'
       click_button "Create Note"
     end

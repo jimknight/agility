@@ -1,15 +1,16 @@
 = simple_form_for [@parent, @note] do |f|
-  = f.input :title
-  = f.input :body
-  - if !@project.users.empty?
-	  = check_box_tag :notify_team 
-	  = label_tag :notify_team, "Notify the team of this note", :class => "checkbox"
-  br
-  = f.submit :class => "btn btn-primary"
-
-= content_for :aside do
-	h4 Team
-	ul
-		li = "(Captain) #{User.find(@project.user_id).full_name}"
-		- @project.users.each do |user|
-			li = user.full_name
+	= f.input :title
+	= f.input :body
+	table
+		tr
+			td
+				= radio_button_tag 'audience', 'public', :selected => true
+				= label_tag 'public', 'public (team can see)', :class => 'radio', :value => 'public'
+			td
+				= radio_button_tag 'audience', 'private'
+				= label_tag 'private', 'private (only you can see)', :class => 'radio', :value => 'public'
+	- if !@project.users.empty?
+		= check_box_tag :notify_team 
+		= label_tag :notify_team, "Notify the team of this note", :class => "checkbox"
+	br
+	= f.submit :class => "btn btn-primary"

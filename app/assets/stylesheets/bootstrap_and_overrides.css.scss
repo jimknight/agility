@@ -33,8 +33,9 @@ form.new_comment {
   input[type=submit], label {display:none;}
 }
 input, textarea {width:80%;display:block;}
-input[type=checkbox] {float:left;}
+input[type=checkbox], input[type=radio] {float:left;}
 input[type=date] {width:130px;}
+label.radio {padding:0 10px 0 5px;display:inline;}
 textarea {height:200px;}
 select {width:auto;}
 ul.wysihtml5-toolbar > li {margin:0;}
