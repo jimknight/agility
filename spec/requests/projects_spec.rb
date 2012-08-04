@@ -19,16 +19,23 @@ describe "Projects" do
     end
   end
   describe "standard html" do
+    it "should limit the show page of projects to teammates only" do
+      @mgr = FactoryGirl.create(:user)
+      @project = FactoryGirl.create(:project, :user_id => @mgr.id)
+      @user = sign_in_as("user@example.com","abc123")
+      visit project_path(@project)
+      page.should have_content "not authorized"
+    end
     it "should allow the captain (and only) to delete a project" do
       @mgr = sign_in_as("mgr@example.com","abc123")
       @project = FactoryGirl.create(:project, :user_id => @mgr.id)
       visit project_path(@project)
-      page.should have_link ("Delete this project")
+      page.should have_link ("delete this project")
       click_link "Sign out"
       @team_member = sign_in_as("user@example.com","abc123")
       @project.users << @team_member
       visit project_path(@project)
-      page.should_not have_link ("Delete this project")
+      page.should_not have_link ("delete this project")
     end
     it "should allow a stub user to find his projects on first sign-up" do
       @mgr = sign_in_as("mgr@example.com","abc123")
@@ -58,17 +65,14 @@ describe "Projects" do
     end
     it "should allow a team member to see another project" do
       @user = sign_in_as("user@example.com","abc123")
-      visit new_project_path
-      fill_in "Title", :with => "New project"
-      click_button "Create Project"
-      @project = Project.last
-      visit project_path(@project)
-      page.should have_content("New project")
+      @project = FactoryGirl.create(:project, :user_id => @user.id, :title => "secret project")
+      visit projects_path
+      page.should have_content("secret project")
       click_link "Sign out"
       @new_team_member = sign_in_as("new-member@example.com","password")
       @project.users << @new_team_member
       visit projects_path
-      page.should have_content("New project")
+      page.should have_content("secret project")
       page.should have_content("Logged in as new-member@example.com")
     end
     it "should require a title and email address" do
@@ -84,7 +88,7 @@ describe "Projects" do
       fill_in "project[email]", :with => "newsave@agilechamp.com"
       click_button "Create Project"
       page.should have_content("Project was successfully created.")
-      click_link "Edit this project"
+      click_link "edit project"
       click_button "Update Project"
       page.should have_content("Project was successfully updated.")
     end

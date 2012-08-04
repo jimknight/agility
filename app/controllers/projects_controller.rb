@@ -1,20 +1,28 @@
 class ProjectsController < ApplicationController
   
   def show
-    @project = Project.find(params[:id])
-    @tasks = @project.tasks
-    @open_tasks = @project.tasks.where(:status => "Open")
-    @completed_tasks = @project.tasks.where(:status => "Completed")
-    @canceled_tasks = @project.tasks.where(:status => "Canceled")      
-    @notes = @project.notes
-    @inbox_emails = @project.emails.inbox
-    @sent_emails = @project.emails.sent
+    if Project.user_can_read(current_user).map(&:id).include?(params[:id].to_i)
+      @project = Project.find(params[:id])
+      @tasks = @project.tasks
+      @open_tasks = @project.tasks.where(:status => "Open")
+      @completed_tasks = @project.tasks.where(:status => "Completed")
+      @canceled_tasks = @project.tasks.where(:status => "Canceled")      
+      @notes = @project.notes
+      @inbox_emails = @project.emails.inbox
+      @sent_emails = @project.emails.sent
+    else
+      redirect_to projects_path, :alert => "You are not authorized to see that project."
+    end
   end
   
   def destroy
     @project = Project.find(params[:id])
-    @project.destroy
-    redirect_to projects_path, :notice => "Project deleted!"
+    if @project.user_id == current_user.id
+      @project.destroy
+      redirect_to projects_path, :notice => "Project deleted!"
+    else
+      redirect_to projects_path, :alert => "You are not authorized to delete that project."
+    end
   end
   
   def index
@@ -48,15 +56,19 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
-    respond_to do |format|
-      if @project.update_attributes(params[:project])
-        format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+    if Project.user_can_read(current_user).map(&:id).include?(params[:id].to_i)
+      @project = Project.find(params[:id])
+      respond_to do |format|
+        if @project.update_attributes(params[:project])
+          format.html { redirect_to(@project, :notice => 'Project was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to projects_path, :alert => "You are not authorized to update that project."
     end
   end
 
