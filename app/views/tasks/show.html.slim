@@ -3,6 +3,8 @@
   li = link_to @project.title, @project
   li.active = @task.title
 
+= render "shared/notices"
+
 h1 = "Task: #{@task.title} (#{@task.status.downcase})"
 ul.title-links
   li 
