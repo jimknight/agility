@@ -9,6 +9,16 @@
 = render "shared/notices"
 
 h1 Email
+ul.title-links
+  li 
+    i.icon-plus-sign
+    = link_to "add task", [:new, @email, "task"]
+  li
+    i.icon-envelope
+    = link_to "compose email", [:new, @email, "email"]
+  li 
+    i.icon-plus-sign
+    = link_to "add note", [:new, @email, "note"]
 
 = link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn btn-primary"
 = link_to "Reply to All", new_email_email_path(@email, :type => "reply_to_all"), :class => "btn btn-primary" if @email.copy_to.present?
