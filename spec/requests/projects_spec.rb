@@ -42,7 +42,7 @@ describe "Projects" do
       visit new_project_path
       fill_in "Title", :with => "First project for new signup"
       click_button "Create Project"
-      @project = Project.last
+      @project = Project.find_by_title("First project for new signup")
       @stub_user = FactoryGirl.create(:stub_user)
       @project.stub_users << @stub_user
       click_link "Sign out"
