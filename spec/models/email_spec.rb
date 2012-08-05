@@ -19,7 +19,6 @@ describe Email do
     2.times { FactoryGirl.create(:email, :email_type => "sent")}
     4.times { FactoryGirl.create(:email, :email_type => "reply")}
     Email.sent.size.should == 2
-    binding.pry
     Email.inbox.size.should == 4
   end
   it "should have many emails" do
