@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe "Notes" do
+  it "should be able to create a task from a note" do
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project,:user_id => @user.id)
+    @note = FactoryGirl.create(:note, :title => "I am the parent note")
+    @project.notes << @note
+    visit project_note_path(@project,@note)
+    click_link "add task"
+    fill_in "Title", :with => "Task from note"
+    click_button "Create Task"
+    page.should have_content "I am the parent note"
+    @project.tasks.count.should == 1
+  end
   it "should prohibit another user from seeing a private note" do
     @user = FactoryGirl.create(:user)
     @note = FactoryGirl.create(:note, :user_id => @user.id)
@@ -107,6 +119,9 @@ describe "Notes" do
       visit new_project_path
       fill_in 'Title', :with => 'a new project'
       click_button "Create Project"
+      click_link "add task"
+      fill_in "Title", :with => "Task with grandchild note"
+      click_button "Create Task"
       click_link "add note"
       page.should have_content('New Note')
       fill_in 'Title', :with => 'a New Note for a project'

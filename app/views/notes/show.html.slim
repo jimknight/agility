@@ -8,6 +8,9 @@ h1 Note
 ul.title-links
   li 
     i.icon-plus-sign
+    = link_to "add task", [:new, @note, "task"]
+  li 
+    i.icon-plus-sign
     = link_to "add note", [:new, @note, "note"]
 
 table

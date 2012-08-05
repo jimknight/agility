@@ -20,6 +20,7 @@ Agility::Application.routes.draw do
 
   resources :notes do
     resources :notes
+    resources :tasks
   end
 
   resources :projects do
