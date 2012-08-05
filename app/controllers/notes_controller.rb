@@ -22,8 +22,8 @@ class NotesController < ApplicationController
   
   def new
     @parent = find_parent
+    @project = Tree.top(@parent)
     @note = @parent.respond_to?(:notes) ? @parent.notes.new : @parent.children.new
-    @project = @note.parent_project
   end
   
   def show
