@@ -5,6 +5,11 @@
   li.active = @note.title
 
 h1 Note
+ul.title-links
+  li 
+    i.icon-plus-sign
+    = link_to "add note", [:new, @note, "note"]
+
 table
   tr
     td

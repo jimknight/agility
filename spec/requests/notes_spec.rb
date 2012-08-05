@@ -7,6 +7,7 @@ describe "Notes" do
     @project = FactoryGirl.create(:project, :user_id => @user.id)
     @project.notes << @note
     @other_user = sign_in_as("otheruser@example.com","abc123")
+    @project.users << @other_user
     visit project_note_path(@project, @note)
     page.should have_content "You are not authorized to view that note."
   end
