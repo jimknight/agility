@@ -9,13 +9,7 @@ h1 = "Task: #{@task.title} (#{@task.status.downcase})"
 ul.title-links
   li 
     i.icon-plus-sign
-    = "#"
-  li 
-    i.icon-plus-sign
     = link_to "add note", [:new, @task, "note"]
-  li
-    i.icon-envelope
-    = "#"
   li 
     i.icon-pencil
     = link_to "edit task", [:edit, @task]
