@@ -5,13 +5,15 @@ describe "Notes" do
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project,:user_id => @user.id)
     @note = FactoryGirl.create(:note, :title => "I am the parent note")
-    @project.notes << @note
-    visit project_note_path(@project,@note)
+    @task = FactoryGirl.create(:task)
+    @project.tasks << @task
+    @task.notes << @note
+    visit task_note_path(@task,@note)
     click_link "add task"
     fill_in "Title", :with => "Task from note"
     click_button "Create Task"
     page.should have_content "I am the parent note"
-    @project.tasks.count.should == 1
+    @project.tasks.count.should == 2
   end
   it "should prohibit another user from seeing a private note" do
     @user = FactoryGirl.create(:user)

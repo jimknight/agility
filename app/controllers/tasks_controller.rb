@@ -27,14 +27,10 @@ class TasksController < ApplicationController
   def create
     @taskable = find_taskable
     @task = @taskable.tasks.build(params[:task])
-    if @taskable.respond_to?(:notable_type) && @taskable.notable_type == "Project"
-      @task.project_id = @taskable.notable_id
-    else
-      @task.project_id = params[:project_id] || @taskable.project_id
-    end
+    @project = Tree.top(@taskable)
+    @task.project_id = @project.id
     @task.status = "Open"
     if @task.save
-      @project = Project.find(@task.project_id)
       redirect_to @taskable, :notice => "Successfully created task."
     else
       render :action => 'new'
