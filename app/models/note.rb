@@ -10,6 +10,7 @@ class Note < ActiveRecord::Base
   has_many :emails, :as => :emailable, :dependent => :destroy
   has_many :tasks, :as => :taskable, :dependent => :destroy
   accepts_nested_attributes_for :attachments
+  validates_presence_of :title
 
   def notify_team
     @project = parent_project

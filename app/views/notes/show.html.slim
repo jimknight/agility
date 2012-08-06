@@ -4,7 +4,7 @@
   li = link_to @parent.title, @parent
   li.active = @note.title
 
-h1 Note
+h1 = "Note: #{@note.title}"
 ul.title-links
   li 
     i.icon-plus-sign
@@ -12,15 +12,11 @@ ul.title-links
   li 
     i.icon-plus-sign
     = link_to "add note", [:new, @note, "note"]
+  li 
+    i.icon-pencil
+    = link_to "edit note", [:edit, @note]
 
-table
-  tr
-    td
-      = link_to [:edit, @parent, @note], {:class => "btn btn-primary", :rel => "tooltip", :title => "Edit this note"} do
-        i.icon-pencil.icon-white
-        span = " edit"
-    td
-      h3 = @note.title
-= simple_format(@note.body, :id => "details")
+#abstract
+  = simple_format(@note.body, :id => "details")
 
 = render :partial => "shared/notes_table", :locals => { :current => @note }

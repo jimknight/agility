@@ -58,7 +58,7 @@ describe "Notes" do
       @note = FactoryGirl.create(:note)
       @project.notes << @note
       visit project_note_path(@project, @note)
-      click_link "Edit this note"
+      click_link "edit note"
       fill_in "Title", :with => "New title"
       click_button "Update Note"
       page.should have_content "New title"

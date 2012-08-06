@@ -23,17 +23,7 @@ ul.title-links
 #abstract
   = simple_format(@task.body) if @task.body.present?
 
-h2 Notes
-table.table
-  - @notes.each do |note|
-    - if (note.user_id && note.user_id == current_user.id) || note.user_id.nil?
-      tr{class="#{cycle('even', 'odd')}"}
-      td{width="50%"}
-        - if note.user_id
-          i.icon-eye-open
-        = link_to note.title, [@task, note], :class => "emphasize"
-      td = "created #{time_ago_in_words(note.created_at)} ago"
-      td = link_to "delete", [@task, note], :confirm => "Sure?",:method => :delete, :class => "btn"
+= render :partial => "shared/notes_table", :locals => { :current => @task } 
 
 = content_for :aside do
   h4 This task came from
