@@ -19,7 +19,7 @@ h1 = "Project: #{@project.title}"
     i.icon-pencil.icon-white
     span = "edit project"
   - if @project.user_id == current_user.id
-    = link_to project_path(@project), {:confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary btn-small"} do
+    = link_to project_path(@project), {:confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger btn-small"} do
       i.icon-trash.icon-white
       span = "delete project"
 
