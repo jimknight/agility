@@ -9,9 +9,12 @@ h2 Notes
     - @notes.each do |note|
       - if (note.user_id && note.user_id == current_user.id) || note.user_id.nil?
         tr{class="#{cycle('even', 'odd')}"}
-        td{width="50%"}
+        td{width="45%"}
           - if note.user_id
             i.icon-eye-open
           = link_to note.title, [current, note], :class => "emphasize"
         td = "created #{time_ago_in_words(note.created_at)} ago"
-        td = link_to "delete", [current, note], :confirm => "Sure?",:method => :delete, :class => "btn"
+        td 
+          = link_to [current, note], {:confirm => "Sure?",:method => :delete, :class => "btn btn-small"} do
+            i.icon-trash
+            span = "delete note"
