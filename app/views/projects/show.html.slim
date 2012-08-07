@@ -1,39 +1,40 @@
-= content_for :breadcrumbs do
-  li = link_to "Projects", projects_path
-  li.active = @project.title
-
-= render "shared/notices"
+/ = content_for :breadcrumbs do
+/   li = link_to "Projects", projects_path
+/   li.active = @project.title
 
 h1 = "Project: #{@project.title}"
-ul.title-links
-  li 
-    i.icon-plus-sign
-    = link_to "add task", [:new, @project, "task"]
-  li 
-    i.icon-plus-sign
-    = link_to "add note", [:new, @project, "note"]
-  li
-    i.icon-envelope
-    = link_to "compose email", [:new, @project, "email"]
-  li 
-    i.icon-pencil
-    = link_to "edit project", [:edit, @project]
+= render "shared/notices"
+
+.actions
+  = link_to [:new, @project, "task"], {:class => "btn btn-primary btn-small"} do
+    i.icon-list.icon-white
+    span = "add task"
+  = link_to [:new, @project, "note"], {:class => "btn btn-primary btn-small"} do
+    i.icon-comment.icon-white
+    span = "add note"
+  = link_to [:new, @project, "email"], {:class => "btn btn-primary btn-small"} do
+    i.icon-envelope.icon-white
+    span = "compose email"
+  = link_to [:edit, @project], {:class => "btn btn-primary btn-small"} do
+    i.icon-pencil.icon-white
+    span = "edit project"
   - if @project.user_id == current_user.id
-    li 
-      i.icon-trash
-      = link_to "delete this project", project_path(@project), :confirm => 'Are you sure?', :method => :delete
+    = link_to project_path(@project), {:confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary btn-small"} do
+      i.icon-trash.icon-white
+      span = "delete project"
+
 #abstract
   = simple_format(@project.body) if @project.body.present?
-p 
-  i.icon-envelope
-  = "Send email to "
-  = link_to @project.email, "mailto:#{@project.email}"
+/ p 
+/   i.icon-envelope
+/   = "Send email to "
+/   = link_to @project.email, "mailto:#{@project.email}"
 
 div.row
   div.span6
     h2 Tasks
     div.tabbable
-      ul.nav.nav-pills
+      ul.nav.nav-tabs
         li.active
           a{href="#tab1" data-toggle="tab"}= "Open (#{@open_tasks.size})"
         li
@@ -50,12 +51,12 @@ div.row
                   td = link_to task.title, [@project,task]
                   td{nowrap="nowrap"} = "#{time_ago_in_words(task.updated_at)} ago"
                   td{nowrap="nowrap"}
-                    == link_to complete_task_path(task), :class => "btn btn-primary btn-small no-text" do
-                      i.icon-ok.icon-white
+                    == link_to complete_task_path(task), :class => "btn btn-small" do
+                      i.icon-ok
                       = "mark complete"
                   td{nowrap="nowrap"}
-                    == link_to cancel_task_path(task), :class => "btn btn-primary btn-small no-text" do
-                      i.icon-remove.icon-white
+                    == link_to cancel_task_path(task), :class => "btn btn-small" do
+                      i.icon-remove
                       = "cancel"
         div.tab-pane{id="tab2"}
           - if @completed_tasks.count > 0
@@ -75,7 +76,7 @@ div.row
   div.span6
     h2 Emails
     div.tabbable
-      ul.nav.nav-pills
+      ul.nav.nav-tabs
         li.active
           a{href="#etab1" data-toggle="tab"}= "Inbox (#{@inbox_emails.size})"
         li

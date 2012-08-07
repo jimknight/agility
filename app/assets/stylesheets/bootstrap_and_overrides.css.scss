@@ -1,12 +1,22 @@
 $baseFontSize: 14px;
 @import "bootstrap";
 
+// MIXINS
+@mixin opacity($value) {
+  opacity: #{"." + $value};
+  filter: alpha(opacity=$value);
+  -ms-filter: "alpha(opacity=$value)";
+  -khtml-opacity: #{"." + $value};
+  -moz-opacity: #{"." + $value};
+}
+
 // DEFAULTS
 a {text-decoration:underline;}
 a.btn, a.brand, a.close {text-decoration:none;}
+.actions {margin-bottom:8px;}
 body {font-family: 'Asap', sans-serif;padding-top: 60px;color:#888;}
 h1,h2,h3,h4 {margin:0 0 0.5em 0; color:#333;font-weight:normal;}
-i {margin:1px 5px 0 0;}
+i {margin:1px 5px 0 0;@include opacity(55);}
 table.table {border-bottom:1px solid #ddd;}
 table.table td {vertical-align:middle;}
 table.top td {padding-right:5px; vertical-align:top;}
@@ -23,6 +33,7 @@ ul.title-links {
     float:left;
   }
 }
+
 // TABS
 ul.nav li a {text-decoration:none;}
 

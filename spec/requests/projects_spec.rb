@@ -30,12 +30,12 @@ describe "Projects" do
       @mgr = sign_in_as("mgr@example.com","abc123")
       @project = FactoryGirl.create(:project, :user_id => @mgr.id)
       visit project_path(@project)
-      page.should have_link ("delete this project")
+      page.should have_link ("delete project")
       click_link "Sign out"
       @team_member = sign_in_as("user@example.com","abc123")
       @project.users << @team_member
       visit project_path(@project)
-      page.should_not have_link ("delete this project")
+      page.should_not have_link ("delete project")
     end
     it "should allow a stub user to find his projects on first sign-up" do
       @mgr = sign_in_as("mgr@example.com","abc123")
