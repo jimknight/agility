@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
     :to => invitee_email,
     :copy_to => inviter.email,
     :subject => "Invitation to join a project",
-    :html => "#{inviter.email} has invited you to join the '#{title}' project. Go to <a href='agilechamp.com/users/sign_up?email=#{invitee_email}'>AgileChamp.com</a>, enter a new password, and you will be in the project."
+    :html => "#{inviter.full_name} has invited you to join the '#{title}' project. Go to <a href='http://agilechamp.com/users/sign_up?email=#{invitee_email}'>AgileChamp.com</a>, enter your email as #{invitee_email}, enter a new password, and you will be a part of the project."
   end
 
   def project_copy_to(email_id)
