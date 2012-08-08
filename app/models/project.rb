@@ -31,9 +31,9 @@ class Project < ActiveRecord::Base
   def invite_team_member(inviter,invitee_email)
     api_key = ENV["MG_API_KEY"]
     RestClient.post "https://api:key-#{api_key}@api.mailgun.net/v2/agilechamp.mailgun.org/messages",
-    :from => "Agile Champ <me@agilechamp.mailgun.org>",
+    :from => email,
     :to => invitee_email,
-    :copy_to => inviter.email,
+    :cc => inviter.email,
     :subject => "Invitation to join a project",
     :html => "#{inviter.full_name} has invited you to join the '#{title}' project. Go to <a href='http://agilechamp.com/users/sign_up?email=#{invitee_email}'>AgileChamp.com</a>, enter your email as #{invitee_email}, enter a new password, and you will be a part of the project."
   end

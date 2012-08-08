@@ -24,7 +24,7 @@ class Email < ActiveRecord::Base
       RestClient.post "https://api:key-#{api_key}@api.mailgun.net/v2/agilechamp.mailgun.org/messages",
         :from => @project.email,
         :to => sent_to,
-        :copy_to => copy_to,
+        :cc => copy_to,
         :subject => subject,
         :html => "body"
     else
