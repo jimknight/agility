@@ -29,6 +29,7 @@ class NotesController < ApplicationController
   def show
     @parent = find_parent
     @note = Note.find(params[:id])
+    @project = @note.parent_project
     if @note.user_id && @note.user_id != current_user.id
       redirect_to @parent, :alert => "You are not authorized to view that note."
     else

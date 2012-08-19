@@ -1,5 +1,6 @@
 = content_for :breadcrumbs do
   li = link_to "Projects", projects_path
+  li = link_to @project.title, @project
   li ...
   li = link_to @parent.title, @parent
   li.active = @note.title
