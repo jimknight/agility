@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20120803133416) do
     t.integer  "parent_id"
     t.integer  "emailable_id"
     t.string   "emailable_type"
-    t.string   "type"
     t.string   "email_type"
   end
 
