@@ -30,7 +30,7 @@ class NotesController < ApplicationController
   def show
     @parent = find_parent
     @note = Note.find(params[:id])
-    @project = @note.parent_project
+    @project = Tree.top(@note)
     if @note.user_id && @note.user_id != current_user.id
       redirect_to @parent, :alert => "You are not authorized to view that note."
     else
@@ -41,7 +41,7 @@ class NotesController < ApplicationController
   def create
     @parent = find_parent
     @note = @parent.respond_to?(:notes) ? @parent.notes.new(params[:note]) : @parent.children.new(params[:note])
-    @project = @note.parent_project
+    @project = Tree.top(@note)
     if params[:link].present?
       @note.body = params[:link]
     end
@@ -61,13 +61,13 @@ class NotesController < ApplicationController
   def edit
     @parent = find_parent
     @note = Note.find(params[:id]) # secure?
-    @project = @note.parent_project
+    @project = Tree.top(@note)
   end
 
   def update
     @parent = find_parent
     @note = Note.find(params[:id])
-    @project = @note.parent_project
+    @project = Tree.top(@note)
     @note.update_attributes(params[:note])
     if @note.save
       redirect_to [@parent,@note], :notice => "Your changes were saved."

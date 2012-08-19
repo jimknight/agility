@@ -13,7 +13,7 @@ class Note < ActiveRecord::Base
   validates_presence_of :title
 
   def notify_team
-    @project = parent_project
+    @project = Tree.top(self)
     send_to_list = ""
     @project.users.each do |user|
       send_to_list << user.email
@@ -26,17 +26,6 @@ class Note < ActiveRecord::Base
     @email.copy_to = @project.project_copy_to(@email.id)
     @email.save
     @email.send_email
-  end
-
-  def parent_project
-    # walk up the ladder looking for project_id
-    if self.notable_type == "Project"
-      return Project.find(self.notable_id)
-    elsif self.notable_type == "Task"
-      return Project.find(Task.find(self.notable_id).project_id)
-    elsif self.notable_type == "Email"
-      return Project.find(Email.find(self.notable_id).project_id)
-    end
   end
 
 end

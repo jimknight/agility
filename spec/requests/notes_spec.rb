@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe "Notes" do
+  it "should find the parent project when nested 2 levels down from a project" do
+    @user = sign_in_as("user@example.com","abc123")
+    @project = FactoryGirl.create(:project,:user_id => @user.id)
+    @note = FactoryGirl.create(:note, :title => "I am the parent note")
+    @project.notes << @note
+    visit project_note_path(@project, @note)
+    click_link "add note"
+    fill_in 'Title', :with => "I am the child note"
+    click_button "Create Note"
+    click_link "I am the child note"
+    page.should have_content "I am the child note"
+  end
   it "should be able to create a task from a note" do
     @user = sign_in_as("user@example.com","abc123")
     @project = FactoryGirl.create(:project,:user_id => @user.id)
