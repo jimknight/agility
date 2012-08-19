@@ -1,6 +1,8 @@
 = simple_form_for [@parent, @note] do |f|
 	= f.input :title
 	= f.input :body
+	= f.simple_fields_for :attachments do |attachmentform|
+		= attachmentform.file_field :file
 	table
 		tr
 			td

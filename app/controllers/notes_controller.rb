@@ -24,6 +24,7 @@ class NotesController < ApplicationController
     @parent = find_parent
     @project = Tree.top(@parent)
     @note = @parent.respond_to?(:notes) ? @parent.notes.new : @parent.children.new
+    @note.attachments.build
   end
   
   def show

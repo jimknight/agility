@@ -20,4 +20,10 @@ ul.title-links
 #abstract
   = simple_format(@note.body, :id => "details")
 
+- if @note.attachments.size > 0
+  h2 Attachments
+  ul#attachments
+    - @note.attachments.each do |attachment|
+      li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+
 = render :partial => "shared/notes_table", :locals => { :current => @note }

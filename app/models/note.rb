@@ -1,7 +1,7 @@
 class Note < ActiveRecord::Base
 
-	attr_accessible :title, :body
-	acts_as_tree
+  attr_accessible :title, :body, :attachments_attributes
+  acts_as_tree
   belongs_to :attachable, :polymorphic => true
   belongs_to :project
   has_paper_trail
