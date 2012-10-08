@@ -79,6 +79,9 @@ div.row
                     td{nowrap="nowrap"} = "#{time_ago_in_words(task.updated_at)} ago"
   div.span6
     h2 Emails
+    p
+      = "Email this project at "
+      = link_to @project.email, "mailto:#{@project.email}"
     div.tabbable
       ul.nav.nav-tabs
         li.active

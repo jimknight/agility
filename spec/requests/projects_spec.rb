@@ -19,6 +19,12 @@ describe "Projects" do
     end
   end
   describe "standard html" do
+    it "should show the project email address on the show page" do
+      @mgr = sign_in_as("mgr@example.com","abc123")
+      @project = FactoryGirl.create(:project, :user_id => @mgr.id)
+      visit project_path(@project)
+      page.should have_link @project.email
+    end
     it "should limit the show page of projects to teammates only" do
       @mgr = FactoryGirl.create(:user)
       @project = FactoryGirl.create(:project, :user_id => @mgr.id)
