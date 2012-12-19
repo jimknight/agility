@@ -1,3 +1,8 @@
+= content_for :breadcrumbs do
+  li = link_to "Projects", projects_path
+  li = link_to @project.title, @project
+  li.active = @email.subject
+
 = link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn btn-primary"
 
 p = "From: #{@email.sent_from}"
@@ -12,4 +17,6 @@ p#body = @email.body_text
 - if @attachments.size > 0
   ul#attachments
     - @attachments.each do |attachment|
-      li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+      li
+        = image_tag "/icons/#{attachment.extension}_48.png", :height => 48
+        = link_to file_name(attachment.file.to_s), "#{attachment.file}"
