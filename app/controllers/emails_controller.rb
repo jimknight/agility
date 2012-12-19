@@ -52,7 +52,8 @@ class EmailsController < ApplicationController
     # TODO extract all this complexity out
     @email = Email.new
     @email.subject = params[:subject]
-    @email.body = params["body-html"]
+    @email.body = params["body-html"] # record text version as well
+    @email.body_text = params["body-plain"]
     @email.sent_from = params[:from]
     @email.sent_to = params[:To]
     @email.copy_to = params[:Cc] if params[:Cc]

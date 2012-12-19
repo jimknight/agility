@@ -1,0 +1,77 @@
+= content_for :breadcrumbs do
+  li = link_to "Projects", projects_path
+  li = link_to @project.title, @project
+  li.active = @email.subject
+
+/ = link_to "Add a task", new_email_task_path(@email), :class => "btn"
+/ = link_to "Add a note", new_email_note_path(@email), :class => "btn"
+
+= render "shared/notices"
+
+h1 Email
+ul.title-links
+  li 
+    i.icon-plus-sign
+    = link_to "add task", [:new, @email, "task"]
+  li
+    i.icon-envelope
+    = link_to "compose email", [:new, @email, "email"]
+  li 
+    i.icon-plus-sign
+    = link_to "add note", [:new, @email, "note"]
+
+= link_to "Reply", new_email_email_path(@email, :type => "reply"), :class => "btn btn-primary"
+= link_to "Reply to All", new_email_email_path(@email, :type => "reply_to_all"), :class => "btn btn-primary" if @email.copy_to.present?
+= link_to "Forward", new_email_email_path(@email, :type => "forward"), :class => "btn btn-primary"
+
+div.well
+  h3 = @email.subject
+  br
+  p = "From: #{@email.sent_from}"
+  p = "To: #{@email.sent_to}" if @email.sent_to
+  p = "cc: #{@email.copy_to}" if @email.copy_to
+  p = "Sent: #{pretty_datetime(@email.created_at)}"
+  br
+  p = @email.body.gsub(/<head>.+<\/head>/,'').html_safe
+  - if @attachments.size > 0
+    p Attachments
+    ul#attachments
+      - @attachments.each do |attachment|
+        li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+
+= content_for :aside do
+  h3 Emails
+  table.table
+    - @email.ancestors.each do |ancestor|
+      tr
+        td = pretty_datetime(ancestor.created_at)
+        td = link_to ancestor.subject, [@project, ancestor]
+    tr
+      td
+        i.icon-arrow-right
+      td{nowrap="nowrap"} = pretty_datetime(@email.created_at)
+      td 
+        = @email.subject
+    - @email.children.each do |descendant|
+      tr
+        td = pretty_datetime(descendant.created_at)
+        td = link_to descendant.subject, [@project, descendant]
+    / - if !@attachments.empty?
+    /   h4 = pluralize(@attachments.size,'Attachment')
+    /   ul
+    /     - @attachments.each do |attachment|
+    /       li = link_to file_name(attachment.file.to_s), "#{attachment.file}"
+  table
+    tr
+      td
+        = link_to [:new, @email, "task"], {:class => "btn btn-primary", :rel => "tooltip", :title => "Add a task", :id => "Add a task"} do
+            i.icon-plus.icon-white
+            span = " add"
+      td
+        h3 Tasks
+  ul
+    - @email.tasks.each do |task|
+      li
+        = link_to task.title, [@project, task]
+
+  = render :partial => "shared/notes_table", :locals => { :current => @email } 
