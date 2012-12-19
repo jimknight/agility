@@ -7,7 +7,7 @@ p = "Sent: #{pretty_datetime(@email.created_at)}"
 
 h3 = @email.subject
 
-p = @email.body_text
+p#body = @email.body_text
 
 - if @attachments.size > 0
   ul#attachments
