@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
       @notes = @project.notes
       @inbox_emails = @project.emails.inbox
       @sent_emails = @project.emails.sent
+      @attachments = @project.all_project_attachments
     else
       redirect_to projects_path, :alert => "You are not authorized to see that project."
     end

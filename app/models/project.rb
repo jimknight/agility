@@ -24,6 +24,16 @@ class Project < ActiveRecord::Base
     self.stub_users << @stub_user
   end
 
+  def all_project_attachments
+    email_attachments = []
+    self.emails.each do |email|
+      email.attachments.each do |attachment|
+        email_attachments << attachment
+      end
+    end
+    return email_attachments
+  end
+
   def captain?(user)
     self.user_id == user.id
   end
