@@ -1,0 +1,15 @@
+h1= @project.title
+
+= render "shared/notices"
+
+p= link_to "Add Task", [:new,@project,:task]
+
+ul
+	= render @tasks
+
+- if @attachments.size > 0
+  ul#attachments
+    - @attachments.each do |attachment|
+      li
+        = image_tag "/icons/#{attachment.extension}_48.png", :height => 48
+        = link_to file_name(attachment.file.to_s), "#{attachment.file}"
