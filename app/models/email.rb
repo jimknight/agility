@@ -39,6 +39,7 @@ class Email < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: emails
@@ -55,7 +56,7 @@ end
 #  parent_id      :integer
 #  emailable_id   :integer
 #  emailable_type :string(255)
-#  type           :string(255)
 #  email_type     :string(255)
+#  body_text      :text
 #
 

@@ -25,6 +25,7 @@ describe Note do
     @note.emails.last.should == @email 
   end
 end
+
 # == Schema Information
 #
 # Table name: notes
@@ -37,5 +38,6 @@ end
 #  parent_id    :integer
 #  created_at   :datetime        not null
 #  updated_at   :datetime        not null
+#  user_id      :integer
 #
 
