@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   default_scope :order => "title ASC"
   has_paper_trail
   has_many :comments, :as => :commentable, :dependent => :destroy
-  has_many :emails
+  has_many :emails, :dependent => :destroy
   has_many :memberships
   has_many :messages, :dependent => :destroy
   has_many :notes, :as => :notable, :dependent => :destroy
