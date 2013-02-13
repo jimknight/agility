@@ -7,3 +7,5 @@ stdout_path "#{root}/log/unicorn.log"
 listen "/tmp/unicorn.agilechamp.sock"
 worker_processes 2
 timeout 30
+Window size: x
+Viewport size: x
