@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require private_pub
 //= require bootstrap
-//= require wysihtml5
 //= require bootstrap-wysihtml5
 //= require_tree .
