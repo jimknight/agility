@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Nerian/bootstrap-wysihtml5-rails.git
+  revision: b1144834a17beba8c7e3252a683c5af18e8d6475
+  specs:
+    bootstrap-wysihtml5-rails (0.3.1.18)
+      railties (>= 3.0)
+
+GIT
   remote: git://github.com/jnicklas/carrierwave.git
   revision: 5ee932e5c6bda02508c76ed54f74720fdddd1f8d
   branch: 0.5-stable
@@ -43,8 +50,6 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
-    bootstrap-wysihtml5-rails (0.3.1.17)
-      railties (>= 3.0)
     builder (3.0.4)
     capistrano (2.14.2)
       highline
@@ -304,7 +309,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bootstrap-sass
-  bootstrap-wysihtml5-rails
+  bootstrap-wysihtml5-rails!
   capistrano
   capybara
   carrierwave!

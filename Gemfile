@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'bootstrap-sass'
-gem 'bootstrap-wysihtml5-rails'
+gem 'bootstrap-wysihtml5-rails',
+                              :require => 'bootstrap-wysihtml5-rails',
+                              :git => 'git://github.com/Nerian/bootstrap-wysihtml5-rails.git'
 gem 'capistrano'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git', :branch => "0.5-stable"
 gem 'closure_tree'
