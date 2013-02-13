@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'squeel'
 gem 'thin'
+gem 'unicorn'
 
 group :test, :development do
   gem 'annotate'
