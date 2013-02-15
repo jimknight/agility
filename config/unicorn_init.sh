@@ -82,5 +82,3 @@ reopen-logs)
   exit 1
   ;;
 esac
-Window size: x
-Viewport size: x
