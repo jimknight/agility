@@ -14,5 +14,6 @@ namespace :deploy do
     run "#{sudo} apt-get -y install python-software-properties"
     run "#{sudo} apt-get -y install software-properties-common"
     run "#{sudo} apt-get -y install vim"
+    run "#{sudo} apt-get -y install libxslt-dev libxml2-dev"
   end
 end
